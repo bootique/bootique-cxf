@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * TODO.
  *
- * @author
+ * @author TODO
  * @since 0.26
  */
 public class CxfModuleProvider implements BQModuleProvider {
