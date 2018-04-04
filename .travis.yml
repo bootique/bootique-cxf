@@ -1,0 +1,34 @@
+language: java
+
+jobs:
+  include:
+    - stage: build
+      if: branch != master OR type IN (pull_request)
+      jdk: oraclejdk9
+      script:
+        - mvn clean verify
+    - stage: build
+      if: branch != master OR type IN (pull_request)
+      jdk: oraclejdk8
+      script:
+        - mvn clean verify
+    - stage: build
+      if: branch = master AND type IN (push)
+      jdk: oraclejdk9
+      script:
+        - mvn clean verify
+    - stage: build
+      if: branch = master AND type IN (push) AND repo = bootique/bootique-cxf
+      jdk: oraclejdk8
+      script:
+        - mvn clean verify
+        - exit 0; # TODO: Add CI_DEPLOY_USERNAME/CI_DEPLOY_PASSWORD
+        - mvn clean source:jar javadoc:javadoc deploy --settings travis_settings.xml
+    - stage: build
+      if: branch = master AND type IN (push) AND repo != bootique/bootique-cxf
+      jdk: oraclejdk8
+      script:
+        - mvn clean verify
+
+# travis encrypt -r bootique/bootique-cxf "CI_DEPLOY_USERNAME='name'"
+# travis encrypt -r bootique/bootique-cxf "CI_DEPLOY_PASSWORD='password'"
