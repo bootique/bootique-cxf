@@ -19,29 +19,31 @@
 
 package io.bootique.cxf;
 
-import com.google.inject.Module;
-import io.bootique.BQModuleProvider;
+import com.google.inject.Inject;
 
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.Map;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
- * Standard {@link BQModuleProvider} for {@link CxfModule}.
+ * Default service.
  *
  * @author Ruslan Ibragimov
  * @since 0.26
  */
-public class CxfModuleProvider implements BQModuleProvider {
-    @Override
-    public Module module() {
-        return new CxfModule();
+public class CxfDefaultService {
+    private final CxfModuleConfig config;
+
+    @Inject
+    public CxfDefaultService(CxfModuleConfig config) {
+        this.config = config;
     }
 
-    @Override
-    public Map<String, Type> configs() {
-        // TODO: config prefix is hardcoded. Refactor away from ConfigModule, and make provider
-        // generate config prefix, reusing it in metadata...
-        return Collections.singletonMap("cxf", CxfModuleConfig.class);
+    @GET()
+    @Path("/")
+    @Produces(MediaType.TEXT_HTML)
+    public String get() {
+        return config.getWelcomeText();
     }
 }

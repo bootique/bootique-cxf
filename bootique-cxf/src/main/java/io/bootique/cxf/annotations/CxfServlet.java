@@ -17,13 +17,23 @@
  * under the License.
  */
 
-package io.bootique.cxf;
+package io.bootique.cxf.annotations;
+
+import com.google.inject.BindingAnnotation;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * TODO.
+ * Binding annotation for CXF servlets.
  *
- * @author TODO
+ * @author Ruslan Ibragimov
  * @since 0.26
  */
-public class CxfFactory {
+@Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@BindingAnnotation
+public @interface CxfServlet {
 }

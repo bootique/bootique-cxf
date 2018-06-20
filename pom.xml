@@ -42,7 +42,9 @@
     </modules>
 
     <properties>
-        <bootique-version>${project.version}</bootique-version>
+        <bootique.version>${project.version}</bootique.version>
+        <cxf.version>3.2.4</cxf.version>
+        <apache.hc.version>4.5.5</apache.hc.version>
     </properties>
 
     <scm>
@@ -69,12 +71,12 @@
             <dependency>
                 <groupId>io.bootique</groupId>
                 <artifactId>bootique</artifactId>
-                <version>${bootique-version}</version>
+                <version>${bootique.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.bootique</groupId>
                 <artifactId>bootique-test</artifactId>
-                <version>${bootique-version}</version>
+                <version>${bootique.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>

@@ -17,31 +17,24 @@
  * under the License.
  */
 
-package io.bootique.cxf;
+package io.bootique.cxf.annotations;
 
-import com.google.inject.Module;
-import io.bootique.BQModuleProvider;
+import com.google.inject.BindingAnnotation;
 
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.Map;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
- * Standard {@link BQModuleProvider} for {@link CxfModule}.
+ * Binding annotation for CXF resources.
  *
  * @author Ruslan Ibragimov
  * @since 0.26
  */
-public class CxfModuleProvider implements BQModuleProvider {
-    @Override
-    public Module module() {
-        return new CxfModule();
-    }
-
-    @Override
-    public Map<String, Type> configs() {
-        // TODO: config prefix is hardcoded. Refactor away from ConfigModule, and make provider
-        // generate config prefix, reusing it in metadata...
-        return Collections.singletonMap("cxf", CxfModuleConfig.class);
-    }
+@Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@BindingAnnotation
+public @interface CxfResource {
 }
+
