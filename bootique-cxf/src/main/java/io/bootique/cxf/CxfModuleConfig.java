@@ -26,7 +26,7 @@ import io.bootique.annotation.BQConfigProperty;
  * CXF configuration.
  *
  * @author Ruslan Ibragimov
- * @since 0.26
+ * @since 1.0.RC1
  */
 @BQConfig("Configures the servlet that is an entry point to CXF REST API engine.")
 public class CxfModuleConfig {

@@ -35,7 +35,7 @@ import java.util.Set;
  * subclass of this abstract class.
  *
  * @author Ruslan Ibragimov
- * @since 0.26
+ * @since 1.0.RC1
  */
 public class CxfApplication extends Application {
 

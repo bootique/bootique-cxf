@@ -46,7 +46,7 @@ import java.util.Set;
  * CXF module.
  *
  * @author Ruslan Ibragimov
- * @since 0.26
+ * @since 1.0.RC1
  */
 public class CxfModule extends ConfigModule {
 
@@ -56,7 +56,7 @@ public class CxfModule extends ConfigModule {
      *
      * @param binder DI binder passed to the Module that invokes this method.
      * @return an instance of {@link CxfModuleExtender} that can be used to load CXF custom extensions.
-     * @since 0.26
+     * @since 1.0.RC1
      */
     public static CxfModuleExtender extend(Binder binder) {
         return new CxfModuleExtender(binder);

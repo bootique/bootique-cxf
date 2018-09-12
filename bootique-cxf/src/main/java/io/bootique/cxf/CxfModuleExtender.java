@@ -33,7 +33,7 @@ import org.apache.cxf.feature.Feature;
  * Init all {@link Multibinder}s on module loading.
  *
  * @author Ruslan Ibragimov
- * @since 0.26
+ * @since 1.0.RC1
  */
 public class CxfModuleExtender extends ModuleExtender<CxfModuleExtender> {
 

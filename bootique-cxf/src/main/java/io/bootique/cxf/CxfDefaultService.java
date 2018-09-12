@@ -30,7 +30,7 @@ import javax.ws.rs.core.MediaType;
  * Default service.
  *
  * @author Ruslan Ibragimov
- * @since 0.26
+ * @since 1.0.RC1
  */
 public class CxfDefaultService {
     private final CxfModuleConfig config;

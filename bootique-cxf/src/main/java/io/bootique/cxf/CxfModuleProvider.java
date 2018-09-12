@@ -30,7 +30,7 @@ import java.util.Map;
  * Standard {@link BQModuleProvider} for {@link CxfModule}.
  *
  * @author Ruslan Ibragimov
- * @since 0.26
+ * @since 1.0.RC1
  */
 public class CxfModuleProvider implements BQModuleProvider {
     @Override
