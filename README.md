@@ -18,7 +18,7 @@
   -->
 
 [![Build Status](https://travis-ci.org/bootique/bootique-cxf.svg)](https://travis-ci.org/bootique/bootique-cxf)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.bootique.cxf/bootique-cxf/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.bootique.cxf/bootique-cxf/)
+[![Maven Central](https://img.shields.io/maven-central/v/io.bootique.cxf/bootique-cxf.svg?colorB=brightgreen)](https://search.maven.org/artifact/io.bootique.cxf/bootique-cxf/)
 
 # bootique-cxf
 
