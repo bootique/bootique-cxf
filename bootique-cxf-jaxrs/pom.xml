@@ -30,9 +30,9 @@
     <artifactId>bootique-cxf</artifactId>
     <packaging>jar</packaging>
 
-    <name>bootique-cxf: Apache CXF integration with Bootique</name>
+    <name>bootique-cxf-jaxrs: Apache CXF JAX-RS integration with Bootique</name>
     <description>
-        Provides Apache CXF integration with Bootique.
+        Provides Apache CXF JAX-RS integration with Bootique.
     </description>
 
     <dependencyManagement>

@@ -38,8 +38,8 @@
     </description>
 
     <modules>
-        <module>bootique-cxf</module>
-        <module>bootique-cxf-jaxws</module>
+        <module>bootique-cxf-jaxrs</module>
+        <module>bootique-cxf-jaxws-server</module>
         <module>bootique-cxf-core</module>
     </modules>
 

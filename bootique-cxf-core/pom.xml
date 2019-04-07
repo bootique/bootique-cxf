@@ -11,6 +11,10 @@
 
     <artifactId>bootique-cxf-core</artifactId>
 
+    <name>bootique-cxf-core: Apache CXF core entities integration with Bootique</name>
+    <description>
+        Provides Apache CXF core entities integration with Bootique.
+    </description>
 
     <dependencyManagement>
         <dependencies>

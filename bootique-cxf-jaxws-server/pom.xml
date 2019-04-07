@@ -13,6 +13,12 @@
     <artifactId>bootique-cxf-jaxws</artifactId>
     <packaging>jar</packaging>
 
+
+    <name>bootique-cxf-jaxws-server: Apache CXF JAX-WS Server integration with Bootique</name>
+    <description>
+        Provides Apache CXF JAX-WS Server integration with Bootique.
+    </description>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
