@@ -10,7 +10,7 @@
         <version>1.0.RC1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>bootique-cxf-jaxws</artifactId>
+    <artifactId>bootique-cxf-jaxws-server</artifactId>
     <packaging>jar</packaging>
 
 

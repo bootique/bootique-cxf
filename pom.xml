@@ -42,6 +42,7 @@
         <module>bootique-cxf-jaxws-server</module>
         <module>bootique-cxf-core</module>
         <module>bootique-cxf-jaxws-client</module>
+        <module>bootique-cxf-jaxws-it</module>
     </modules>
 
     <properties>
