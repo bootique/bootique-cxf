@@ -7,6 +7,7 @@ import io.bootique.cxf.conf.GuiceBeanLocator;
 import io.bootique.cxf.conf.GuiceConfigurer;
 import io.bootique.cxf.conf.MultisourceBeanLocator;
 import io.bootique.cxf.interceptor.CxfInterceptors;
+import io.bootique.shutdown.ShutdownManager;
 import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
 import org.apache.cxf.bus.extension.ExtensionManagerBus;
@@ -38,6 +39,7 @@ public class CxfModule extends ConfigModule {
             Configurer configurer,
             ConfiguredBeanLocator beanLocator,
             Set<Feature> features,
+            ShutdownManager shutdownManager,
             @CxfInterceptors(type = CxfInterceptors.Type.IN) Set<Interceptor<? extends Message>> inInterceptors,
             @CxfInterceptors(type = CxfInterceptors.Type.OUT)  Set<Interceptor<? extends Message>> outInterceptors,
             @CxfInterceptors(type = CxfInterceptors.Type.IN_FAULT)  Set<Interceptor<? extends Message>> inFaultInterceptors,
@@ -64,6 +66,8 @@ public class CxfModule extends ConfigModule {
         bus.initialize();
 
         BusFactory.possiblySetDefaultBus(bus);
+
+        shutdownManager.addShutdownHook(bus::shutdown);
 
 
         return bus;

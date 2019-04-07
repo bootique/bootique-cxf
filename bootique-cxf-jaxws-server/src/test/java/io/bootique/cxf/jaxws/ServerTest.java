@@ -11,6 +11,7 @@ import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.transport.common.gzip.GZIPFeature;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.xml.ws.Endpoint;
@@ -41,6 +42,7 @@ public class ServerTest {
 
 
     @Test
+    @Ignore
     public void testServer() throws Exception {
 
         TEST_FACTORY.app("-s")
