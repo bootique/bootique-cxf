@@ -26,4 +26,5 @@ Provides [Apache CXF](https://cxf.apache.org/) integration with [Bootique](http:
 
 CXF can be used in a different contexts:
 - [JAX-WS Server](bootique-cxf-jaxws-server)
+- [JAX-WS Client](bootique-cxf-jaxws-client)
 - [JAX-RS Server](bootique-cxf-jaxrs)

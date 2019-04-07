@@ -41,11 +41,12 @@
         <module>bootique-cxf-jaxrs</module>
         <module>bootique-cxf-jaxws-server</module>
         <module>bootique-cxf-core</module>
+        <module>bootique-cxf-jaxws-client</module>
     </modules>
 
     <properties>
         <bootique.version>${project.version}</bootique.version>
-        <cxf.version>3.2.4</cxf.version>
+        <cxf.version>3.3.1</cxf.version>
         <apache.hc.version>4.5.5</apache.hc.version>
     </properties>
 

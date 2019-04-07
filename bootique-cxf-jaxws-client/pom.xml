@@ -2,30 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
     <parent>
-        <groupId>io.bootique.cxf</groupId>
         <artifactId>bootique-cxf-parent</artifactId>
+        <groupId>io.bootique.cxf</groupId>
         <version>1.0.RC1-SNAPSHOT</version>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>bootique-cxf-jaxws</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>bootique-cxf-jaxws-client</artifactId>
 
-
-    <name>bootique-cxf-jaxws-server: Apache CXF JAX-WS Server integration with Bootique</name>
+    <name>bootique-cxf-jaxws-client: Apache CXF JAX-WS client integration with Bootique</name>
     <description>
-        Provides Apache CXF JAX-WS Server integration with Bootique.
+        Provides Apache CXF JAX-WS Client integration with Bootique.
     </description>
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>io.bootique.jetty</groupId>
-                <artifactId>bootique-jetty</artifactId>
-                <version>${bootique.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>org.apache.cxf</groupId>
@@ -48,11 +40,7 @@
             <artifactId>bootique</artifactId>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>io.bootique.jetty</groupId>
-            <artifactId>bootique-jetty</artifactId>
-            <scope>compile</scope>
-        </dependency>
+
         <dependency>
             <groupId>io.bootique.cxf</groupId>
             <artifactId>bootique-cxf-core</artifactId>
@@ -104,4 +92,5 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
 </project>
