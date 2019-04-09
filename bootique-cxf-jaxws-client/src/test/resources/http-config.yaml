@@ -1,0 +1,4 @@
+cxfjaxwsclient:
+  followRedirects: true
+  readTimeoutMs: 25000
+  connectTimeoutMs: 35000
