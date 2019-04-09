@@ -1,0 +1,4 @@
+cxfjaxwsclient:
+  urls:
+    simple: http://simple.com/
+    wsdl: http://example.com/ws?wsdl

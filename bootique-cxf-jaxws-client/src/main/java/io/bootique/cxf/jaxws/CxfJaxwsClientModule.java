@@ -12,6 +12,8 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.http.URLConnectionHTTPConduit;
 
+import java.net.URL;
+import java.util.Map;
 import java.util.Set;
 
 import static io.bootique.cxf.jaxws.CxfJaxwsClientModuleExtender.JAX_WS_CLIENT_INTERCEPTORS;
@@ -66,6 +68,12 @@ public class CxfJaxwsClientModule extends ConfigModule {
     @Singleton
     public URLConnectionHTTPConduitConfigurer httpConduitConfigurer(CxfJaxwsClientConfiguration configuration) {
         return new URLConnectionHTTPConduitConfigurer(configuration.followRedirects, configuration.readTimeoutMs, configuration.connectTimeoutMs);
+    }
+
+    @Provides
+    @NamedURLs
+    public Map<String, URL> provideNamedURLs(CxfJaxwsClientConfiguration configuration) {
+        return configuration.urls;
     }
 
 }

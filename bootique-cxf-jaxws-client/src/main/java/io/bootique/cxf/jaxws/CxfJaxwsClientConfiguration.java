@@ -4,6 +4,7 @@ import io.bootique.annotation.BQConfig;
 import io.bootique.annotation.BQConfigProperty;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 @BQConfig("Configures JAX-WS client entities, including named urls")
@@ -19,6 +20,7 @@ public class CxfJaxwsClientConfiguration {
         this.followRedirects = false;
         this.readTimeoutMs = 60 * 1000;
         this.connectTimeoutMs = 30 * 1000;
+        this.urls = new HashMap<>();
 
     }
 
@@ -44,7 +46,7 @@ public class CxfJaxwsClientConfiguration {
      * @param urls a map of named target factories.
      */
     @BQConfigProperty
-    public void setTargets(Map<String, URL> urls) {
+    public void setUrls(Map<String, URL> urls) {
         this.urls = urls;
     }
 
