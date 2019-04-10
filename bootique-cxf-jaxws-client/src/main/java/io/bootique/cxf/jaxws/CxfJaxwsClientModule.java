@@ -13,6 +13,7 @@ import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.http.URLConnectionHTTPConduit;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -73,7 +74,7 @@ public class CxfJaxwsClientModule extends ConfigModule {
     @Provides
     @NamedURLs
     public Map<String, URL> provideNamedURLs(CxfJaxwsClientConfiguration configuration) {
-        return configuration.urls;
+        return Collections.unmodifiableMap(configuration.urls);
     }
 
 }

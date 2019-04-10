@@ -1,9 +1,6 @@
 package io.bootique.cxf.jaxws;
 
-import com.google.inject.Binder;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
-import com.google.inject.TypeLiteral;
+import com.google.inject.*;
 import io.bootique.ConfigModule;
 import io.bootique.config.ConfigurationFactory;
 import io.bootique.cxf.CxfModule;
@@ -63,7 +60,8 @@ public class CxfJaxwsServerModule extends ConfigModule {
             @CxfInterceptors(target = JAX_WS_SERVER_INTERCEPTORS, type = CxfInterceptors.Type.IN) Set<Interceptor<? extends Message>> inInterceptors,
             @CxfInterceptors(target = JAX_WS_SERVER_INTERCEPTORS, type = CxfInterceptors.Type.OUT) Set<Interceptor<? extends Message>> outInterceptors,
             @CxfInterceptors(target = JAX_WS_SERVER_INTERCEPTORS, type = CxfInterceptors.Type.IN_FAULT) Set<Interceptor<? extends Message>> inFaultInterceptors,
-            @CxfInterceptors(target = JAX_WS_SERVER_INTERCEPTORS, type = CxfInterceptors.Type.OUT_FAULT) Set<Interceptor<? extends Message>> outFaultInterceptors
+            @CxfInterceptors(target = JAX_WS_SERVER_INTERCEPTORS, type = CxfInterceptors.Type.OUT_FAULT) Set<Interceptor<? extends Message>> outFaultInterceptors,
+            Injector injector
     ) {
 
 
@@ -71,7 +69,8 @@ public class CxfJaxwsServerModule extends ConfigModule {
                 inInterceptors,
                 outInterceptors,
                 inFaultInterceptors,
-                outFaultInterceptors
+                outFaultInterceptors,
+                injector
                 );
     }
 
