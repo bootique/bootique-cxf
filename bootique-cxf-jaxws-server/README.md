@@ -17,14 +17,12 @@
    under the License.
   -->
 
-[![Build Status](https://travis-ci.org/bootique/bootique-cxf.svg)](https://travis-ci.org/bootique/bootique-cxf)
-[![Maven Central](https://img.shields.io/maven-central/v/io.bootique.cxf/bootique-cxf.svg?colorB=brightgreen)](https://search.maven.org/artifact/io.bootique.cxf/bootique-cxf/)
 
 # bootique-cxf-jaxws-server
 
 Provides [Apache CXF](https://cxf.apache.org/) JAX-WS server integration with [Bootique](http://bootique.io).
 
-##Quick configuration
+## Quick configuration
 
 Add the module to your Bootique app:
 
@@ -54,7 +52,7 @@ cxfjaxwsserver:
   urlPattern: "/ws/*" 
 ```   
 
-##Configuring endpoints
+## Configuring endpoints
 After configuring modules, you can publish JAX-WS endpoints from anywhere in the code:
 ```java
 Endpoint.publish("/test", new HelloWorldImpl())
