@@ -46,7 +46,7 @@ public class CxfJaxwsServerModule extends ConfigModule {
 
     @Provides
     @Singleton
-    public MappedServlet<AbstractHTTPServlet> provideServlet(Set<Endpoint> endpoints, Bus bus) {
+    public MappedServlet<AbstractHTTPServlet> provideServlet(Bus bus) {
         CXFNonSpringServlet servlet = new CxfGuiceServlet(bus);
 
 

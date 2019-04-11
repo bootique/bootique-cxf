@@ -8,6 +8,7 @@ import io.bootique.cxf.conf.GuiceConfigurer;
 import io.bootique.cxf.conf.MultisourceBeanLocator;
 import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
+import org.apache.cxf.bus.extension.ExtensionManagerBus;
 import org.apache.cxf.configuration.ConfiguredBeanLocator;
 import org.apache.cxf.configuration.Configurer;
 
@@ -22,12 +23,15 @@ public class CxfModule extends ConfigModule {
     @Override
     public void configure(Binder binder) {
         CxfModule.extend(binder).initAllExtensions();
+
+        binder.requestStaticInjection(GuiceBusFactory.class);
     }
 
     @Provides
     @Singleton
     public Bus provideBus(Configurer configurer, ConfiguredBeanLocator beanLocator) {
-        Bus bus = BusFactory.newInstance().createBus();
+        ExtensionManagerBus bus = new ExtensionManagerBus();
+
 
         ConfiguredBeanLocator originalLocator = bus.getExtension(ConfiguredBeanLocator.class);
 
@@ -35,6 +39,10 @@ public class CxfModule extends ConfigModule {
 
         bus.setExtension(multisourceBeanLocator, ConfiguredBeanLocator.class);
         bus.setExtension(configurer, Configurer.class);
+
+        bus.initialize();
+
+        BusFactory.possiblySetDefaultBus(bus);
 
         return bus;
     }

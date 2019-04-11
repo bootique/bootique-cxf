@@ -4,6 +4,8 @@ package io.bootique.cxf.jaxws;
 import com.google.inject.*;
 import com.google.inject.multibindings.Multibinder;
 import com.google.inject.multibindings.ProvidesIntoSet;
+import io.bootique.cxf.CxfModule;
+import io.bootique.cxf.CxfModuleExtender;
 import io.bootique.test.junit.BQTestFactory;
 import org.apache.cxf.Bus;
 import org.apache.cxf.endpoint.Server;
@@ -36,24 +38,18 @@ public class ServerTest {
 
         @Override
         public void configure(Binder binder) {
-
-            Multibinder<Feature> featureMultibinder = Multibinder.newSetBinder(binder, Feature.class);
-            featureMultibinder.addBinding().to(GZIPFeature.class);
+            CxfModule.extend(binder).addFeature(GZIPFeature.class);
+            binder.bind(Server.class).toProvider(() -> {
+                JaxWsServerFactoryBean bean = new JaxWsServerFactoryBean();
+                bean.setAddress("/test");
+                bean.setServiceBean(new HelloWorldImpl());
+                return bean.create();
+            }
+            ).asEagerSingleton();
         }
 
-        @ProvidesIntoSet
-        @Singleton
-        public Endpoint helloModule (HelloWorldImpl implementer, Bus bus) {
-            Endpoint endpoint = new EndpointImpl(bus, implementer);
-            endpoint.publish("/test");
-            return endpoint;
-        }
 
-        @Provides
-        @Singleton
-        public List<Feature> provideFeatures(Set<Feature> featureSet) {
-            return new ArrayList<>(featureSet);
-        }
+
     }
 
 
