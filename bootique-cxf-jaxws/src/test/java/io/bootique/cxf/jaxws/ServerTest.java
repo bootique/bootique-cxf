@@ -11,6 +11,8 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
 
+import javax.xml.ws.Endpoint;
+
 public class ServerTest {
 
     @ClassRule
@@ -27,6 +29,7 @@ public class ServerTest {
         @Override
         public void configure(Binder binder) {
             CxfModule.extend(binder).addFeature(GZIPFeature.class);
+            CxfJaxwsServerModule.extend(binder).addEndpoint(() -> Endpoint.publish("/test", new HelloWorldImpl()));
         }
 
 
