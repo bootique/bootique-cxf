@@ -2,9 +2,17 @@ package io.bootique.cxf.conf;
 
 import org.apache.cxf.configuration.ConfiguredBeanLocator;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Allows to use the multiple {@link ConfiguredBeanLocator} instances.
+ * The order of provided locators matters. In case of single bean requested, will use return first non empty response.
+ * In case of collections of beans requested, will merge the results from all provided locators.
+ */
 public class MultisourceBeanLocator implements ConfiguredBeanLocator {
 
     private List<ConfiguredBeanLocator> locators;
@@ -20,9 +28,10 @@ public class MultisourceBeanLocator implements ConfiguredBeanLocator {
     public List<String> getBeanNamesOfType(Class<?> type) {
 
         return locators.stream()
-                .map(beanLocator -> getBeanNamesOfType(type))
+                .map(beanLocator -> beanLocator.getBeanNamesOfType(type))
                 .filter(Objects::nonNull)
-                .collect(ArrayList::new, List::addAll, List::addAll);
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
     }
 
     @Override

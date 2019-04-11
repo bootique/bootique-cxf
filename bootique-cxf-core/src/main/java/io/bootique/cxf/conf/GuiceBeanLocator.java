@@ -10,6 +10,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+
+/**
+ * Adapter for the Guice injector. Delivers the configured beans from the Guice context.
+ * Since the "name" attribute is not mandatory for the Guice managed beans, tries to use the {@link Named} annotation.
+ * Otherwise, will accept class name as a "name".
+ */
 public class GuiceBeanLocator implements ConfiguredBeanLocator {
 
     private final Injector injector;
