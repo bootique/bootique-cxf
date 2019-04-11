@@ -58,7 +58,7 @@ After configuring modules, you can publish JAX-WS endpoints from anywhere in the
 Endpoint.publish("/test", new HelloWorldImpl())
 ``` 
 
-If you want your endpoints to be configured and provided during application DI bootstrap, you can extent the server module in your application module:
+If you want your endpoints to be configured and provided during application bootstrap, you can extent the server module in your application module:
 ```java
 class App implements Module {
     public void config(Binder binder) {
@@ -66,7 +66,7 @@ class App implements Module {
     }
 }
 ``` 
-Alternatively, you provide a factory methods:
+Alternatively, you can provide a factory methods:
 ```java
 class App implements Module {
     @ProvidesIntoSet
@@ -97,7 +97,7 @@ class App implements Module {
 ##### Providing service implementors
 Most probably you would want to use DI to provide injections in service implementor instances. 
 The easiest way to achieve that, is to use Guice factory methods, as shown in the examples above.
-If you don't want / cannot use factory methods - worry not. All ```@Inject``` annotated members and methods will be resolved in runtime during endpoint creations.
+If you don't want or cannot use factory methods - worry not. All ```@Inject``` annotated members and methods will be resolved in runtime during endpoint creations.
 
 ```java
     @WebService

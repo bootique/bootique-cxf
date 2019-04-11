@@ -69,7 +69,6 @@ cxfjaxwsclient:
     bootique-wsdl: http://bootique.com/ws/hello?wsdl
 ```
 Now you can inject `NamedURLs` map and use it as a target for client:
-by name:
 ```java
 @Inject
 @NamedURLs
