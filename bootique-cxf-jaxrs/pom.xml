@@ -27,7 +27,7 @@
         <version>1.0.RC1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>bootique-cxf</artifactId>
+    <artifactId>bootique-cxf-jaxrs</artifactId>
     <packaging>jar</packaging>
 
     <name>bootique-cxf-jaxrs: Apache CXF JAX-RS integration with Bootique</name>
@@ -41,11 +41,6 @@
                 <groupId>io.bootique.jetty</groupId>
                 <artifactId>bootique-jetty</artifactId>
                 <version>${bootique.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-core</artifactId>
-                <version>${cxf.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
@@ -89,9 +84,9 @@ compile 'org.apache.bval:org.apache.bval.bundle:1.1.2'
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-core</artifactId>
-            <scope>compile</scope>
+            <groupId>io.bootique.cxf</groupId>
+            <artifactId>bootique-cxf-core</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>

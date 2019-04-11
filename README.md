@@ -29,4 +29,4 @@ CXF can be used in a different contexts:
 - [JAX-WS Client](bootique-cxf-jaxws-client)
 - [JAX-RS Server](bootique-cxf-jaxrs)
 
-All of those modules can be used simultaneously in single application. 
+All of those modules can be used simultaneously in a single application. 

@@ -21,10 +21,14 @@ package io.bootique.cxf;
 
 import com.google.inject.Module;
 import io.bootique.BQModuleProvider;
+import io.bootique.jetty.JettyModuleProvider;
 
 import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
+
+import static java.util.Arrays.asList;
 
 /**
  * Standard {@link BQModuleProvider} for {@link CxfJaxrsModule}.
@@ -43,5 +47,13 @@ public class CxfJaxrsModuleProvider implements BQModuleProvider {
         // TODO: config prefix is hardcoded. Refactor away from ConfigModule, and make provider
         // generate config prefix, reusing it in metadata...
         return Collections.singletonMap("cxf", CxfJaxrsModuleConfig.class);
+    }
+
+    @Override
+    public Collection<BQModuleProvider> dependencies() {
+        return asList(
+                new JettyModuleProvider(),
+                new CxfModuleProvider()
+        );
     }
 }

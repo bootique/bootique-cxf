@@ -27,6 +27,7 @@ import io.bootique.cxf.annotations.CxfResource;
 import io.bootique.cxf.annotations.CxfServlet;
 import io.bootique.jetty.JettyModule;
 import io.bootique.jetty.MappedServlet;
+import org.apache.cxf.Bus;
 import org.apache.cxf.feature.Feature;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
@@ -71,8 +72,11 @@ public class CxfJaxrsModule extends ConfigModule {
     @CxfServlet
     @Singleton
     @Provides
-    private MappedServlet<Servlet> createCxfServlet(CxfJaxrsModuleConfig config, Application application) {
+    private MappedServlet<Servlet> createCxfServlet(CxfJaxrsModuleConfig config, Application application, Bus bus) {
+
         CXFNonSpringJaxrsServlet servlet = new CXFNonSpringJaxrsServlet(application);
+        servlet.setBus(bus);
+
         return new MappedServlet<>(servlet, Collections.singleton(config.getUrlPattern()), CxfServlet.class.getName());
     }
 
@@ -87,6 +91,7 @@ public class CxfJaxrsModule extends ConfigModule {
     private Application createApplication(@CxfResource Set<Object> resources, @CxfFeature Set<Feature> features) {
         final Map<String, String> props = new HashMap<>();
 
+        // TODO deliver interceptors in module extender
         props.put("jaxrs.inInterceptors", LoggingInInterceptor.class.getName());
 
         return new CxfApplication(resources, features, props);
