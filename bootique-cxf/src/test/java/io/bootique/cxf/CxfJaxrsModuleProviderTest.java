@@ -28,16 +28,16 @@ import org.junit.Test;
  * @author Ruslan Ibragimov
  * @since 1.0.RC1
  */
-public class CxfModuleProviderTest {
+public class CxfJaxrsModuleProviderTest {
 
     @Test
     public void testAutoLoadable() {
-        BQModuleProviderChecker.testAutoLoadable(CxfModuleProvider.class);
+        BQModuleProviderChecker.testAutoLoadable(CxfJaxrsModuleProvider.class);
 
     }
 
     @Test
     public void testMetadata() {
-        BQModuleProviderChecker.testMetadata(CxfModuleProvider.class);
+        BQModuleProviderChecker.testMetadata(CxfJaxrsModuleProvider.class);
     }
 }

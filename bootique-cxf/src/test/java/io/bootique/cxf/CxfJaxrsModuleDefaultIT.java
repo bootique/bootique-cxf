@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Ruslan Ibragimov
  */
-public class CxfModuleDefaultIT {
+public class CxfJaxrsModuleDefaultIT {
     @Rule
     public BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
 

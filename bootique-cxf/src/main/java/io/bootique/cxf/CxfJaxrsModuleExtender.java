@@ -35,18 +35,18 @@ import org.apache.cxf.feature.Feature;
  * @author Ruslan Ibragimov
  * @since 1.0.RC1
  */
-public class CxfModuleExtender extends ModuleExtender<CxfModuleExtender> {
+public class CxfJaxrsModuleExtender extends ModuleExtender<CxfJaxrsModuleExtender> {
 
     private Multibinder<Feature> cxfFeatures;
     private Multibinder<Object> resources;
     private Multibinder<MappedServlet> servlets;
 
-    CxfModuleExtender(Binder binder) {
+    CxfJaxrsModuleExtender(Binder binder) {
         super(binder);
     }
 
     @Override
-    public CxfModuleExtender initAllExtensions() {
+    public CxfJaxrsModuleExtender initAllExtensions() {
         contributeCxfFeatures();
         contributeResources();
         contributeMappedServlet();
@@ -54,23 +54,23 @@ public class CxfModuleExtender extends ModuleExtender<CxfModuleExtender> {
         return this;
     }
 
-    public CxfModuleExtender addResource(Object resource) {
+    public CxfJaxrsModuleExtender addResource(Object resource) {
         contributeResources().addBinding().toInstance(resource);
         return this;
     }
 
-    public CxfModuleExtender addResource(Class<?> resource) {
+    public CxfJaxrsModuleExtender addResource(Class<?> resource) {
         contributeResources().addBinding().to(resource);
         return this;
     }
 
 
-    public <T extends Feature> CxfModuleExtender addFeature(Class<T> feature) {
+    public <T extends Feature> CxfJaxrsModuleExtender addFeature(Class<T> feature) {
         contributeCxfFeatures().addBinding().to(feature);
         return this;
     }
 
-    public <T extends Feature> CxfModuleExtender addFeature(T feature) {
+    public <T extends Feature> CxfJaxrsModuleExtender addFeature(T feature) {
         contributeCxfFeatures().addBinding().toInstance(feature);
         return this;
     }

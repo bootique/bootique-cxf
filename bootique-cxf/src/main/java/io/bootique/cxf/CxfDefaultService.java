@@ -33,10 +33,10 @@ import javax.ws.rs.core.MediaType;
  * @since 1.0.RC1
  */
 public class CxfDefaultService {
-    private final CxfModuleConfig config;
+    private final CxfJaxrsModuleConfig config;
 
     @Inject
-    public CxfDefaultService(CxfModuleConfig config) {
+    public CxfDefaultService(CxfJaxrsModuleConfig config) {
         this.config = config;
     }
 

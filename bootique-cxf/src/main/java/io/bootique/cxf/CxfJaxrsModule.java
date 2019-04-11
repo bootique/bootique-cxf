@@ -48,42 +48,42 @@ import java.util.Set;
  * @author Ruslan Ibragimov
  * @since 1.0.RC1
  */
-public class CxfModule extends ConfigModule {
+public class CxfJaxrsModule extends ConfigModule {
 
     /**
-     * Returns an instance of {@link CxfModuleExtender} used by downstream modules to load custom extensions of
-     * services declared in the CxfModule. Should be invoked from a downstream Module's "configure" method.
+     * Returns an instance of {@link CxfJaxrsModuleExtender} used by downstream modules to load custom extensions of
+     * services declared in the CxfJaxrsModule. Should be invoked from a downstream Module's "configure" method.
      *
      * @param binder DI binder passed to the Module that invokes this method.
-     * @return an instance of {@link CxfModuleExtender} that can be used to load CXF custom extensions.
+     * @return an instance of {@link CxfJaxrsModuleExtender} that can be used to load CXF custom extensions.
      * @since 1.0.RC1
      */
-    public static CxfModuleExtender extend(Binder binder) {
-        return new CxfModuleExtender(binder);
+    public static CxfJaxrsModuleExtender extend(Binder binder) {
+        return new CxfJaxrsModuleExtender(binder);
     }
 
     @Override
     public void configure(Binder binder) {
-        CxfModule.extend(binder).initAllExtensions();
+        CxfJaxrsModule.extend(binder).initAllExtensions();
 
         final TypeLiteral<MappedServlet<Servlet>> servletTypeLiteral = new TypeLiteral<MappedServlet<Servlet>>() {};
         final Key<MappedServlet<Servlet>> servletKey = Key.get(servletTypeLiteral, CxfServlet.class);
         JettyModule.extend(binder).addMappedServlet(servletKey);
-        CxfModule.extend(binder).addResource(CxfDefaultService.class);
+        CxfJaxrsModule.extend(binder).addResource(CxfDefaultService.class);
     }
 
     @CxfServlet
     @Singleton
     @Provides
-    private MappedServlet<Servlet> createCxfServlet(CxfModuleConfig config, Application application) {
+    private MappedServlet<Servlet> createCxfServlet(CxfJaxrsModuleConfig config, Application application) {
         CXFNonSpringJaxrsServlet servlet = new CXFNonSpringJaxrsServlet(application);
         return new MappedServlet<>(servlet, Collections.singleton(config.getUrlPattern()), CxfServlet.class.getName());
     }
 
     @Singleton
     @Provides
-    private CxfModuleConfig createCxfFactory(ConfigurationFactory configFactory) {
-        return configFactory.config(CxfModuleConfig.class, configPrefix);
+    private CxfJaxrsModuleConfig createCxfFactory(ConfigurationFactory configFactory) {
+        return configFactory.config(CxfJaxrsModuleConfig.class, configPrefix);
     }
 
     @Singleton

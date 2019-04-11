@@ -39,6 +39,8 @@
 
     <modules>
         <module>bootique-cxf</module>
+        <module>bootique-cxf-jaxws</module>
+        <module>bootique-cxf-core</module>
     </modules>
 
     <properties>

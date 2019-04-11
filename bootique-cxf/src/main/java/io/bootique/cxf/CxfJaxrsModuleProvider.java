@@ -19,41 +19,29 @@
 
 package io.bootique.cxf;
 
-import io.bootique.annotation.BQConfig;
-import io.bootique.annotation.BQConfigProperty;
+import com.google.inject.Module;
+import io.bootique.BQModuleProvider;
+
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.Map;
 
 /**
- * CXF configuration.
+ * Standard {@link BQModuleProvider} for {@link CxfJaxrsModule}.
  *
  * @author Ruslan Ibragimov
  * @since 1.0.RC1
  */
-@BQConfig("Configures the servlet that is an entry point to CXF REST API engine.")
-public class CxfModuleConfig {
-    private String urlPattern;
-
-    private String welcomeText;
-
-    public CxfModuleConfig() {
-        this.urlPattern = "/*";
-        this.welcomeText = "CXF REST API Module";
+public class CxfJaxrsModuleProvider implements BQModuleProvider {
+    @Override
+    public Module module() {
+        return new CxfJaxrsModule();
     }
 
-    public String getUrlPattern() {
-        return urlPattern;
-    }
-
-    @BQConfigProperty
-    public void setUrlPattern(String urlPattern) {
-        this.urlPattern = urlPattern;
-    }
-
-    public String getWelcomeText() {
-        return welcomeText;
-    }
-
-    @BQConfigProperty
-    public void setWelcomeText(String welcomeText) {
-        this.welcomeText = welcomeText;
+    @Override
+    public Map<String, Type> configs() {
+        // TODO: config prefix is hardcoded. Refactor away from ConfigModule, and make provider
+        // generate config prefix, reusing it in metadata...
+        return Collections.singletonMap("cxf", CxfJaxrsModuleConfig.class);
     }
 }

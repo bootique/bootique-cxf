@@ -1,1 +1,1 @@
-io.bootique.cxf.CxfModuleProvider
+io.bootique.cxf.CxfJaxrsModuleProvider
