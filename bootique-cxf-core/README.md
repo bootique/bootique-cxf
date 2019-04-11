@@ -22,7 +22,7 @@
 
 Provides and configures core CXF components, such as Bus, Extensions, Configurer, Features, Interceptors etc. 
 It allows you to configure and extend CXF via Guice dependency injection.
-This module is not intended to be used by itself, rather in the conjunction with [JAX-WS Server](bootique-cxf-jaxws-server), [JAX-WS Client](bootique-cxf-jaxws-client) or [JAX-RS Server](bootique-cxf-jaxrs) modules.
+This module is not intended to be used by itself, rather in the conjunction with [JAX-WS Server](../bootique-cxf-jaxws-server), [JAX-WS Client](../bootique-cxf-jaxws-client) or [JAX-RS Server](../bootique-cxf-jaxrs) modules.
 
 ### Providing CXF features
 A [Feature](http://cxf.apache.org/docs/features.html) in CXF is a way of adding capabilities to a Server, Client or Bus. For example, you could add the ability to log messages for each of these objects, by configuring them with a LoggingFeature.
