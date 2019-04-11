@@ -4,13 +4,14 @@ import com.google.inject.Injector;
 import com.google.inject.TypeLiteral;
 import org.apache.cxf.configuration.Configurer;
 
+import java.util.List;
 import java.util.Map;
 
 public class GuiceConfigurer implements Configurer {
     private final Injector injector;
-    private final Map<TypeLiteral, CustomConfigurer> customConfigurers;
+    private final Map<TypeLiteral, List<CustomConfigurer>> customConfigurers;
 
-    public GuiceConfigurer(Injector injector, Map<TypeLiteral, CustomConfigurer> customConfigurers) {
+    public GuiceConfigurer(Injector injector, Map<TypeLiteral, List<CustomConfigurer>> customConfigurers) {
         this.injector = injector;
         this.customConfigurers = customConfigurers;
     }
@@ -19,10 +20,10 @@ public class GuiceConfigurer implements Configurer {
     public void configureBean(Object beanInstance) {
 
         TypeLiteral typeLiteral = TypeLiteral.get(beanInstance.getClass());
-        CustomConfigurer configurer = customConfigurers.get(typeLiteral);
+        List<CustomConfigurer> configurers = customConfigurers.get(typeLiteral);
 
-        if (configurer != null) {
-            configurer.configure(beanInstance);
+        if (configurers != null && !configurers.isEmpty()) {
+            configurers.forEach(configurer -> configurer.configure(beanInstance));
         } else {
             injector.injectMembers(beanInstance);
         }

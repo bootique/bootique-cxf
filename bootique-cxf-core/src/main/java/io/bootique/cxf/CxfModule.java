@@ -1,6 +1,7 @@
 package io.bootique.cxf;
 
 import com.google.inject.*;
+import com.google.inject.name.Named;
 import io.bootique.ConfigModule;
 import io.bootique.cxf.conf.CustomConfigurer;
 import io.bootique.cxf.conf.GuiceBeanLocator;
@@ -9,6 +10,7 @@ import org.apache.cxf.Bus;
 import org.apache.cxf.configuration.ConfiguredBeanLocator;
 import org.apache.cxf.configuration.Configurer;
 
+import java.util.List;
 import java.util.Map;
 
 public class CxfModule extends ConfigModule {
@@ -28,8 +30,18 @@ public class CxfModule extends ConfigModule {
 
     @Provides
     @Singleton
-    public Configurer provideConfigurer(Injector injector, Map<TypeLiteral, CustomConfigurer> customConfigurers) {
-        return new GuiceConfigurer(injector, customConfigurers);
+    public Configurer provideConfigurer(
+            Injector injector,
+            @Named("custom") Map<TypeLiteral, CustomConfigurer> customConfigurers,
+            @Named("default") Map<TypeLiteral, CustomConfigurer> defaultConfigurers
+    ) {
+
+        Map<TypeLiteral, List<CustomConfigurer>> mergedConfigurers = MapUtils.mergeMaps(
+                defaultConfigurers,
+                customConfigurers
+        );
+
+        return new GuiceConfigurer(injector, mergedConfigurers);
     }
 
     @Provides

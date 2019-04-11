@@ -1,6 +1,8 @@
 package io.bootique.cxf.jaxws;
 
 import io.bootique.BQRuntime;
+import io.bootique.cxf.CxfModule;
+import io.bootique.cxf.conf.CustomConfigurer;
 import io.bootique.test.junit.BQTestFactory;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
@@ -54,5 +56,33 @@ public class HttpConduitConfigIT {
         Assert.assertTrue(clientPolicy.isAutoRedirect());
         Assert.assertEquals(35 * 1000, clientPolicy.getConnectionTimeout());
         Assert.assertEquals(25 * 1000, clientPolicy.getReceiveTimeout());
+    }
+
+
+    public static class CustomHTTPConduitConfigurer implements CustomConfigurer<URLConnectionHTTPConduit> {
+
+        static boolean LOADED = false;
+        @Override
+        public void configure(URLConnectionHTTPConduit instance) {
+            LOADED = true;
+        }
+    }
+
+    @Test
+    public void addingConduitConfigurer() {
+
+
+        testFactory.app()
+                .module(binder -> {
+                    CxfModule.extend(binder).addCustomConfigurer(URLConnectionHTTPConduit.class, CustomHTTPConduitConfigurer.class);
+                })
+                .createRuntime();
+
+        JaxWsProxyFactoryBean factoryBean = new JaxWsProxyFactoryBean();
+        HelloWorld helloWorld = factoryBean.create(HelloWorld.class);
+
+        ClientProxy.getClient(helloWorld).getConduit();
+
+        Assert.assertTrue(CustomHTTPConduitConfigurer.LOADED);
     }
 }

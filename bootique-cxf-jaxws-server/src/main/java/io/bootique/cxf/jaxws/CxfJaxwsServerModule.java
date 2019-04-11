@@ -34,7 +34,7 @@ public class CxfJaxwsServerModule extends ConfigModule {
     public void configure(Binder binder) {
 
         CxfJaxwsServerModule.extend(binder).initAllExtensions();
-        CxfModule.extend(binder).addCustomConfigurer(EndpointImpl.class, EndpointConfigurer.class);
+        CxfModule.extend(binder).addCustomConfigurer(EndpointImpl.class, EndpointConfigurer.class, true);
 
 
         final TypeLiteral<MappedServlet<AbstractHTTPServlet>> servletTypeLiteral = new TypeLiteral<MappedServlet<AbstractHTTPServlet>>() {};

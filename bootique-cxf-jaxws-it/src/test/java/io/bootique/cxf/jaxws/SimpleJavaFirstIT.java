@@ -2,11 +2,8 @@ package io.bootique.cxf.jaxws;
 
 import io.bootique.cxf.CxfModule;
 import io.bootique.test.junit.BQTestFactory;
-import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.ext.logging.LoggingFeature;
-import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.apache.cxf.transport.Conduit;
 import org.junit.Assert;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -35,9 +32,6 @@ public class SimpleJavaFirstIT {
         JaxWsProxyFactoryBean proxyFactoryBean = new JaxWsProxyFactoryBean();
         proxyFactoryBean.setAddress("http://localhost:8080/test");
         HelloWorld helloWorldClient = proxyFactoryBean.create(HelloWorld.class);
-
-        Client client = ClientProxy.getClient(helloWorldClient);
-        Conduit conduit = client.getConduit();
 
         String responseFromClient = helloWorldClient.sayHi("Simple Client");
         String expectedResponse = serviceImpl.sayHi("Simple Client");

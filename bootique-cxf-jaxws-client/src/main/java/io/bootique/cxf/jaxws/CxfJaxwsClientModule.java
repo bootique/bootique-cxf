@@ -35,8 +35,8 @@ public class CxfJaxwsClientModule extends ConfigModule {
     public void configure(Binder binder) {
 
         CxfJaxwsClientModule.extend(binder).initAllExtensions();
-        CxfModule.extend(binder).addCustomConfigurer(JaxWsProxyFactoryBean.class, JaxWsProxyFactoryConfigurer.class);
-        CxfModule.extend(binder).addCustomConfigurer(URLConnectionHTTPConduit.class, URLConnectionHTTPConduitConfigurer.class);
+        CxfModule.extend(binder).addCustomConfigurer(JaxWsProxyFactoryBean.class, JaxWsProxyFactoryConfigurer.class, true);
+        CxfModule.extend(binder).addCustomConfigurer(URLConnectionHTTPConduit.class, URLConnectionHTTPConduitConfigurer.class, true);
 
     }
 
