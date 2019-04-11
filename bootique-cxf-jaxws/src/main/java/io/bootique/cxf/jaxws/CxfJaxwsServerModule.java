@@ -4,15 +4,13 @@ import com.google.inject.Binder;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
-import com.google.inject.name.Named;
 import io.bootique.ConfigModule;
 import io.bootique.config.ConfigurationFactory;
 import io.bootique.cxf.CxfModule;
-import io.bootique.cxf.CxfModuleExtender;
+import io.bootique.cxf.interceptor.CxfInterceptors;
 import io.bootique.jetty.JettyModule;
 import io.bootique.jetty.MappedServlet;
 import org.apache.cxf.Bus;
-import org.apache.cxf.feature.Feature;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.message.Message;
@@ -20,6 +18,8 @@ import org.apache.cxf.transport.servlet.AbstractHTTPServlet;
 
 import javax.xml.ws.Endpoint;
 import java.util.Set;
+
+import static io.bootique.cxf.jaxws.CxfJaxwsServerModuleExtender.JAX_WS_SERVER_INTERCEPTORS;
 
 public class CxfJaxwsServerModule extends ConfigModule {
 
@@ -60,16 +60,14 @@ public class CxfJaxwsServerModule extends ConfigModule {
     @Provides
     @Singleton
     public EndpointConfigurer provideEndpointConfigurer(
-            Set<Feature> features,
-            @Named(CxfModuleExtender.IN_DIRECTION) Set<Interceptor<? extends Message>> inInterceptors,
-            @Named(CxfModuleExtender.OUT_DIRECTION) Set<Interceptor<? extends Message>> outInterceptors,
-            @Named(CxfModuleExtender.IN_FAULT_DIRECTION) Set<Interceptor<? extends Message>> inFaultInterceptors,
-            @Named(CxfModuleExtender.OUT_FAULT_DIRECTION) Set<Interceptor<? extends Message>> outFaultInterceptors
+            @CxfInterceptors(target = JAX_WS_SERVER_INTERCEPTORS, type = CxfInterceptors.Type.IN) Set<Interceptor<? extends Message>> inInterceptors,
+            @CxfInterceptors(target = JAX_WS_SERVER_INTERCEPTORS, type = CxfInterceptors.Type.OUT) Set<Interceptor<? extends Message>> outInterceptors,
+            @CxfInterceptors(target = JAX_WS_SERVER_INTERCEPTORS, type = CxfInterceptors.Type.IN_FAULT) Set<Interceptor<? extends Message>> inFaultInterceptors,
+            @CxfInterceptors(target = JAX_WS_SERVER_INTERCEPTORS, type = CxfInterceptors.Type.OUT_FAULT) Set<Interceptor<? extends Message>> outFaultInterceptors
     ) {
 
 
         return new EndpointConfigurer(
-                features,
                 inInterceptors,
                 outInterceptors,
                 inFaultInterceptors,

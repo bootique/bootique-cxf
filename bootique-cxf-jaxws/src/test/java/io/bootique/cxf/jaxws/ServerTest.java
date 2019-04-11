@@ -6,6 +6,8 @@ import com.google.inject.Module;
 import com.google.inject.Singleton;
 import io.bootique.cxf.CxfModule;
 import io.bootique.test.junit.BQTestFactory;
+import org.apache.cxf.feature.LoggingFeature;
+import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.transport.common.gzip.GZIPFeature;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
@@ -42,8 +44,10 @@ public class ServerTest {
     public void testServer() throws Exception {
 
         TEST_FACTORY.app("-s")
-                .module(b -> {
+                .module( b -> {
                     b.bind(HelloWorldImpl.class).in(Singleton.class);
+                    CxfModule.extend(b).addFeature(LoggingFeature.class);
+                    CxfJaxwsServerModule.extend(b).contributeServerInterceptors().addInFaultInterceptor(new LoggingInInterceptor());
                 }).modules(TestModule.class)
                 .createRuntime().run();
 
