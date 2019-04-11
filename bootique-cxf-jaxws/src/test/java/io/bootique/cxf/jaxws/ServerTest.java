@@ -1,27 +1,15 @@
 package io.bootique.cxf.jaxws;
 
 
-import com.google.inject.*;
-import com.google.inject.multibindings.Multibinder;
-import com.google.inject.multibindings.ProvidesIntoSet;
+import com.google.inject.Binder;
+import com.google.inject.Module;
+import com.google.inject.Singleton;
 import io.bootique.cxf.CxfModule;
-import io.bootique.cxf.CxfModuleExtender;
 import io.bootique.test.junit.BQTestFactory;
-import org.apache.cxf.Bus;
-import org.apache.cxf.endpoint.Server;
-import org.apache.cxf.feature.Feature;
-import org.apache.cxf.jaxws.EndpointImpl;
-import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
 import org.apache.cxf.transport.common.gzip.GZIPFeature;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Test;
-
-import javax.jws.WebService;
-import javax.xml.ws.Endpoint;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public class ServerTest {
 
@@ -39,13 +27,6 @@ public class ServerTest {
         @Override
         public void configure(Binder binder) {
             CxfModule.extend(binder).addFeature(GZIPFeature.class);
-            binder.bind(Server.class).toProvider(() -> {
-                JaxWsServerFactoryBean bean = new JaxWsServerFactoryBean();
-                bean.setAddress("/test");
-                bean.setServiceBean(new HelloWorldImpl());
-                return bean.create();
-            }
-            ).asEagerSingleton();
         }
 
 

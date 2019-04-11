@@ -30,6 +30,7 @@ public class CxfModule extends ConfigModule {
     @Provides
     @Singleton
     public Bus provideBus(Configurer configurer, ConfiguredBeanLocator beanLocator) {
+
         ExtensionManagerBus bus = new ExtensionManagerBus();
 
 

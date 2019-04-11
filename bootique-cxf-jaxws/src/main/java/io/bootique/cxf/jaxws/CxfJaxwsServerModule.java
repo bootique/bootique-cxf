@@ -1,19 +1,16 @@
 package io.bootique.cxf.jaxws;
 
-import com.google.inject.*;
+import com.google.inject.Binder;
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
+import com.google.inject.TypeLiteral;
 import com.google.inject.name.Named;
 import io.bootique.ConfigModule;
 import io.bootique.cxf.CxfModule;
 import io.bootique.cxf.CxfModuleExtender;
-import io.bootique.cxf.conf.GuiceBeanLocator;
-import io.bootique.cxf.conf.GuiceConfigurer;
-import io.bootique.cxf.conf.MultisourceBeanLocator;
 import io.bootique.jetty.JettyModule;
 import io.bootique.jetty.MappedServlet;
 import org.apache.cxf.Bus;
-import org.apache.cxf.BusFactory;
-import org.apache.cxf.configuration.ConfiguredBeanLocator;
-import org.apache.cxf.configuration.Configurer;
 import org.apache.cxf.feature.Feature;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxws.EndpointImpl;
@@ -46,7 +43,7 @@ public class CxfJaxwsServerModule extends ConfigModule {
 
     @Provides
     @Singleton
-    public MappedServlet<AbstractHTTPServlet> provideServlet(Bus bus) {
+    public MappedServlet<AbstractHTTPServlet> provideServlet(Set<Endpoint> endpoints, Bus bus) {
         CXFNonSpringServlet servlet = new CxfGuiceServlet(bus);
 
 
