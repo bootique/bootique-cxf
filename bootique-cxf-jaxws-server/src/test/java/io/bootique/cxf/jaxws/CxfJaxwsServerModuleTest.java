@@ -1,6 +1,10 @@
 package io.bootique.cxf.jaxws;
 
-import com.google.inject.*;
+import com.google.inject.Binder;
+import com.google.inject.Key;
+import com.google.inject.Module;
+import com.google.inject.Singleton;
+import com.google.inject.TypeLiteral;
 import com.google.inject.multibindings.ProvidesIntoSet;
 import io.bootique.BQRuntime;
 import io.bootique.test.junit.BQTestFactory;

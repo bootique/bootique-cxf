@@ -1,6 +1,10 @@
 package io.bootique.cxf.jaxws;
 
-import com.example.customerservice.*;
+import com.example.customerservice.Customer;
+import com.example.customerservice.CustomerService;
+import com.example.customerservice.CustomerType;
+import com.example.customerservice.NoSuchCustomer;
+import com.example.customerservice.NoSuchCustomerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

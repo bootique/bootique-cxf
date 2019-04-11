@@ -1,6 +1,10 @@
 package io.bootique.cxf.conf;
 
-import com.google.inject.*;
+import com.google.inject.Binding;
+import com.google.inject.Injector;
+import com.google.inject.Key;
+import com.google.inject.Provider;
+import com.google.inject.TypeLiteral;
 import com.google.inject.name.Named;
 import com.google.inject.name.Names;
 import org.apache.cxf.configuration.ConfiguredBeanLocator;
