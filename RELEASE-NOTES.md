@@ -1,3 +1,3 @@
-## 1.0.RC1
+## 1.1
 
-* #N Description
+* #2 CXF JAX-WS Client and server
