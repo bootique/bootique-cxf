@@ -29,7 +29,7 @@
 
     <groupId>io.bootique.cxf</groupId>
     <artifactId>bootique-cxf-parent</artifactId>
-    <version>1.0.RC1-SNAPSHOT</version>
+    <version>1.0.RC2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>bootique-cxf-parent</name>
