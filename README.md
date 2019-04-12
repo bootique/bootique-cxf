@@ -23,3 +23,10 @@
 # bootique-cxf
 
 Provides [Apache CXF](https://cxf.apache.org/) integration with [Bootique](http://bootique.io).
+
+CXF can be used in a different contexts:
+- [JAX-WS Server](bootique-cxf-jaxws-server)
+- [JAX-WS Client](bootique-cxf-jaxws-client)
+- [JAX-RS Server](bootique-cxf-jaxrs)
+
+All of those modules can be used simultaneously in a single application. 
