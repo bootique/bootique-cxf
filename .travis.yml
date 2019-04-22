@@ -23,12 +23,5 @@ jdk:
 script:
   - mvn clean verify
 
-jobs:
-  include:
-    - stage: deploy
-      jdk: oraclejdk8
-      script: mvn clean source:jar javadoc:javadoc deploy -DskipTests --settings travis_settings.xml
-      if: branch IN (master) AND type IN (push) AND repo = bootique/bootique-cxf
-
 # travis encrypt -r bootique/bootique-cxf "CI_DEPLOY_USERNAME='name'"
 # travis encrypt -r bootique/bootique-cxf "CI_DEPLOY_PASSWORD='password'"
