@@ -48,14 +48,11 @@ public class CxfJaxwsServerModule extends ConfigModule {
 
     @Provides
     @Singleton
-    public MappedServlet<AbstractHTTPServlet> provideServlet(Set<Endpoint> endpoints, Bus bus, ConfigurationFactory configurationFactory) {
+    public MappedServlet<AbstractHTTPServlet> provideServlet(Set<Endpoint> endpoints, Bus bus, ConfigurationFactory configFactory) {
 
         // TODO the sole purpose of endpoints here is to add them to the Guice dependency graph. Need a better way to achieve that.
 
-        return configurationFactory
-                .config(CxfJaxwsServletFactory.class, configPrefix)
-                .createCxfServlet(bus);
-
+        return config(CxfJaxwsServletFactory.class, configFactory).createCxfServlet(bus);
     }
 
     @Provides

@@ -87,7 +87,7 @@ public class CxfJaxrsModule extends ConfigModule {
     @Singleton
     @Provides
     private CxfJaxrsModuleConfig createCxfFactory(ConfigurationFactory configFactory) {
-        return configFactory.config(CxfJaxrsModuleConfig.class, configPrefix);
+        return config(CxfJaxrsModuleConfig.class, configFactory);
     }
 
     @Singleton
