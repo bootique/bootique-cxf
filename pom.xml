@@ -29,7 +29,7 @@
 
     <groupId>io.bootique.cxf</groupId>
     <artifactId>bootique-cxf-parent</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <packaging>pom</packaging>
 
     <name>bootique-cxf-parent</name>
@@ -56,7 +56,7 @@
     <scm>
         <developerConnection>scm:git:ssh://git@github.com/bootique/bootique-cxf</developerConnection>
         <url>https://github.com/bootique/bootique-cxf</url>
-        <tag>HEAD</tag>
+        <tag>1.1</tag>
     </scm>
 
     <distributionManagement>
