@@ -28,11 +28,9 @@ public class JaxWsProxyFactoryConfigurer implements CustomConfigurer<JaxWsProxyF
 
     @Override
     public void configure(JaxWsProxyFactoryBean proxyFactoryBean) {
-
         proxyFactoryBean.getInInterceptors().addAll(inInterceptors);
         proxyFactoryBean.getOutInterceptors().addAll(outInterceptors);
         proxyFactoryBean.getInFaultInterceptors().addAll(inFaultInterceptors);
         proxyFactoryBean.getOutFaultInterceptors().addAll(outFaultInterceptors);
-
     }
 }

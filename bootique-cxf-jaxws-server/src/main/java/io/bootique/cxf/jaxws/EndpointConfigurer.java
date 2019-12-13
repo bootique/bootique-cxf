@@ -1,7 +1,7 @@
 package io.bootique.cxf.jaxws;
 
-import com.google.inject.Injector;
 import io.bootique.cxf.conf.CustomConfigurer;
+import io.bootique.di.Injector;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.message.Message;

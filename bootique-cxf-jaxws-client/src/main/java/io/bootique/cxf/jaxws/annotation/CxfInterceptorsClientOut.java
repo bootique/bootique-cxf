@@ -1,4 +1,4 @@
-package io.bootique.cxf.jaxws;
+package io.bootique.cxf.jaxws.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -6,11 +6,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import javax.inject.Qualifier;
 
-/**
- * Binding annotation for JAX-WS client named urls
- */
+import io.bootique.cxf.CxfModuleExtender;
+
 @Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Qualifier
-public @interface NamedURLs {
+public @interface CxfInterceptorsClientOut {
 }

@@ -1,9 +1,10 @@
 package io.bootique.cxf;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import io.bootique.cxf.conf.MultisourceBeanLocator;
-import io.bootique.cxf.interceptor.CxfInterceptors;
+import io.bootique.cxf.interceptor.CxfInterceptorsIn;
+import io.bootique.cxf.interceptor.CxfInterceptorsInFault;
+import io.bootique.cxf.interceptor.CxfInterceptorsOut;
+import io.bootique.cxf.interceptor.CxfInterceptorsOutFault;
 import io.bootique.shutdown.ShutdownManager;
 import org.apache.cxf.Bus;
 import org.apache.cxf.BusFactory;
@@ -15,6 +16,8 @@ import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.message.Message;
 
 import java.util.Set;
+import javax.inject.Inject;
+import javax.inject.Provider;
 
 public class BusProvider implements Provider<Bus> {
 
@@ -33,10 +36,10 @@ public class BusProvider implements Provider<Bus> {
             ConfiguredBeanLocator beanLocator,
             Set<Feature> features,
             ShutdownManager shutdownManager,
-            @CxfInterceptors(type = CxfInterceptors.Type.IN) Set<Interceptor<? extends Message>> inInterceptors,
-            @CxfInterceptors(type = CxfInterceptors.Type.OUT)  Set<Interceptor<? extends Message>> outInterceptors,
-            @CxfInterceptors(type = CxfInterceptors.Type.IN_FAULT)  Set<Interceptor<? extends Message>> inFaultInterceptors,
-            @CxfInterceptors(type = CxfInterceptors.Type.OUT_FAULT)  Set<Interceptor<? extends Message>> outFaultInterceptors
+            @CxfInterceptorsIn Set<Interceptor<? extends Message>> inInterceptors,
+            @CxfInterceptorsOut Set<Interceptor<? extends Message>> outInterceptors,
+            @CxfInterceptorsInFault Set<Interceptor<? extends Message>> inFaultInterceptors,
+            @CxfInterceptorsOutFault Set<Interceptor<? extends Message>> outFaultInterceptors
     ) {
 
         this.configurer = configurer;

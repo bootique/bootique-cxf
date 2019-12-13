@@ -1,17 +1,19 @@
 package io.bootique.cxf.interceptor;
 
-
-import com.google.inject.BindingAnnotation;
-import io.bootique.cxf.CxfModuleExtender;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import javax.inject.Qualifier;
 
+/**
+ * @deprecated since 2.0, use one of {@link CxfInterceptorsIn}, {@link CxfInterceptorsOut}, {@link CxfInterceptorsInFault}
+ *             or {@link CxfInterceptorsOutFault} instead.
+ */
 @Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@BindingAnnotation
+@Qualifier
+@Deprecated
 public @interface CxfInterceptors {
 
     enum Type {
@@ -21,7 +23,7 @@ public @interface CxfInterceptors {
         OUT_FAULT;
     }
 
-    String target() default CxfModuleExtender.BUS_INTERCEPTORS;
+    String target() default "bus";
     Type type();
 
 }

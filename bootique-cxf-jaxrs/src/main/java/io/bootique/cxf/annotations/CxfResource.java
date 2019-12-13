@@ -19,12 +19,11 @@
 
 package io.bootique.cxf.annotations;
 
-import com.google.inject.BindingAnnotation;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import javax.inject.Qualifier;
 
 /**
  * Binding annotation for CXF resources.
@@ -34,7 +33,7 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-@BindingAnnotation
+@Qualifier
 public @interface CxfResource {
 }
 

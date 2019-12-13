@@ -1,11 +1,11 @@
 package io.bootique.cxf;
 
-import com.google.inject.Module;
 import io.bootique.BQModuleProvider;
+import io.bootique.di.BQModule;
 
 public class CxfModuleProvider implements BQModuleProvider {
     @Override
-    public Module module() {
+    public BQModule module() {
         return new CxfModule();
     }
 }

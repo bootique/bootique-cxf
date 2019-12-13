@@ -1,12 +1,14 @@
 package io.bootique.cxf.jaxws;
 
-import com.google.inject.Binder;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
 import io.bootique.ConfigModule;
 import io.bootique.config.ConfigurationFactory;
 import io.bootique.cxf.CxfModule;
-import io.bootique.cxf.interceptor.CxfInterceptors;
+import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientIn;
+import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientInFault;
+import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientOut;
+import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientOutFault;
+import io.bootique.di.Binder;
+import io.bootique.di.Provides;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.message.Message;
@@ -17,7 +19,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-import static io.bootique.cxf.jaxws.CxfJaxwsClientModuleExtender.JAX_WS_CLIENT_INTERCEPTORS;
+import javax.inject.Singleton;
 
 public class CxfJaxwsClientModule extends ConfigModule {
 
@@ -33,23 +35,19 @@ public class CxfJaxwsClientModule extends ConfigModule {
 
     @Override
     public void configure(Binder binder) {
-
         CxfJaxwsClientModule.extend(binder).initAllExtensions();
         CxfModule.extend(binder).addCustomConfigurer(JaxWsProxyFactoryBean.class, JaxWsProxyFactoryConfigurer.class, true);
         CxfModule.extend(binder).addCustomConfigurer(URLConnectionHTTPConduit.class, URLConnectionHTTPConduitConfigurer.class, true);
-
     }
 
     @Provides
     @Singleton
     public JaxWsProxyFactoryConfigurer provideProxyFactoryConfigurer(
-            @CxfInterceptors(target = JAX_WS_CLIENT_INTERCEPTORS, type = CxfInterceptors.Type.IN) Set<Interceptor<? extends Message>> inInterceptors,
-            @CxfInterceptors(target = JAX_WS_CLIENT_INTERCEPTORS, type = CxfInterceptors.Type.OUT) Set<Interceptor<? extends Message>> outInterceptors,
-            @CxfInterceptors(target = JAX_WS_CLIENT_INTERCEPTORS, type = CxfInterceptors.Type.IN_FAULT) Set<Interceptor<? extends Message>> inFaultInterceptors,
-            @CxfInterceptors(target = JAX_WS_CLIENT_INTERCEPTORS, type = CxfInterceptors.Type.OUT_FAULT) Set<Interceptor<? extends Message>> outFaultInterceptors
+            @CxfInterceptorsClientIn        Set<Interceptor<? extends Message>> inInterceptors,
+            @CxfInterceptorsClientOut       Set<Interceptor<? extends Message>> outInterceptors,
+            @CxfInterceptorsClientInFault   Set<Interceptor<? extends Message>> inFaultInterceptors,
+            @CxfInterceptorsClientOutFault  Set<Interceptor<? extends Message>> outFaultInterceptors
     ) {
-
-
         return new JaxWsProxyFactoryConfigurer(
                 inInterceptors,
                 outInterceptors,
@@ -57,7 +55,6 @@ public class CxfJaxwsClientModule extends ConfigModule {
                 outFaultInterceptors
         );
     }
-
 
     @Provides
     @Singleton

@@ -1,21 +1,21 @@
 package io.bootique.cxf;
 
-import com.google.inject.Binder;
-import com.google.inject.Injector;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
-import com.google.inject.TypeLiteral;
-import com.google.inject.name.Named;
 import io.bootique.ConfigModule;
 import io.bootique.cxf.conf.CustomConfigurer;
-import io.bootique.cxf.conf.GuiceBeanLocator;
+import io.bootique.cxf.conf.BQBeanLocator;
 import io.bootique.cxf.conf.GuiceConfigurer;
+import io.bootique.di.Binder;
+import io.bootique.di.Injector;
+import io.bootique.di.Provides;
+import io.bootique.di.TypeLiteral;
 import org.apache.cxf.Bus;
 import org.apache.cxf.configuration.ConfiguredBeanLocator;
 import org.apache.cxf.configuration.Configurer;
 
 import java.util.List;
 import java.util.Map;
+import javax.inject.Named;
+import javax.inject.Singleton;
 
 public class CxfModule extends ConfigModule {
 
@@ -26,21 +26,21 @@ public class CxfModule extends ConfigModule {
     @Override
     public void configure(Binder binder) {
         CxfModule.extend(binder).initAllExtensions();
-        binder.bind(Bus.class).toProvider(BusProvider.class).asEagerSingleton();
+        binder.bind(Bus.class).toProvider(BusProvider.class).initOnStartup();
 
-        binder.requestStaticInjection(GuiceBusFactory.class);
+        // TODO: is this call necessary?
+//        binder.requestStaticInjection(GuiceBusFactory.class);
     }
-
 
     @Provides
     @Singleton
     public Configurer provideConfigurer(
             Injector injector,
-            @Named("custom") Map<TypeLiteral, CustomConfigurer> customConfigurers,
-            @Named("default") Map<TypeLiteral, CustomConfigurer> defaultConfigurers
+            @Named("custom") Map<TypeLiteral<?>, CustomConfigurer<?>> customConfigurers,
+            @Named("default") Map<TypeLiteral<?>, CustomConfigurer<?>> defaultConfigurers
     ) {
 
-        Map<TypeLiteral, List<CustomConfigurer>> mergedConfigurers = MapUtils.mergeMaps(
+        Map<TypeLiteral<?>, List<CustomConfigurer<?>>> mergedConfigurers = MapUtils.mergeMaps(
                 defaultConfigurers,
                 customConfigurers
         );
@@ -51,6 +51,6 @@ public class CxfModule extends ConfigModule {
     @Provides
     @Singleton
     public ConfiguredBeanLocator provideLocator(Injector injector) {
-        return new GuiceBeanLocator(injector);
+        return new BQBeanLocator(injector);
     }
 }

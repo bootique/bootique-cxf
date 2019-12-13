@@ -1,8 +1,8 @@
 package io.bootique.cxf.jaxws;
 
-import com.google.inject.Key;
-import com.google.inject.TypeLiteral;
 import io.bootique.BQRuntime;
+import io.bootique.di.Key;
+import io.bootique.di.TypeLiteral;
 import io.bootique.test.junit.BQTestFactory;
 import org.junit.Assert;
 import org.junit.Rule;

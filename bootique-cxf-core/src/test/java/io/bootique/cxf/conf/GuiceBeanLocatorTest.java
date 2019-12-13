@@ -1,36 +1,39 @@
 package io.bootique.cxf.conf;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.multibindings.Multibinder;
-import com.google.inject.name.Names;
+import io.bootique.di.DIBootstrap;
+import io.bootique.di.Injector;
+import io.bootique.di.Key;
+import io.bootique.di.SetBuilder;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GuiceBeanLocatorTest {
 
-    private GuiceBeanLocator locator;
+    private BQBeanLocator locator;
 
     @Before
     public void setUp() throws Exception {
 
-        Injector injector = Guice.createInjector(binder -> {
-            binder.bind(Integer.class).annotatedWith(Names.named("num1")).toInstance(1);
-            binder.bind(Integer.class).annotatedWith(Names.named("num2")).toInstance(2);
+        Injector injector = DIBootstrap.createInjector(binder -> {
+            binder.bind(Key.get(Integer.class, "num1")).toInstance(1);
+            binder.bind(Key.get(Integer.class, "num2")).toInstance(2);
 
             binder.bind(String.class).toInstance("test");
 
-            Multibinder<Boolean> booleanMultibinder = Multibinder.newSetBinder(binder, Boolean.class);
-            booleanMultibinder.addBinding().toInstance(true);
-            booleanMultibinder.addBinding().toInstance(false);
+            SetBuilder<Boolean> booleanMultibinder = binder.bindSet(Boolean.class);
+            booleanMultibinder.add(true);
+            booleanMultibinder.add(false);
 
         });
-        locator = new GuiceBeanLocator(injector);
+        locator = new BQBeanLocator(injector);
 
     }
 
@@ -53,7 +56,7 @@ public class GuiceBeanLocatorTest {
     public void getBeanNamesOfType_regularBeansConfigured() {
         List<String> names = locator.getBeanNamesOfType(String.class);
 
-        Assert.assertEquals(Arrays.asList(String.class.getName()), names);
+        Assert.assertEquals(Collections.singletonList(String.class.getName()), names);
     }
 
     @Test
@@ -91,13 +94,16 @@ public class GuiceBeanLocatorTest {
     @Test
     public void getBeansOfType_regularBeansConfigured() {
 
-        Assert.assertEquals(Arrays.asList("test"), locator.getBeansOfType(String.class));
+        Assert.assertEquals(Collections.singletonList("test"), locator.getBeansOfType(String.class));
     }
 
     @Test
     public void getBeansOfType_multibinding() {
+        Set<Boolean> booleans = new HashSet<>();
+        booleans.add(true);
+        booleans.add(false);
 
-        Assert.assertEquals(Arrays.asList(true, false), locator.getBeansOfType(Boolean.class));
+        Assert.assertEquals(Collections.singletonList(booleans), locator.getBeansOfType(Set.class));
     }
 
     @Test
@@ -110,7 +116,7 @@ public class GuiceBeanLocatorTest {
 
         Assert.assertTrue(locator.hasBeanOfName(Integer.class.getName()));
         Assert.assertTrue(locator.hasBeanOfName(String.class.getName()));
-        Assert.assertTrue(locator.hasBeanOfName(Boolean.class.getName()));
+        Assert.assertTrue(locator.hasBeanOfName(Set.class.getName()));
 
 
     }

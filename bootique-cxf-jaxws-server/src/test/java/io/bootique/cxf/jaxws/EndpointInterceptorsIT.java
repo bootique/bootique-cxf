@@ -1,8 +1,8 @@
 package io.bootique.cxf.jaxws;
 
-import com.google.inject.Key;
-import com.google.inject.TypeLiteral;
 import io.bootique.BQRuntime;
+import io.bootique.di.Key;
+import io.bootique.di.TypeLiteral;
 import io.bootique.test.junit.BQTestFactory;
 import org.apache.cxf.Bus;
 import org.apache.cxf.interceptor.Fault;
@@ -26,6 +26,12 @@ public class EndpointInterceptorsIT {
 
     static class NullInterceptor implements Interceptor<Message> {
 
+        private final String test;
+
+        NullInterceptor(String test) {
+            this.test = test;
+        }
+
         @Override
         public void handleMessage(Message message) throws Fault {
 
@@ -34,6 +40,11 @@ public class EndpointInterceptorsIT {
         @Override
         public void handleFault(Message message) {
 
+        }
+
+        @Override
+        public String toString() {
+            return "NullInterceptor{" + "test='" + test + '\'' + '}';
         }
     }
 
@@ -70,15 +81,15 @@ public class EndpointInterceptorsIT {
     public void testEndpointInterceptors() {
 
 
-        NullInterceptor in = new NullInterceptor();
-        NullInterceptor inFault = new NullInterceptor();
-        NullInterceptor out = new NullInterceptor();
-        NullInterceptor outFault = new NullInterceptor();
+        NullInterceptor in = new NullInterceptor("in");
+        NullInterceptor inFault = new NullInterceptor("inFault");
+        NullInterceptor out = new NullInterceptor("out");
+        NullInterceptor outFault = new NullInterceptor("outFault");
 
-        NullInterceptor in_1 = new NullInterceptor();
-        NullInterceptor inFault_1 = new NullInterceptor();
-        NullInterceptor out_1 = new NullInterceptor();
-        NullInterceptor outFault_1 = new NullInterceptor();
+        NullInterceptor in_1 = new NullInterceptor("in_1");
+        NullInterceptor inFault_1 = new NullInterceptor("inFault_1");
+        NullInterceptor out_1 = new NullInterceptor("out_1");
+        NullInterceptor outFault_1 = new NullInterceptor("outFault_1");
 
         List<Interceptor<Message>> endpointInterceptors = asList(in, out, inFault, out, outFault, in_1, out_1, inFault_1, outFault_1);
 

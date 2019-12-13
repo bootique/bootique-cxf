@@ -1,23 +1,32 @@
 package io.bootique.cxf;
 
-import com.google.inject.Binder;
-import com.google.inject.TypeLiteral;
-import com.google.inject.multibindings.MapBinder;
-import com.google.inject.multibindings.Multibinder;
-import com.google.inject.name.Names;
 import io.bootique.ModuleExtender;
 import io.bootique.cxf.conf.CustomConfigurer;
+import io.bootique.cxf.interceptor.CxfInterceptorAnnotationHolder;
+import io.bootique.cxf.interceptor.CxfInterceptorsIn;
+import io.bootique.cxf.interceptor.CxfInterceptorsInFault;
+import io.bootique.cxf.interceptor.CxfInterceptorsOut;
+import io.bootique.cxf.interceptor.CxfInterceptorsOutFault;
 import io.bootique.cxf.interceptor.InterceptorsContributor;
+import io.bootique.di.Binder;
+import io.bootique.di.MapBuilder;
+import io.bootique.di.SetBuilder;
+import io.bootique.di.TypeLiteral;
 import org.apache.cxf.feature.Feature;
 
 public class CxfModuleExtender extends ModuleExtender<CxfModuleExtender> {
 
 
-    public static final String BUS_INTERCEPTORS = "bus";
+    public static final CxfInterceptorAnnotationHolder BUS_INTERCEPTORS = new CxfInterceptorAnnotationHolder(
+            CxfInterceptorsIn.class,
+            CxfInterceptorsInFault.class,
+            CxfInterceptorsOut.class,
+            CxfInterceptorsOutFault.class
+    );
     private final InterceptorsContributor interceptorsContributor;
-    private MapBinder<TypeLiteral, CustomConfigurer> customConfigurers;
-    private MapBinder<TypeLiteral, CustomConfigurer> defaultConfigurers;
-    private Multibinder<Feature> features;
+    private MapBuilder<TypeLiteral<?>, CustomConfigurer<?>> customConfigurers;
+    private MapBuilder<TypeLiteral<?>, CustomConfigurer<?>> defaultConfigurers;
+    private SetBuilder<Feature> features;
 
 
     public CxfModuleExtender(Binder binder) {
@@ -41,37 +50,34 @@ public class CxfModuleExtender extends ModuleExtender<CxfModuleExtender> {
         return interceptorsContributor;
     }
 
-    public <T, V extends CustomConfigurer<T>> CxfModuleExtender addCustomConfigurer(Class<T> configurable, Class<V> configurer){
+    public <T, V extends CustomConfigurer<T>> CxfModuleExtender addCustomConfigurer(Class<T> configurable,
+                                                                                    Class<V> configurer) {
         addCustomConfigurer(configurable, configurer, false);
         return this;
     }
 
-    public <T, V extends CustomConfigurer<T>> CxfModuleExtender addCustomConfigurer(Class<T> configurable, Class<V> configurer, boolean overrideDefault){
-
-        MapBinder<TypeLiteral, CustomConfigurer> configurers = overrideDefault ? contributeDefaultConfigurers() : contributeCustomConfigurers();
-        configurers.addBinding(TypeLiteral.get(configurable)).to(configurer);
+    public <T, V extends CustomConfigurer<T>> CxfModuleExtender addCustomConfigurer(Class<T> configurable,
+                                                                                    Class<V> configurer,
+                                                                                    boolean overrideDefault) {
+        MapBuilder<TypeLiteral<?>, CustomConfigurer<?>> configurers = overrideDefault ? contributeDefaultConfigurers() : contributeCustomConfigurers();
+        configurers.put(TypeLiteral.of(configurable), configurer);
         return this;
     }
 
 
     public <T extends Feature> CxfModuleExtender addFeature(Class<T> feature) {
-        contributeCxfFeatures().addBinding().to(feature);
+        contributeCxfFeatures().add(feature);
 
         return this;
     }
 
     public <T extends Feature> CxfModuleExtender addFeature(T feature) {
-        contributeCxfFeatures().addBinding().toInstance(feature);
+        contributeCxfFeatures().add(feature);
 
         return this;
     }
 
-
-
-
-
-
-    private Multibinder<Feature> contributeCxfFeatures() {
+    private SetBuilder<Feature> contributeCxfFeatures() {
         if (features == null) {
             features = newSet(Feature.class);
         }
@@ -79,18 +85,18 @@ public class CxfModuleExtender extends ModuleExtender<CxfModuleExtender> {
         return features;
     }
 
-    private MapBinder<TypeLiteral, CustomConfigurer> contributeCustomConfigurers() {
+    private MapBuilder<TypeLiteral<?>, CustomConfigurer<?>> contributeCustomConfigurers() {
         if (customConfigurers == null) {
-            customConfigurers = MapBinder.newMapBinder(binder,TypeLiteral.class, CustomConfigurer.class, Names.named("custom")).permitDuplicates();;
+            customConfigurers = binder.bindMap(new TypeLiteral<TypeLiteral<?>>(){}, new TypeLiteral<CustomConfigurer<?>>(){},"custom");
         }
 
         return customConfigurers;
     }
 
 
-    private MapBinder<TypeLiteral, CustomConfigurer> contributeDefaultConfigurers() {
+    private MapBuilder<TypeLiteral<?>, CustomConfigurer<?>> contributeDefaultConfigurers() {
         if (defaultConfigurers == null) {
-            defaultConfigurers = MapBinder.newMapBinder(binder,TypeLiteral.class, CustomConfigurer.class, Names.named("default")).permitDuplicates();
+            defaultConfigurers = binder.bindMap(new TypeLiteral<TypeLiteral<?>>(){}, new TypeLiteral<CustomConfigurer<?>>(){},"default");
         }
 
         return defaultConfigurers;

@@ -1,36 +1,38 @@
 package io.bootique.cxf.jaxws;
 
-import com.google.inject.Binder;
-import com.google.inject.multibindings.Multibinder;
 import io.bootique.ModuleExtender;
+import io.bootique.cxf.interceptor.CxfInterceptorAnnotationHolder;
 import io.bootique.cxf.interceptor.InterceptorsContributor;
+import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientIn;
+import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientInFault;
+import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientOut;
+import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientOutFault;
+import io.bootique.di.Binder;
+import io.bootique.di.SetBuilder;
 
 import javax.xml.ws.Endpoint;
 
 public class CxfJaxwsClientModuleExtender extends ModuleExtender<CxfJaxwsClientModuleExtender> {
 
-
-    public static final String JAX_WS_CLIENT_INTERCEPTORS = "jaxwsclient";
+    public static final CxfInterceptorAnnotationHolder JAX_WS_CLIENT_INTERCEPTORS = new CxfInterceptorAnnotationHolder(
+            CxfInterceptorsClientIn.class,
+            CxfInterceptorsClientInFault.class,
+            CxfInterceptorsClientOut.class,
+            CxfInterceptorsClientOutFault.class
+    );
     private final InterceptorsContributor interceptorsContributor;
-    private Multibinder<Endpoint> endpoints;
-
+    private SetBuilder<Endpoint> endpoints;
 
     public CxfJaxwsClientModuleExtender(Binder binder) {
         super(binder);
         interceptorsContributor = new InterceptorsContributor(JAX_WS_CLIENT_INTERCEPTORS, binder);
     }
 
-
-
     @Override
     public CxfJaxwsClientModuleExtender initAllExtensions() {
-
-
         interceptorsContributor.init();
-
         return this;
     }
-
 
     /**
      * Gives access to the CXF client interceptors. All added interceptors will be applied only to JAX WS clients.
@@ -40,7 +42,5 @@ public class CxfJaxwsClientModuleExtender extends ModuleExtender<CxfJaxwsClientM
     public InterceptorsContributor contributeClientInterceptors() {
         return interceptorsContributor;
     }
-
-
 
 }

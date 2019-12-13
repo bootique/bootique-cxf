@@ -1,42 +1,48 @@
 package io.bootique.cxf.jaxws;
 
-import com.google.inject.Binder;
-import com.google.inject.Provider;
-import com.google.inject.multibindings.Multibinder;
 import io.bootique.ModuleExtender;
+import io.bootique.cxf.interceptor.CxfInterceptorAnnotationHolder;
 import io.bootique.cxf.interceptor.InterceptorsContributor;
+import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerIn;
+import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerInFault;
+import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerOut;
+import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerOutFault;
+import io.bootique.di.Binder;
+import io.bootique.di.SetBuilder;
 
+import javax.inject.Provider;
 import javax.xml.ws.Endpoint;
 
 public class CxfJaxwsServerModuleExtender extends ModuleExtender<CxfJaxwsServerModuleExtender> {
 
-
-    public static final String JAX_WS_SERVER_INTERCEPTORS = "jaxwsserver";
+    public static final CxfInterceptorAnnotationHolder JAX_WS_SERVER_INTERCEPTORS = new CxfInterceptorAnnotationHolder(
+            CxfInterceptorsServerIn.class,
+            CxfInterceptorsServerInFault.class,
+            CxfInterceptorsServerOut.class,
+            CxfInterceptorsServerOutFault.class
+    );
     private final InterceptorsContributor interceptorsContributor;
-    private Multibinder<Endpoint> endpoints;
-
+    private SetBuilder<Endpoint> endpoints;
 
     public CxfJaxwsServerModuleExtender(Binder binder) {
         super(binder);
         interceptorsContributor = new InterceptorsContributor(JAX_WS_SERVER_INTERCEPTORS, binder);
     }
 
-
-
     @Override
     public CxfJaxwsServerModuleExtender initAllExtensions() {
-
         contributeEndpoints();
-
         interceptorsContributor.init();
+        return this;
+    }
 
+    public CxfJaxwsServerModuleExtender addEndpoint(Class<? extends Provider<? extends Endpoint>> endpointProvider) {
+        contributeEndpoints().addProvider(endpointProvider);
         return this;
     }
 
     public CxfJaxwsServerModuleExtender addEndpoint(Provider<? extends Endpoint> endpointProvider) {
-
-        contributeEndpoints().addBinding().toProvider(endpointProvider);
-
+        contributeEndpoints().addProvider(endpointProvider);
         return this;
     }
 
@@ -44,7 +50,7 @@ public class CxfJaxwsServerModuleExtender extends ModuleExtender<CxfJaxwsServerM
         return interceptorsContributor;
     }
 
-    private Multibinder<Endpoint> contributeEndpoints() {
+    private SetBuilder<Endpoint> contributeEndpoints() {
         if (endpoints == null) {
             endpoints = newSet(Endpoint.class);
         }

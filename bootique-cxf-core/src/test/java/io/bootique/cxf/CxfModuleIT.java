@@ -1,7 +1,7 @@
 package io.bootique.cxf;
 
-import com.google.inject.Key;
 import io.bootique.BQRuntime;
+import io.bootique.di.Key;
 import io.bootique.test.junit.BQTestFactory;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.extension.ExtensionManagerBus;

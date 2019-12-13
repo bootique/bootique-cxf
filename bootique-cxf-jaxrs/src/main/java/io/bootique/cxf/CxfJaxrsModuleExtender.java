@@ -19,27 +19,28 @@
 
 package io.bootique.cxf;
 
-import com.google.inject.Binder;
-import com.google.inject.Key;
-import com.google.inject.multibindings.Multibinder;
 import io.bootique.ModuleExtender;
 import io.bootique.cxf.annotations.CxfFeature;
 import io.bootique.cxf.annotations.CxfResource;
 import io.bootique.cxf.annotations.CxfServlet;
+import io.bootique.di.Binder;
+import io.bootique.di.Key;
+import io.bootique.di.SetBuilder;
+import io.bootique.di.TypeLiteral;
 import io.bootique.jetty.MappedServlet;
 import org.apache.cxf.feature.Feature;
 
 /**
- * Init all {@link Multibinder}s on module loading.
+ * Init all {@link SetBuilder}s on module loading.
  *
  * @author Ruslan Ibragimov
  * @since 1.0.RC1
  */
 public class CxfJaxrsModuleExtender extends ModuleExtender<CxfJaxrsModuleExtender> {
 
-    private Multibinder<Feature> cxfFeatures;
-    private Multibinder<Object> resources;
-    private Multibinder<MappedServlet> servlets;
+    private SetBuilder<Feature> cxfFeatures;
+    private SetBuilder<Object> resources;
+    private SetBuilder<MappedServlet<?>> servlets;
 
     CxfJaxrsModuleExtender(Binder binder) {
         super(binder);
@@ -55,34 +56,34 @@ public class CxfJaxrsModuleExtender extends ModuleExtender<CxfJaxrsModuleExtende
     }
 
     public CxfJaxrsModuleExtender addResource(Object resource) {
-        contributeResources().addBinding().toInstance(resource);
+        contributeResources().add(resource);
         return this;
     }
 
     public CxfJaxrsModuleExtender addResource(Class<?> resource) {
-        contributeResources().addBinding().to(resource);
+        contributeResources().add(resource);
         return this;
     }
 
 
     public <T extends Feature> CxfJaxrsModuleExtender addFeature(Class<T> feature) {
-        contributeCxfFeatures().addBinding().to(feature);
+        contributeCxfFeatures().add(feature);
         return this;
     }
 
     public <T extends Feature> CxfJaxrsModuleExtender addFeature(T feature) {
-        contributeCxfFeatures().addBinding().toInstance(feature);
+        contributeCxfFeatures().add(feature);
         return this;
     }
 
-    protected Multibinder<Object> contributeResources() {
+    protected SetBuilder<Object> contributeResources() {
         if (resources == null) {
             resources = newSet(Key.get(Object.class, CxfResource.class));
         }
         return resources;
     }
 
-    protected Multibinder<Feature> contributeCxfFeatures() {
+    protected SetBuilder<Feature> contributeCxfFeatures() {
         if (cxfFeatures == null) {
             cxfFeatures = newSet(Key.get(Feature.class, CxfFeature.class));
         }
@@ -90,9 +91,9 @@ public class CxfJaxrsModuleExtender extends ModuleExtender<CxfJaxrsModuleExtende
         return cxfFeatures;
     }
 
-    protected Multibinder<MappedServlet> contributeMappedServlet() {
+    protected SetBuilder<MappedServlet<?>> contributeMappedServlet() {
         if (servlets == null) {
-            servlets = newSet(Key.get(MappedServlet.class, CxfServlet.class));
+            servlets = newSet(Key.get(new TypeLiteral<MappedServlet<?>>(){}, CxfServlet.class));
         }
 
         return servlets;

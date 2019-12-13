@@ -1,6 +1,5 @@
 package io.bootique.cxf.jaxws;
 
-import com.google.inject.Inject;
 import io.bootique.BQRuntime;
 import io.bootique.test.junit.BQTestFactory;
 import org.apache.cxf.jaxws.EndpointImpl;
@@ -9,6 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import javax.annotation.Resource;
+import javax.inject.Inject;
 import javax.jws.WebService;
 import javax.xml.ws.Endpoint;
 import javax.xml.ws.WebServiceContext;

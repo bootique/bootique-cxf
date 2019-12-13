@@ -3,6 +3,7 @@ package io.bootique.cxf.interceptor;
 import java.lang.annotation.Annotation;
 import java.util.Objects;
 
+@Deprecated
 class CxfInterceptorsImpl implements CxfInterceptors {
     private final String target;
     private final Type type;

@@ -19,16 +19,15 @@
 
 package io.bootique.cxf;
 
-import com.google.inject.Binder;
-import com.google.inject.Key;
-import com.google.inject.Provides;
-import com.google.inject.Singleton;
-import com.google.inject.TypeLiteral;
 import io.bootique.ConfigModule;
 import io.bootique.config.ConfigurationFactory;
 import io.bootique.cxf.annotations.CxfFeature;
 import io.bootique.cxf.annotations.CxfResource;
 import io.bootique.cxf.annotations.CxfServlet;
+import io.bootique.di.Binder;
+import io.bootique.di.Key;
+import io.bootique.di.Provides;
+import io.bootique.di.TypeLiteral;
 import io.bootique.jetty.JettyModule;
 import io.bootique.jetty.MappedServlet;
 import org.apache.cxf.Bus;
@@ -36,6 +35,7 @@ import org.apache.cxf.feature.Feature;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 
+import javax.inject.Singleton;
 import javax.servlet.Servlet;
 import javax.ws.rs.core.Application;
 import java.util.Collections;
