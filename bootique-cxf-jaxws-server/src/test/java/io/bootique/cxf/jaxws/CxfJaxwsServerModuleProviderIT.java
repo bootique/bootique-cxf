@@ -21,7 +21,7 @@ public class CxfJaxwsServerModuleProviderIT {
 
     @Test
     public void testModuleDeclaresDependencies() {
-        final BQRuntime bqRuntime = testFactory.app().module(new CxfJaxwsServerModuleProvider()).createRuntime();
+        final BQRuntime bqRuntime = testFactory.app().moduleProvider(new CxfJaxwsServerModuleProvider()).createRuntime();
         BQRuntimeChecker.testModulesLoaded(bqRuntime,
                 JettyModule.class,
                 CxfModule.class,
