@@ -41,7 +41,7 @@ Add the module to your Bootique app:
 ...
 <dependency>
     <groupId>io.bootique.cxf</groupId>
-    <artifactId>bootique-cxf-jaxwsserver</artifactId>
+    <artifactId>bootique-cxf-jaxws-server</artifactId>
 </dependency>
 ```
 
