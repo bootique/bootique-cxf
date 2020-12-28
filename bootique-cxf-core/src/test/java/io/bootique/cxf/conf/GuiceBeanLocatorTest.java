@@ -29,8 +29,8 @@ public class GuiceBeanLocatorTest {
             binder.bind(String.class).toInstance("test");
 
             SetBuilder<Boolean> booleanMultibinder = binder.bindSet(Boolean.class);
-            booleanMultibinder.add(true);
-            booleanMultibinder.add(false);
+            booleanMultibinder.addInstance(true);
+            booleanMultibinder.addInstance(false);
 
         });
         locator = new BQBeanLocator(injector);

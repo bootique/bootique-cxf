@@ -37,7 +37,7 @@ public class InterceptorsContributor {
     }
 
     public <T extends Message, V extends Interceptor<T>> InterceptorsContributor addInInterceptor(V interceptor) {
-        contributeInInterceptors().add(interceptor);
+        contributeInInterceptors().addInstance(interceptor);
 
         return this;
     }
@@ -49,7 +49,7 @@ public class InterceptorsContributor {
     }
 
     public <T extends Message, V extends Interceptor<T>> InterceptorsContributor addOutInterceptor(V interceptor) {
-        contributeOutInterceptors().add(interceptor);
+        contributeOutInterceptors().addInstance(interceptor);
 
         return this;
     }
@@ -62,7 +62,7 @@ public class InterceptorsContributor {
     }
 
     public <T extends Message, V extends Interceptor<T>> InterceptorsContributor addInFaultInterceptor(V interceptor) {
-        contributeInFaultInterceptors().add(interceptor);
+        contributeInFaultInterceptors().addInstance(interceptor);
 
         return this;
     }
@@ -74,7 +74,7 @@ public class InterceptorsContributor {
     }
 
     public <T extends Message, V extends Interceptor<T>> InterceptorsContributor addOutFaultInterceptor(V interceptor) {
-        contributeOutFaultInterceptors().add(interceptor);
+        contributeOutFaultInterceptors().addInstance(interceptor);
 
         return this;
     }

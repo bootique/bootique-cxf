@@ -72,7 +72,7 @@ public class CxfModuleExtender extends ModuleExtender<CxfModuleExtender> {
     }
 
     public <T extends Feature> CxfModuleExtender addFeature(T feature) {
-        contributeCxfFeatures().add(feature);
+        contributeCxfFeatures().addInstance(feature);
 
         return this;
     }

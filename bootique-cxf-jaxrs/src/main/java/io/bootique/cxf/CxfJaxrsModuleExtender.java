@@ -56,7 +56,7 @@ public class CxfJaxrsModuleExtender extends ModuleExtender<CxfJaxrsModuleExtende
     }
 
     public CxfJaxrsModuleExtender addResource(Object resource) {
-        contributeResources().add(resource);
+        contributeResources().addInstance(resource);
         return this;
     }
 
@@ -72,7 +72,7 @@ public class CxfJaxrsModuleExtender extends ModuleExtender<CxfJaxrsModuleExtende
     }
 
     public <T extends Feature> CxfJaxrsModuleExtender addFeature(T feature) {
-        contributeCxfFeatures().add(feature);
+        contributeCxfFeatures().addInstance(feature);
         return this;
     }
 

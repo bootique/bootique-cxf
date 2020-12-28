@@ -42,7 +42,7 @@ public class CxfJaxwsServerModuleExtender extends ModuleExtender<CxfJaxwsServerM
     }
 
     public CxfJaxwsServerModuleExtender addEndpoint(Provider<? extends Endpoint> endpointProvider) {
-        contributeEndpoints().addProvider(endpointProvider);
+        contributeEndpoints().addProviderInstance(endpointProvider);
         return this;
     }
 
