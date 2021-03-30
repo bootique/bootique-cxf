@@ -17,7 +17,7 @@
    under the License.
   -->
 
-[![Build Status](https://travis-ci.org/bootique/bootique-cxf.svg)](https://travis-ci.org/bootique/bootique-cxf)
+[![build test deploy 1.x](https://github.com/bootique/bootique-cxf/actions/workflows/maven-1x.yml/badge.svg)](https://github.com/bootique/bootique-cxf/actions/workflows/maven-1x.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/io.bootique.cxf/bootique-cxf.svg?colorB=brightgreen)](https://search.maven.org/artifact/io.bootique.cxf/bootique-cxf/)
 
 # bootique-cxf
