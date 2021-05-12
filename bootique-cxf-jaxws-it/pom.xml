@@ -46,8 +46,8 @@
         <!-- Java 9+ implicit deps -->
 
         <dependency>
-            <groupId>javax.xml.ws</groupId>
-            <artifactId>jaxws-api</artifactId>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
             <version>${jaxws-api.version}</version>
         </dependency>
         <dependency>

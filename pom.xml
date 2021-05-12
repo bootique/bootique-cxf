@@ -49,8 +49,8 @@
         <bootique.version>${project.version}</bootique.version>
         <cxf.version>3.3.1</cxf.version>
         <apache.hc.version>4.5.5</apache.hc.version>
-        <jaxws-api.version>2.3.1</jaxws-api.version>
-        <jaxws-ri.version>2.3.0</jaxws-ri.version>
+        <jaxws-api.version>2.3.3</jaxws-api.version>
+        <jaxws-ri.version>2.3.3</jaxws-ri.version>
     </properties>
 
     <scm>
