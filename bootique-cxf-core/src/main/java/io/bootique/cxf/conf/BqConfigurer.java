@@ -7,11 +7,11 @@ import org.apache.cxf.configuration.Configurer;
 import java.util.List;
 import java.util.Map;
 
-public class GuiceConfigurer implements Configurer {
+public class BqConfigurer implements Configurer {
     private final Injector injector;
     private final Map<TypeLiteral<?>, List<CustomConfigurer<?>>> customConfigurers;
 
-    public GuiceConfigurer(Injector injector, Map<TypeLiteral<?>, List<CustomConfigurer<?>>> customConfigurers) {
+    public BqConfigurer(Injector injector, Map<TypeLiteral<?>, List<CustomConfigurer<?>>> customConfigurers) {
         this.injector = injector;
         this.customConfigurers = customConfigurers;
     }

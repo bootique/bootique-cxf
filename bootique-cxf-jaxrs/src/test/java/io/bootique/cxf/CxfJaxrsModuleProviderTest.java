@@ -26,7 +26,6 @@ import org.junit.Test;
  * Tests bootique module provider contracts.
  *
  * @author Ruslan Ibragimov
- * @since 1.0.RC1
  */
 public class CxfJaxrsModuleProviderTest {
 

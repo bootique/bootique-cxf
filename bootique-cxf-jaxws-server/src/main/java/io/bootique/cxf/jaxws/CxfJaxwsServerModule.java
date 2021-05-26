@@ -48,7 +48,7 @@ public class CxfJaxwsServerModule extends ConfigModule {
     @Singleton
     public MappedServlet<AbstractHTTPServlet> provideServlet(Set<Endpoint> endpoints, Bus bus, ConfigurationFactory configFactory) {
 
-        // TODO the sole purpose of endpoints here is to add them to the Guice dependency graph. Need a better way to achieve that.
+        // TODO the sole purpose of endpoints here is to add them to the BQ dependency graph. Need a better way to achieve that.
 
         return config(CxfJaxwsServletFactory.class, configFactory).createCxfServlet(bus);
     }

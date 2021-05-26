@@ -4,14 +4,14 @@ import io.bootique.di.Injector;
 import io.bootique.di.Key;
 import org.apache.cxf.configuration.ConfiguredBeanLocator;
 
+import javax.inject.Named;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import javax.inject.Named;
 
 /**
- * Adapter for the Guice injector. Delivers the configured beans from the Guice context.
+ * Adapter for the Bootique Injector. Delivers the configured beans from the BQ context.
  * Since the "name" attribute is not mandatory for the Bootique managed beans, tries to use the {@link Named} annotation.
  * Otherwise, will accept class name as a "name".
  */
@@ -53,13 +53,13 @@ public class BQBeanLocator implements ConfiguredBeanLocator {
 
     @Override
     public <T> boolean loadBeansOfType(Class<T> type, BeanLoaderListener<T> listener) {
-        // not supporting that in the Guice managed beans
+        // not supporting that in the Bootique managed beans
         return false;
     }
 
     @Override
     public boolean hasConfiguredPropertyValue(String beanName, String propertyName, String value) {
-        // not supporting that in the Guice managed beans
+        // not supporting that in the Bootique managed beans
         return false;
     }
 

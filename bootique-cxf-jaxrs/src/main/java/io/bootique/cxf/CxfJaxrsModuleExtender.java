@@ -34,7 +34,6 @@ import org.apache.cxf.feature.Feature;
  * Init all {@link SetBuilder}s on module loading.
  *
  * @author Ruslan Ibragimov
- * @since 1.0.RC1
  */
 public class CxfJaxrsModuleExtender extends ModuleExtender<CxfJaxrsModuleExtender> {
 

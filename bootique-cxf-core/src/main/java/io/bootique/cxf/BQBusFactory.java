@@ -3,19 +3,19 @@ package io.bootique.cxf;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.CXFBusFactory;
 
-import java.util.Map;
 import javax.inject.Inject;
 import javax.inject.Provider;
+import java.util.Map;
 
 /**
- * Bridge to provide Guice managed factory for all classes, that will attempt to access Bus from static context
+ * Bridge to provide Bootique managed factory for all classes, that will attempt to access Bus from static context
  */
-public class GuiceBusFactory extends CXFBusFactory {
+public class BQBusFactory extends CXFBusFactory {
 
     @Inject
     private Provider<Bus> busProvider;
 
-    public GuiceBusFactory() {
+    public BQBusFactory() {
         System.out.println("test");
     }
 

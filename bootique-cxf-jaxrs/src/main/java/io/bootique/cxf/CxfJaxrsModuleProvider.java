@@ -34,7 +34,6 @@ import static java.util.Arrays.asList;
  * Standard {@link BQModuleProvider} for {@link CxfJaxrsModule}.
  *
  * @author Ruslan Ibragimov
- * @since 1.0.RC1
  */
 public class CxfJaxrsModuleProvider implements BQModuleProvider {
     @Override

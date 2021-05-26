@@ -1,9 +1,9 @@
 package io.bootique.cxf;
 
 import io.bootique.ConfigModule;
-import io.bootique.cxf.conf.CustomConfigurer;
 import io.bootique.cxf.conf.BQBeanLocator;
-import io.bootique.cxf.conf.GuiceConfigurer;
+import io.bootique.cxf.conf.BqConfigurer;
+import io.bootique.cxf.conf.CustomConfigurer;
 import io.bootique.di.Binder;
 import io.bootique.di.Injector;
 import io.bootique.di.Provides;
@@ -12,10 +12,10 @@ import org.apache.cxf.Bus;
 import org.apache.cxf.configuration.ConfiguredBeanLocator;
 import org.apache.cxf.configuration.Configurer;
 
-import java.util.List;
-import java.util.Map;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import java.util.List;
+import java.util.Map;
 
 public class CxfModule extends ConfigModule {
 
@@ -29,7 +29,7 @@ public class CxfModule extends ConfigModule {
         binder.bind(Bus.class).toProvider(BusProvider.class).initOnStartup();
 
         // TODO: is this call necessary?
-//        binder.requestStaticInjection(GuiceBusFactory.class);
+//        binder.requestStaticInjection(BqBusFactory.class);
     }
 
     @Provides
@@ -45,7 +45,7 @@ public class CxfModule extends ConfigModule {
                 customConfigurers
         );
 
-        return new GuiceConfigurer(injector, mergedConfigurers);
+        return new BqConfigurer(injector, mergedConfigurers);
     }
 
     @Provides
