@@ -8,10 +8,10 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     name: JDK ${{ matrix.java }}
-    continue-on-error: ${{ matrix.java == '16-ea' }}
+    continue-on-error: ${{ matrix.java == '17' }}
     strategy:
       matrix:
-        java: [ 8, 11, 16-ea ]
+        java: [ 8, 11, 17 ]
 
     steps:
       - name: Checkout...
