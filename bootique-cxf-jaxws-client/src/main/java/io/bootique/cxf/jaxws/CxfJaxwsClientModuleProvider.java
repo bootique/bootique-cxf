@@ -22,6 +22,6 @@ public class CxfJaxwsClientModuleProvider implements BQModuleProvider {
 
     @Override
     public Map<String, Type> configs() {
-        return Collections.singletonMap(CxfJaxwsClientModule.CONF_PREFIX, CxfJaxwsClientConfiguration.class);
+        return Collections.singletonMap("cxfjaxwsclient", CxfJaxwsClientConfiguration.class);
     }
 }

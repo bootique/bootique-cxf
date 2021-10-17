@@ -20,7 +20,7 @@ public class CxfJaxwsServerModuleProvider implements BQModuleProvider {
 
     @Override
     public Map<String, Type> configs() {
-        return Collections.singletonMap(CxfJaxwsServerModule.CONF_PREFIX, CxfJaxwsServletFactory.class);
+        return Collections.singletonMap("cxfjaxwsserver", CxfJaxwsServletFactory.class);
     }
 
     @Override
