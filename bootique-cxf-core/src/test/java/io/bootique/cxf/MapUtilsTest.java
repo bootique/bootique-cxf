@@ -1,12 +1,12 @@
 package io.bootique.cxf;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MapUtilsTest {
 
@@ -26,9 +26,8 @@ public class MapUtilsTest {
 
         Map<Integer, List<Integer>> mergedMap = MapUtils.mergeMaps(map1, map2);
 
-        Assert.assertArrayEquals(new Integer[]{1,3}, mergedMap.get(1).toArray());
-        Assert.assertArrayEquals(new Integer[]{1}, mergedMap.get(2).toArray());
-        Assert.assertArrayEquals(new Integer[]{2,1}, mergedMap.get(3).toArray());
-
+        assertArrayEquals(new Integer[]{1, 3}, mergedMap.get(1).toArray());
+        assertArrayEquals(new Integer[]{1}, mergedMap.get(2).toArray());
+        assertArrayEquals(new Integer[]{2, 1}, mergedMap.get(3).toArray());
     }
 }

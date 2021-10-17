@@ -1,20 +1,21 @@
 package io.bootique.cxf.jaxws;
 
 import io.bootique.cxf.CxfModule;
-import io.bootique.test.junit.BQTestFactory;
+import io.bootique.junit5.BQTest;
+import io.bootique.junit5.BQTestFactory;
+import io.bootique.junit5.BQTestTool;
 import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.junit.Assert;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.ws.Endpoint;
+import static org.junit.jupiter.api.Assertions.*;
 
+@BQTest
 public class SimpleJavaFirstIT {
 
-    @ClassRule
-    public static BQTestFactory TEST_FACTORY = new BQTestFactory().autoLoadModules();
-
+    @BQTestTool
+    static final BQTestFactory TEST_FACTORY = new BQTestFactory().autoLoadModules();
 
     @Test
     public void testSimpleService() {
@@ -36,7 +37,6 @@ public class SimpleJavaFirstIT {
         String responseFromClient = helloWorldClient.sayHi("Simple Client");
         String expectedResponse = serviceImpl.sayHi("Simple Client");
 
-        Assert.assertEquals(expectedResponse, responseFromClient);
-
+        assertEquals(expectedResponse, responseFromClient);
     }
 }

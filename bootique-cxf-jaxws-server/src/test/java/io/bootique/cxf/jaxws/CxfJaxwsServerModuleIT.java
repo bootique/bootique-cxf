@@ -3,12 +3,12 @@ package io.bootique.cxf.jaxws;
 import io.bootique.BQRuntime;
 import io.bootique.di.Key;
 import io.bootique.di.TypeLiteral;
-import io.bootique.test.junit.BQTestFactory;
+import io.bootique.junit5.BQTest;
+import io.bootique.junit5.BQTestFactory;
+import io.bootique.junit5.BQTestTool;
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxws.EndpointImpl;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -18,10 +18,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class CxfJaxwsServerModuleTest {
+@BQTest
+public class CxfJaxwsServerModuleIT {
 
-    @Rule
+    @BQTestTool
     public BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
 
     public static class EndpointFactoryProvider1 implements Provider<Endpoint> {
@@ -72,10 +74,11 @@ public class CxfJaxwsServerModuleTest {
                 .map(EndpointImpl::getAddress)
                 .collect(Collectors.toList());
 
-        Assert.assertTrue(publishedEndpoints.containsAll(asList("/factory1", "/factory2", "/provider1", "/provider2")));
+        assertTrue(publishedEndpoints.containsAll(asList("/factory1", "/factory2", "/provider1", "/provider2")));
     }
 
     private Set<Endpoint> getEndpoints(BQRuntime runtime) {
-        return runtime.getInstance(Key.get(new TypeLiteral<Set<Endpoint>>() {}));
+        return runtime.getInstance(Key.get(new TypeLiteral<Set<Endpoint>>() {
+        }));
     }
 }

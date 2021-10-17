@@ -3,15 +3,15 @@ package io.bootique.cxf.jaxws;
 import io.bootique.BQRuntime;
 import io.bootique.di.Key;
 import io.bootique.di.TypeLiteral;
-import io.bootique.test.junit.BQTestFactory;
+import io.bootique.junit5.BQTest;
+import io.bootique.junit5.BQTestFactory;
+import io.bootique.junit5.BQTestTool;
 import org.apache.cxf.Bus;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.message.Message;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.xml.ws.Endpoint;
 import java.util.Collection;
@@ -20,9 +20,10 @@ import java.util.List;
 import java.util.Set;
 
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.*;
 
+@BQTest
 public class EndpointInterceptorsIT {
-
 
     static class NullInterceptor implements Interceptor<Message> {
 
@@ -48,15 +49,13 @@ public class EndpointInterceptorsIT {
         }
     }
 
-    @Rule
-    public BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
+    @BQTestTool
+    final BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
 
     @Test
     public void testNoEndpointInterceptors() {
         BQRuntime runtime = testFactory.app()
-                .module(binder -> {
-                    CxfJaxwsServerModule.extend(binder).addEndpoint(() -> Endpoint.publish("/test", new HelloWorldImpl()));
-                })
+                .module(binder -> CxfJaxwsServerModule.extend(binder).addEndpoint(() -> Endpoint.publish("/test", new HelloWorldImpl())))
                 .createRuntime();
 
 
@@ -65,15 +64,16 @@ public class EndpointInterceptorsIT {
         endpoints.forEach(endpoint -> {
             EndpointImpl cxfEndpoint = (EndpointImpl) endpoint;
 
-            Assert.assertTrue(cxfEndpoint.getInInterceptors().isEmpty());
-            Assert.assertTrue(cxfEndpoint.getOutInterceptors().isEmpty());
-            Assert.assertTrue(cxfEndpoint.getInFaultInterceptors().isEmpty());
-            Assert.assertTrue(cxfEndpoint.getOutFaultInterceptors().isEmpty());
+            assertTrue(cxfEndpoint.getInInterceptors().isEmpty());
+            assertTrue(cxfEndpoint.getOutInterceptors().isEmpty());
+            assertTrue(cxfEndpoint.getInFaultInterceptors().isEmpty());
+            assertTrue(cxfEndpoint.getOutFaultInterceptors().isEmpty());
         });
     }
 
     private Set<Endpoint> getEndpoints(BQRuntime runtime) {
-        return runtime.getInstance(Key.get(new TypeLiteral<Set<Endpoint>>() {}));
+        return runtime.getInstance(Key.get(new TypeLiteral<Set<Endpoint>>() {
+        }));
     }
 
 
@@ -94,37 +94,34 @@ public class EndpointInterceptorsIT {
         List<Interceptor<Message>> endpointInterceptors = asList(in, out, inFault, out, outFault, in_1, out_1, inFault_1, outFault_1);
 
 
-        BQRuntime runtime = testFactory.app().module(binder -> {
-            CxfJaxwsServerModule.extend(binder)
-                    .addEndpoint(() -> {
-                        EndpointImpl endpoint = new EndpointImpl(new HelloWorldImpl());
-                        endpoint.publish("/test");
-                        return endpoint;
-                    })
-                    .addEndpoint(() -> {
-                        EndpointImpl endpoint = new EndpointImpl(new HelloWorldImpl());
-                        endpoint.getInInterceptors().add(in_1);
-                        endpoint.getInFaultInterceptors().add(inFault_1);
-                        endpoint.getOutInterceptors().add(out_1);
-                        endpoint.getOutFaultInterceptors().add(outFault_1);
+        BQRuntime runtime = testFactory.app().module(binder -> CxfJaxwsServerModule.extend(binder)
+                .addEndpoint(() -> {
+                    EndpointImpl endpoint = new EndpointImpl(new HelloWorldImpl());
+                    endpoint.publish("/test");
+                    return endpoint;
+                })
+                .addEndpoint(() -> {
+                    EndpointImpl endpoint = new EndpointImpl(new HelloWorldImpl());
+                    endpoint.getInInterceptors().add(in_1);
+                    endpoint.getInFaultInterceptors().add(inFault_1);
+                    endpoint.getOutInterceptors().add(out_1);
+                    endpoint.getOutFaultInterceptors().add(outFault_1);
 
-                        endpoint.publish("/test_withInterceptors");
-                        return endpoint;
-                    })
-                    .contributeServerInterceptors()
-                    .addInInterceptor(in)
-                    .addOutInterceptor(out)
-                    .addInFaultInterceptor(inFault)
-                    .addOutFaultInterceptor(outFault);
-
-        }).createRuntime();
+                    endpoint.publish("/test_withInterceptors");
+                    return endpoint;
+                })
+                .contributeServerInterceptors()
+                .addInInterceptor(in)
+                .addOutInterceptor(out)
+                .addInFaultInterceptor(inFault)
+                .addOutFaultInterceptor(outFault)).createRuntime();
         Bus bus = runtime.getInstance(Bus.class);
 
         // check that server endpoints are not leaking to bus
-        Assert.assertTrue(Collections.disjoint(bus.getInFaultInterceptors(), endpointInterceptors));
-        Assert.assertTrue(Collections.disjoint(bus.getInInterceptors(), endpointInterceptors));
-        Assert.assertTrue(Collections.disjoint(bus.getOutFaultInterceptors(), endpointInterceptors));
-        Assert.assertTrue(Collections.disjoint(bus.getOutInterceptors(), endpointInterceptors));
+        assertTrue(Collections.disjoint(bus.getInFaultInterceptors(), endpointInterceptors));
+        assertTrue(Collections.disjoint(bus.getInInterceptors(), endpointInterceptors));
+        assertTrue(Collections.disjoint(bus.getOutFaultInterceptors(), endpointInterceptors));
+        assertTrue(Collections.disjoint(bus.getOutInterceptors(), endpointInterceptors));
 
         getEndpoints(runtime).forEach(endpoint -> {
             EndpointImpl cxfEndpoint = (EndpointImpl) endpoint;
@@ -134,8 +131,6 @@ public class EndpointInterceptorsIT {
                 assertEndpointConfiguration(cxfEndpoint, asList(in), asList(out), asList(inFault), asList(outFault));
             }
         });
-
-
     }
 
     private <T extends Interceptor> void assertEndpointConfiguration(
@@ -146,10 +141,9 @@ public class EndpointInterceptorsIT {
             Collection<T> outFault
 
     ) {
-        Assert.assertArrayEquals(endpoint.getInInterceptors().toArray(), in.toArray());
-        Assert.assertArrayEquals(endpoint.getInFaultInterceptors().toArray(), inFault.toArray());
-        Assert.assertArrayEquals(endpoint.getOutInterceptors().toArray(), out.toArray());
-        Assert.assertArrayEquals(endpoint.getOutFaultInterceptors().toArray(), outFault.toArray());
-
+        assertArrayEquals(endpoint.getInInterceptors().toArray(), in.toArray());
+        assertArrayEquals(endpoint.getInFaultInterceptors().toArray(), inFault.toArray());
+        assertArrayEquals(endpoint.getOutInterceptors().toArray(), out.toArray());
+        assertArrayEquals(endpoint.getOutFaultInterceptors().toArray(), outFault.toArray());
     }
 }

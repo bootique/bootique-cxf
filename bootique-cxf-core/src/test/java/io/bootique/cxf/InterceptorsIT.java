@@ -1,17 +1,20 @@
 package io.bootique.cxf;
 
 import io.bootique.BQRuntime;
-import io.bootique.test.junit.BQTestFactory;
+import io.bootique.junit5.BQTest;
+import io.bootique.junit5.BQTestFactory;
+import io.bootique.junit5.BQTestTool;
 import org.apache.cxf.Bus;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.message.Message;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static java.util.Collections.singletonList;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@BQTest
 public class InterceptorsIT {
 
     static class NullInterceptor implements Interceptor<Message> {
@@ -27,20 +30,19 @@ public class InterceptorsIT {
         }
     }
 
-    @Rule
-    public BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
+    @BQTestTool
+    final BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
 
     @Test
     public void testNoBusInterceptors() {
         BQRuntime runtime = testFactory.app().createRuntime();
         Bus bus = runtime.getInstance(Bus.class);
 
-        Assert.assertTrue(bus.getInInterceptors().isEmpty());
-        Assert.assertTrue(bus.getOutInterceptors().isEmpty());
-        Assert.assertTrue(bus.getInFaultInterceptors().isEmpty());
-        Assert.assertTrue(bus.getOutFaultInterceptors().isEmpty());
+        assertTrue(bus.getInInterceptors().isEmpty());
+        assertTrue(bus.getOutInterceptors().isEmpty());
+        assertTrue(bus.getInFaultInterceptors().isEmpty());
+        assertTrue(bus.getOutFaultInterceptors().isEmpty());
     }
-
 
     @Test
     public void testBusInterceptors() {
@@ -52,21 +54,19 @@ public class InterceptorsIT {
         NullInterceptor outFault = new NullInterceptor();
 
 
-        BQRuntime runtime = testFactory.app().module(binder -> {
-            CxfModule.extend(binder)
-                    .contributeBusInterceptors()
-                    .addInInterceptor(in)
-                    .addInFaultInterceptor(inFault)
-                    .addOutInterceptor(out)
-                    .addOutFaultInterceptor(outFault);
-
-        }).createRuntime();
+        BQRuntime runtime = testFactory.app().module(b ->
+                CxfModule.extend(b)
+                        .contributeBusInterceptors()
+                        .addInInterceptor(in)
+                        .addInFaultInterceptor(inFault)
+                        .addOutInterceptor(out)
+                        .addOutFaultInterceptor(outFault)).createRuntime();
         Bus bus = runtime.getInstance(Bus.class);
 
-        Assert.assertArrayEquals(bus.getInInterceptors().toArray(), singletonList(in).toArray());
-        Assert.assertArrayEquals(bus.getInFaultInterceptors().toArray(), singletonList(inFault).toArray());
-        Assert.assertArrayEquals(bus.getOutInterceptors().toArray(), singletonList(out).toArray());
-        Assert.assertArrayEquals(bus.getOutFaultInterceptors().toArray(), singletonList(outFault).toArray());
+        assertArrayEquals(bus.getInInterceptors().toArray(), singletonList(in).toArray());
+        assertArrayEquals(bus.getInFaultInterceptors().toArray(), singletonList(inFault).toArray());
+        assertArrayEquals(bus.getOutInterceptors().toArray(), singletonList(out).toArray());
+        assertArrayEquals(bus.getOutFaultInterceptors().toArray(), singletonList(outFault).toArray());
 
     }
 

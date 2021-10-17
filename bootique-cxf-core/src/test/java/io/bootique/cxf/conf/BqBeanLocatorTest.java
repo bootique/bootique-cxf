@@ -4,23 +4,19 @@ import io.bootique.di.DIBootstrap;
 import io.bootique.di.Injector;
 import io.bootique.di.Key;
 import io.bootique.di.SetBuilder;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BqBeanLocatorTest {
 
     private BQBeanLocator locator;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
 
         Injector injector = DIBootstrap.createInjector(binder -> {
             binder.bind(Key.get(Integer.class, "num1")).toInstance(1);
@@ -41,7 +37,7 @@ public class BqBeanLocatorTest {
     public void getBeanNamesOfType_noBeansConfigured() {
 
         List<String> names = locator.getBeanNamesOfType(Long.class);
-        Assert.assertTrue(names.isEmpty());
+        assertTrue(names.isEmpty());
     }
 
     @Test
@@ -49,52 +45,47 @@ public class BqBeanLocatorTest {
 
         List<String> names = locator.getBeanNamesOfType(Integer.class);
 
-        Assert.assertEquals(Arrays.asList("num1","num2"), names);
+        assertEquals(Arrays.asList("num1","num2"), names);
     }
 
     @Test
     public void getBeanNamesOfType_regularBeansConfigured() {
         List<String> names = locator.getBeanNamesOfType(String.class);
-
-        Assert.assertEquals(Collections.singletonList(String.class.getName()), names);
+        assertEquals(Collections.singletonList(String.class.getName()), names);
     }
 
     @Test
     public void getBeanOfType_noBeansConfigured() {
-
-        Assert.assertNull(locator.getBeanOfType(Long.class.getName(), Long.class));
+        assertNull(locator.getBeanOfType(Long.class.getName(), Long.class));
     }
 
     @Test
     public void getBeanOfType_namedBean() {
-        Assert.assertEquals(Integer.valueOf(1), locator.getBeanOfType("num1", Integer.class));
-        Assert.assertEquals(Integer.valueOf(2), locator.getBeanOfType("num2", Integer.class));
+        assertEquals(Integer.valueOf(1), locator.getBeanOfType("num1", Integer.class));
+        assertEquals(Integer.valueOf(2), locator.getBeanOfType("num2", Integer.class));
     }
 
     @Test
     public void getBeanOfType_regularBean() {
-        Assert.assertEquals("test", locator.getBeanOfType(null, String.class));
-        Assert.assertEquals("test", locator.getBeanOfType(String.class.getName(), String.class));
+        assertEquals("test", locator.getBeanOfType(null, String.class));
+        assertEquals("test", locator.getBeanOfType(String.class.getName(), String.class));
     }
 
     @Test
     public void getBeansOfType_noBeansConfigured() {
-
         Collection<? extends Long> beans = locator.getBeansOfType(Long.class);
-        Assert.assertTrue(beans.isEmpty());
+        assertTrue(beans.isEmpty());
     }
 
 
     @Test
     public void getBeansOfType_namedBeansConfigured() {
-
-        Assert.assertEquals(Arrays.asList(1,2), locator.getBeansOfType(Integer.class));
+        assertEquals(Arrays.asList(1,2), locator.getBeansOfType(Integer.class));
     }
 
     @Test
     public void getBeansOfType_regularBeansConfigured() {
-
-        Assert.assertEquals(Collections.singletonList("test"), locator.getBeansOfType(String.class));
+        assertEquals(Collections.singletonList("test"), locator.getBeansOfType(String.class));
     }
 
     @Test
@@ -102,23 +93,19 @@ public class BqBeanLocatorTest {
         Set<Boolean> booleans = new HashSet<>();
         booleans.add(true);
         booleans.add(false);
-
-        Assert.assertEquals(Collections.singletonList(booleans), locator.getBeansOfType(Set.class));
+        assertEquals(Collections.singletonList(booleans), locator.getBeansOfType(Set.class));
     }
 
     @Test
     public void hasBeanOfName() {
 
         // not supporting named beans
-        Assert.assertFalse(locator.hasBeanOfName("num1"));
+        assertFalse(locator.hasBeanOfName("num1"));
 
-        Assert.assertFalse(locator.hasBeanOfName(Long.class.getName()));
+        assertFalse(locator.hasBeanOfName(Long.class.getName()));
 
-        Assert.assertTrue(locator.hasBeanOfName(Integer.class.getName()));
-        Assert.assertTrue(locator.hasBeanOfName(String.class.getName()));
-        Assert.assertTrue(locator.hasBeanOfName(Set.class.getName()));
-
-
+        assertTrue(locator.hasBeanOfName(Integer.class.getName()));
+        assertTrue(locator.hasBeanOfName(String.class.getName()));
+        assertTrue(locator.hasBeanOfName(Set.class.getName()));
     }
-
 }

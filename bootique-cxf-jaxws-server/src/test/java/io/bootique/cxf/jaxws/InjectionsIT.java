@@ -1,11 +1,11 @@
 package io.bootique.cxf.jaxws;
 
 import io.bootique.BQRuntime;
-import io.bootique.test.junit.BQTestFactory;
+import io.bootique.junit5.BQTest;
+import io.bootique.junit5.BQTestFactory;
+import io.bootique.junit5.BQTestTool;
 import org.apache.cxf.jaxws.EndpointImpl;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -13,6 +13,9 @@ import javax.jws.WebService;
 import javax.xml.ws.Endpoint;
 import javax.xml.ws.WebServiceContext;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+@BQTest
 public class InjectionsIT {
 
     @WebService
@@ -31,10 +34,11 @@ public class InjectionsIT {
 
     }
 
-    public static class Injectee {};
+    public static class Injectee {
+    }
 
-    @Rule
-    public BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
+    @BQTestTool
+    final BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
 
     @Test
     public void testNewInstanceInjections() {
@@ -48,9 +52,8 @@ public class InjectionsIT {
         EndpointImpl endpoint = (EndpointImpl) Endpoint.publish("/test", new HelloWorldWithInjection());
         HelloWorldWithInjection implementor = (HelloWorldWithInjection) endpoint.getImplementor();
 
-        Assert.assertEquals(injectee, implementor.injectee);
-        Assert.assertNotNull(implementor.context);
-
+        assertEquals(injectee, implementor.injectee);
+        assertNotNull(implementor.context);
     }
 
     @Test
@@ -67,7 +70,7 @@ public class InjectionsIT {
         EndpointImpl endpoint = (EndpointImpl) Endpoint.publish("/test", providedImplementor);
         HelloWorldWithInjection implementor = (HelloWorldWithInjection) endpoint.getImplementor();
 
-        Assert.assertEquals(injectee, implementor.injectee);
-        Assert.assertNotNull(implementor.context);
+        assertEquals(injectee, implementor.injectee);
+        assertNotNull(implementor.context);
     }
 }

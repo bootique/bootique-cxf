@@ -19,14 +19,10 @@
 
 package io.bootique.cxf;
 
-import io.bootique.test.junit.BQModuleProviderChecker;
-import org.junit.Test;
 
-/**
- * Tests bootique module provider contracts.
- *
- * @author Ruslan Ibragimov
- */
+import io.bootique.junit5.BQModuleProviderChecker;
+import org.junit.jupiter.api.Test;
+
 public class CxfJaxrsModuleProviderTest {
 
     @Test

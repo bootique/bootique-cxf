@@ -3,16 +3,14 @@ package io.bootique.cxf.jaxws;
 import io.bootique.BQRuntime;
 import io.bootique.cxf.CxfModule;
 import io.bootique.jetty.JettyModule;
-import io.bootique.test.junit.BQModuleProviderChecker;
-import io.bootique.test.junit.BQRuntimeChecker;
-import io.bootique.test.junit.BQTestFactory;
-import org.junit.Rule;
-import org.junit.Test;
+import io.bootique.junit5.*;
+import org.junit.jupiter.api.Test;
 
+@BQTest
 public class CxfJaxwsServerModuleProviderIT {
 
-    @Rule
-    public BQTestFactory testFactory = new BQTestFactory();
+    @BQTestTool
+    final BQTestFactory testFactory = new BQTestFactory();
 
     @Test
     public void testAutoLoadable() {

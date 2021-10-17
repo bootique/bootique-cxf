@@ -1,17 +1,19 @@
 package io.bootique.cxf;
 
 import io.bootique.BQRuntime;
-import io.bootique.test.junit.BQTestFactory;
+import io.bootique.junit5.BQTest;
+import io.bootique.junit5.BQTestFactory;
+import io.bootique.junit5.BQTestTool;
 import org.apache.cxf.Bus;
 import org.apache.cxf.feature.AbstractFeature;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
+@BQTest
 public class FeaturesIT {
 
-    @Rule
-    public BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
+    @BQTestTool
+    final BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
 
     public static class Feature1 extends AbstractFeature {
 
@@ -31,9 +33,8 @@ public class FeaturesIT {
 
         runtime.getInstance(Bus.class);
 
-        Assert.assertTrue(Feature1.LOADED);
+        Assertions.assertTrue(Feature1.LOADED);
     }
-
 
 
 }

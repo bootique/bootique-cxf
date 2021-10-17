@@ -5,44 +5,47 @@ import com.example.customerservice.Customer;
 import com.example.customerservice.CustomerService;
 import com.example.customerservice.CustomerServiceService;
 import com.example.customerservice.NoSuchCustomerException;
+import io.bootique.BQRuntime;
+import io.bootique.Bootique;
 import io.bootique.cxf.CxfModule;
-import io.bootique.test.junit.BQTestFactory;
+import io.bootique.junit5.BQApp;
+import io.bootique.junit5.BQTest;
 import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.jaxws.EndpointImpl;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.net.URL;
 import java.util.Date;
 
 import static io.bootique.cxf.jaxws.CustomerServiceImpl.TEST_CUSTOMER;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@BQTest
 public class WsdlFirstIT {
 
-    @ClassRule
-    public static BQTestFactory TEST_FACTORY = new BQTestFactory().autoLoadModules();
+    @BQApp
+    static final BQRuntime app = Bootique.app("-s")
+            .autoLoadModules()
+            .module(binder -> {
+                // adding logging for both client and a server
+                CxfModule.extend(binder).addFeature(LoggingFeature.class);
+                CxfJaxwsServerModule.extend(binder)
+                        .addEndpoint(() -> {
+                            EndpointImpl endpoint = new EndpointImpl(new CustomerServiceImpl());
+                            endpoint.setWsdlLocation("classpath:CustomerService.wsdl");
+                            endpoint.publish("/test");
+                            return endpoint;
+                        });
+            })
+            .createRuntime();
+
     private static CustomerService CLIENT;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() throws Exception {
-        TEST_FACTORY.app("-s")
-                .module(binder -> {
-                    // adding logging for both client and a server
-                    CxfModule.extend(binder).addFeature(LoggingFeature.class);
-                    CxfJaxwsServerModule.extend(binder)
-                            .addEndpoint(() -> {
-                                EndpointImpl endpoint = new EndpointImpl(new CustomerServiceImpl());
-                                endpoint.setWsdlLocation("classpath:CustomerService.wsdl");
-                                endpoint.publish("/test");
-                                return endpoint;
-                            });
-                })
-                .run();
-
         String wsdlLoc = "http://localhost:8080/test?wsdl";
-
         CustomerServiceService service = new CustomerServiceService(new URL(wsdlLoc));
         CLIENT = service.getCustomerServicePort();
     }
@@ -61,28 +64,25 @@ public class WsdlFirstIT {
 
         Customer testCustomer = CLIENT.getCustomersByName("test").get(0);
 
-
-        Assert.assertEquals(TEST_CUSTOMER.getAddress(), testCustomer.getAddress());
-        Assert.assertEquals(TEST_CUSTOMER.getBirthDate(), testCustomer.getBirthDate());
-        Assert.assertEquals(TEST_CUSTOMER.getCustomerId(), testCustomer.getCustomerId());
-        Assert.assertEquals(TEST_CUSTOMER.getName(), testCustomer.getName());
-        Assert.assertEquals(TEST_CUSTOMER.getNumOrders(), testCustomer.getNumOrders());
-        Assert.assertEquals(TEST_CUSTOMER.getType(), testCustomer.getType());
-
+        assertEquals(TEST_CUSTOMER.getAddress(), testCustomer.getAddress());
+        assertEquals(TEST_CUSTOMER.getBirthDate(), testCustomer.getBirthDate());
+        assertEquals(TEST_CUSTOMER.getCustomerId(), testCustomer.getCustomerId());
+        assertEquals(TEST_CUSTOMER.getName(), testCustomer.getName());
+        assertEquals(TEST_CUSTOMER.getNumOrders(), testCustomer.getNumOrders());
+        assertEquals(TEST_CUSTOMER.getType(), testCustomer.getType());
     }
 
     @Test
-    public void testNonExistingCustomer() throws NoSuchCustomerException {
+    public void testNonExistingCustomer() {
 
         boolean thrown = false;
         try {
             CLIENT.getCustomersByName("noexists");
         } catch (NoSuchCustomerException e) {
             thrown = true;
-            Assert.assertEquals("noexists", e.getFaultInfo().getCustomerName());
+            assertEquals("noexists", e.getFaultInfo().getCustomerName());
         }
 
-        Assert.assertTrue(thrown);
-
+        assertTrue(thrown);
     }
 }

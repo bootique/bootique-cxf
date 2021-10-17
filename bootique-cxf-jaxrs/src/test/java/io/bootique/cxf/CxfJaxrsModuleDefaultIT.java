@@ -19,34 +19,31 @@
 
 package io.bootique.cxf;
 
-import io.bootique.test.junit.BQTestFactory;
+import io.bootique.BQRuntime;
+import io.bootique.Bootique;
+import io.bootique.junit5.BQApp;
+import io.bootique.junit5.BQTest;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.util.EntityUtils;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-/**
- * @author Ruslan Ibragimov
- */
+@BQTest
 public class CxfJaxrsModuleDefaultIT {
-    @Rule
-    public BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
 
-    @Before
-    public void startJetty() {
-        testFactory.app("-s").run();
-    }
+    @BQApp
+    final BQRuntime app = Bootique.app("-s")
+            .autoLoadModules()
+            .createRuntime();
 
     @Test
     public void testResponse() throws IOException {
-        final HttpResponse response = Request.Get("http://localhost:8080/").execute().returnResponse();
+        HttpResponse response = Request.Get("http://localhost:8080/").execute().returnResponse();
 
         assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode());
         assertEquals("CXF REST API Module", EntityUtils.toString(response.getEntity()));

@@ -1,21 +1,18 @@
 package io.bootique.cxf.conf;
 
 import org.apache.cxf.configuration.ConfiguredBeanLocator;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class MultisourceBeanLocatorTest {
 
@@ -23,17 +20,17 @@ public class MultisourceBeanLocatorTest {
     private ConfiguredBeanLocator source2;
     private MultisourceBeanLocator multisourceBeanLocator;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    public void setUp() {
         source1 = mock(ConfiguredBeanLocator.class);
         source2 = mock(ConfiguredBeanLocator.class);
 
         multisourceBeanLocator = new MultisourceBeanLocator(source1, source2);
     }
 
-    @Test(expected = Exception.class)
+    @Test
     public void atLeastOneSourceIsRequired() {
-        new MultisourceBeanLocator();
+        assertThrows(Exception.class, () -> new MultisourceBeanLocator());
     }
 
     @Test
@@ -44,7 +41,7 @@ public class MultisourceBeanLocatorTest {
 
         List<String> names = multisourceBeanLocator.getBeanNamesOfType(Long.class);
 
-        Assert.assertArrayEquals(asList("test", "test2").toArray(), names.toArray());
+        assertArrayEquals(asList("test", "test2").toArray(), names.toArray());
     }
 
     @Test
@@ -55,7 +52,7 @@ public class MultisourceBeanLocatorTest {
 
         List<String> names = multisourceBeanLocator.getBeanNamesOfType(Long.class);
 
-        Assert.assertArrayEquals(asList("test", "test2").toArray(), names.toArray());
+        assertArrayEquals(asList("test", "test2").toArray(), names.toArray());
     }
 
     @Test
@@ -66,7 +63,7 @@ public class MultisourceBeanLocatorTest {
 
         List<String> names = multisourceBeanLocator.getBeanNamesOfType(Long.class);
 
-        Assert.assertArrayEquals(asList("_test", "_test2", "test", "test2").toArray(), names.toArray());
+        assertArrayEquals(asList("_test", "_test2", "test", "test2").toArray(), names.toArray());
     }
 
 
@@ -77,7 +74,7 @@ public class MultisourceBeanLocatorTest {
 
         Long bean = multisourceBeanLocator.getBeanOfType("test", Long.class);
 
-        Assert.assertEquals(3L, bean.longValue());
+        assertEquals(3L, bean.longValue());
     }
 
 
@@ -88,7 +85,7 @@ public class MultisourceBeanLocatorTest {
 
         Long bean = multisourceBeanLocator.getBeanOfType("test", Long.class);
 
-        Assert.assertNull(bean);
+        assertNull(bean);
     }
 
     @Test
@@ -99,7 +96,7 @@ public class MultisourceBeanLocatorTest {
         Long bean = multisourceBeanLocator.getBeanOfType("test", Long.class);
 
         verifyNoMoreInteractions(source2);
-        Assert.assertEquals(2L, bean.longValue());
+        assertEquals(2L, bean.longValue());
     }
 
 
@@ -112,7 +109,7 @@ public class MultisourceBeanLocatorTest {
 
         Collection<? extends Long> beans = multisourceBeanLocator.getBeansOfType(Long.class);
 
-        Assert.assertArrayEquals(asList(2L, 3L).toArray(), beans.toArray());
+        assertArrayEquals(asList(2L, 3L).toArray(), beans.toArray());
     }
 
     @Test
@@ -124,20 +121,18 @@ public class MultisourceBeanLocatorTest {
 
         Collection<? extends Long> beans = multisourceBeanLocator.getBeansOfType(Long.class);
 
-        Assert.assertArrayEquals(asList(2L, 3L).toArray(), beans.toArray());
+        assertArrayEquals(asList(2L, 3L).toArray(), beans.toArray());
     }
 
 
     @Test
     public void testGetBeansOfType_mergeSource() {
-
-
         when(source1.getBeansOfType(eq(Long.class))).thenReturn((Collection) asList(1L, 3L));
         when(source2.getBeansOfType(eq(Long.class))).thenReturn((Collection) asList(2L, 3L));
 
         Collection<? extends Long> beans = multisourceBeanLocator.getBeansOfType(Long.class);
 
-        Assert.assertArrayEquals(asList(1L, 3L, 2L, 3L).toArray(), beans.toArray());
+        assertArrayEquals(asList(1L, 3L, 2L, 3L).toArray(), beans.toArray());
     }
 
     @Test
@@ -156,7 +151,7 @@ public class MultisourceBeanLocatorTest {
         when(source2.hasConfiguredPropertyValue(eq("test"), eq("testProp"), eq("val"))).thenReturn(false);
 
         verifyNoMoreInteractions(source2);
-        Assert.assertTrue(multisourceBeanLocator.hasConfiguredPropertyValue("test", "testProp", "val"));
+        assertTrue(multisourceBeanLocator.hasConfiguredPropertyValue("test", "testProp", "val"));
     }
 
     @Test
@@ -164,7 +159,7 @@ public class MultisourceBeanLocatorTest {
         when(source1.hasConfiguredPropertyValue(eq("test"), eq("testProp"), eq("val"))).thenReturn(false);
         when(source2.hasConfiguredPropertyValue(eq("test"), eq("testProp"), eq("val"))).thenReturn(true);
 
-        Assert.assertTrue(multisourceBeanLocator.hasConfiguredPropertyValue("test", "testProp", "val"));
+        assertTrue(multisourceBeanLocator.hasConfiguredPropertyValue("test", "testProp", "val"));
     }
 
     @Test
@@ -172,7 +167,7 @@ public class MultisourceBeanLocatorTest {
         when(source1.hasConfiguredPropertyValue(eq("test"), eq("testProp"), eq("val"))).thenReturn(false);
         when(source2.hasConfiguredPropertyValue(eq("test"), eq("testProp"), eq("val"))).thenReturn(false);
 
-        Assert.assertFalse(multisourceBeanLocator.hasConfiguredPropertyValue("test", "testProp", "val"));
+        assertFalse(multisourceBeanLocator.hasConfiguredPropertyValue("test", "testProp", "val"));
     }
 
 
@@ -182,7 +177,7 @@ public class MultisourceBeanLocatorTest {
         when(source2.hasBeanOfName(eq("test"))).thenReturn(false);
 
         verifyNoMoreInteractions(source2);
-        Assert.assertTrue(multisourceBeanLocator.hasBeanOfName("test"));
+        assertTrue(multisourceBeanLocator.hasBeanOfName("test"));
     }
 
     @Test
@@ -190,7 +185,7 @@ public class MultisourceBeanLocatorTest {
         when(source1.hasBeanOfName(eq("test"))).thenReturn(false);
         when(source2.hasBeanOfName(eq("test"))).thenReturn(true);
 
-        Assert.assertTrue(multisourceBeanLocator.hasBeanOfName("test"));
+        assertTrue(multisourceBeanLocator.hasBeanOfName("test"));
     }
 
     @Test
@@ -198,6 +193,6 @@ public class MultisourceBeanLocatorTest {
         when(source1.hasBeanOfName(eq("test"))).thenReturn(false);
         when(source2.hasBeanOfName(eq("test"))).thenReturn(false);
 
-        Assert.assertFalse(multisourceBeanLocator.hasBeanOfName("test"));
+        assertFalse(multisourceBeanLocator.hasBeanOfName("test"));
     }
 }

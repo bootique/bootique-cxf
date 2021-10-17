@@ -1,22 +1,24 @@
 package io.bootique.cxf.jaxws;
 
 import io.bootique.BQRuntime;
-import io.bootique.test.junit.BQTestFactory;
+import io.bootique.junit5.BQTest;
+import io.bootique.junit5.BQTestFactory;
+import io.bootique.junit5.BQTestTool;
 import org.apache.cxf.Bus;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.message.Message;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static java.util.Arrays.asList;
 
+@BQTest
 public class JaxWsProxyFactoryInterceptorsIT {
 
     static class NullInterceptor implements Interceptor<Message> {
@@ -32,29 +34,25 @@ public class JaxWsProxyFactoryInterceptorsIT {
         }
     }
 
-    @Rule
-    public BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
+    @BQTestTool
+    final BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
 
     @Test
     public void testNoClientInterceptors() {
-        BQRuntime runtime = testFactory.app()
-                .createRuntime();
-
+        testFactory.app().createRuntime();
 
         JaxWsProxyFactoryBean proxyFactoryBean = new JaxWsProxyFactoryBean();
         HelloWorld client = proxyFactoryBean.create(HelloWorld.class);
 
-
-        Assert.assertTrue(proxyFactoryBean.getInInterceptors().isEmpty());
-        Assert.assertTrue(proxyFactoryBean.getOutInterceptors().isEmpty());
-        Assert.assertTrue(proxyFactoryBean.getInFaultInterceptors().isEmpty());
-        Assert.assertTrue(proxyFactoryBean.getOutFaultInterceptors().isEmpty());
+        assertTrue(proxyFactoryBean.getInInterceptors().isEmpty());
+        assertTrue(proxyFactoryBean.getOutInterceptors().isEmpty());
+        assertTrue(proxyFactoryBean.getInFaultInterceptors().isEmpty());
+        assertTrue(proxyFactoryBean.getOutFaultInterceptors().isEmpty());
     }
 
 
     @Test
     public void testClientInterceptors() {
-
 
         NullInterceptor in = new NullInterceptor();
         NullInterceptor inFault = new NullInterceptor();
@@ -93,10 +91,10 @@ public class JaxWsProxyFactoryInterceptorsIT {
 
 
         // check that server endpoints are not leaking to bus
-        Assert.assertTrue(Collections.disjoint(bus.getInFaultInterceptors(), endpointInterceptors));
-        Assert.assertTrue(Collections.disjoint(bus.getInInterceptors(), endpointInterceptors));
-        Assert.assertTrue(Collections.disjoint(bus.getOutFaultInterceptors(), endpointInterceptors));
-        Assert.assertTrue(Collections.disjoint(bus.getOutInterceptors(), endpointInterceptors));
+        assertTrue(Collections.disjoint(bus.getInFaultInterceptors(), endpointInterceptors));
+        assertTrue(Collections.disjoint(bus.getInInterceptors(), endpointInterceptors));
+        assertTrue(Collections.disjoint(bus.getOutFaultInterceptors(), endpointInterceptors));
+        assertTrue(Collections.disjoint(bus.getOutInterceptors(), endpointInterceptors));
 
         assertClientConfiguration(proxyFactoryBean, asList(in_1, in), asList(out_1, out), asList(inFault_1, inFault), asList(outFault_1, outFault));
         assertClientConfiguration(proxyFactoryBean2, asList(in), asList(out), asList(inFault), asList(outFault));
@@ -109,13 +107,10 @@ public class JaxWsProxyFactoryInterceptorsIT {
             Collection<T> in,
             Collection<T> out,
             Collection<T> inFault,
-            Collection<T> outFault
-
-    ) {
-        Assert.assertArrayEquals(factoryBean.getInInterceptors().toArray(), in.toArray());
-        Assert.assertArrayEquals(factoryBean.getInFaultInterceptors().toArray(), inFault.toArray());
-        Assert.assertArrayEquals(factoryBean.getOutInterceptors().toArray(), out.toArray());
-        Assert.assertArrayEquals(factoryBean.getOutFaultInterceptors().toArray(), outFault.toArray());
-
+            Collection<T> outFault) {
+        assertArrayEquals(factoryBean.getInInterceptors().toArray(), in.toArray());
+        assertArrayEquals(factoryBean.getInFaultInterceptors().toArray(), inFault.toArray());
+        assertArrayEquals(factoryBean.getOutInterceptors().toArray(), out.toArray());
+        assertArrayEquals(factoryBean.getOutFaultInterceptors().toArray(), outFault.toArray());
     }
 }
