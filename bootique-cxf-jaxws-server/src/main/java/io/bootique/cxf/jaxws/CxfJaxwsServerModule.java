@@ -25,14 +25,8 @@ import java.util.Set;
 
 public class CxfJaxwsServerModule extends ConfigModule {
 
-    public static final String CONF_PREFIX = "cxfjaxwsserver";
-
     public static CxfJaxwsServerModuleExtender extend(Binder binder) {
         return new CxfJaxwsServerModuleExtender(binder);
-    }
-
-    public CxfJaxwsServerModule() {
-        super(CONF_PREFIX);
     }
 
     @Override

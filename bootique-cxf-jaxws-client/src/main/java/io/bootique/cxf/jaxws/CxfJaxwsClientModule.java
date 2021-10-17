@@ -14,23 +14,16 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.http.URLConnectionHTTPConduit;
 
+import javax.inject.Singleton;
 import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-import javax.inject.Singleton;
-
 public class CxfJaxwsClientModule extends ConfigModule {
-
-    public static final String CONF_PREFIX = "cxfjaxwsclient";
 
     public static CxfJaxwsClientModuleExtender extend(Binder binder) {
         return new CxfJaxwsClientModuleExtender(binder);
-    }
-
-    public CxfJaxwsClientModule() {
-        super(CONF_PREFIX);
     }
 
     @Override
@@ -59,7 +52,7 @@ public class CxfJaxwsClientModule extends ConfigModule {
     @Provides
     @Singleton
     public CxfJaxwsClientConfiguration provideConfiguration(ConfigurationFactory configurationFactory) {
-        return configurationFactory.config(CxfJaxwsClientConfiguration.class, CONF_PREFIX);
+        return config(CxfJaxwsClientConfiguration.class, configurationFactory);
     }
 
     @Provides
