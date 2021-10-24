@@ -11,7 +11,7 @@ jobs:
     continue-on-error: ${{ matrix.java == '17' }}
     strategy:
       matrix:
-        java: [ 8, 11, 17 ]
+        java: [ 11, 17 ]
 
     steps:
       - name: Checkout...
@@ -49,7 +49,7 @@ jobs:
         # skip this for the release versions
         if: contains(env.POM_VERSION, '-SNAPSHOT')
         with:
-          java-version: 1.8
+          java-version: 11
 
       - name: Retrieve mvn repo cache...
         uses: actions/cache@v2
