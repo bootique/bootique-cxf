@@ -18,7 +18,7 @@
   -->
 
 [![build test deploy](https://github.com/bootique/bootique-cxf/actions/workflows/maven.yml/badge.svg)](https://github.com/bootique/bootique-cxf/actions/workflows/maven.yml)
-[![Maven Central](https://img.shields.io/maven-central/v/io.bootique.cxf/bootique-cxf.svg?colorB=brightgreen)](https://search.maven.org/artifact/io.bootique.cxf/bootique-cxf/)
+[![Maven Central](https://img.shields.io/maven-central/v/io.bootique.cxf/bootique-cxf-core.svg?colorB=brightgreen)](https://search.maven.org/artifact/io.bootique.cxf/bootique-cxf-core/)
 
 # bootique-cxf
 
