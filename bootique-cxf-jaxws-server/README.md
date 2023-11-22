@@ -32,7 +32,7 @@ Add the module to your Bootique app:
         <dependency>
             <groupId>io.bootique.bom</groupId>
             <artifactId>bootique-bom</artifactId>
-            <version>3.0.M1</version>
+            <version>3.0.M2</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
