@@ -34,7 +34,7 @@ public class MultisourceBeanLocatorTest {
     }
 
     @Test
-    public void testGetBeanNamesOfType_emptySource() {
+    public void getBeanNamesOfType_emptySource() {
 
         when(source1.getBeanNamesOfType(eq(Long.class))).thenReturn(emptyList());
         when(source2.getBeanNamesOfType(eq(Long.class))).thenReturn(asList("test", "test2"));
@@ -45,7 +45,7 @@ public class MultisourceBeanLocatorTest {
     }
 
     @Test
-    public void testGetBeanNamesOfType_nullSource() {
+    public void getBeanNamesOfType_nullSource() {
 
         when(source1.getBeanNamesOfType(eq(Long.class))).thenReturn(null);
         when(source2.getBeanNamesOfType(eq(Long.class))).thenReturn(asList("test", "test2"));
@@ -56,7 +56,7 @@ public class MultisourceBeanLocatorTest {
     }
 
     @Test
-    public void testGetBeanNamesOfType_mergeResults() {
+    public void getBeanNamesOfType_mergeResults() {
 
         when(source1.getBeanNamesOfType(eq(Long.class))).thenReturn(asList("_test", "_test2"));
         when(source2.getBeanNamesOfType(eq(Long.class))).thenReturn(asList("test", "test2"));
@@ -68,7 +68,7 @@ public class MultisourceBeanLocatorTest {
 
 
     @Test
-    public void testGetBeanOfType_nullFirstSource() {
+    public void getBeanOfType_nullFirstSource() {
         when(source1.getBeanOfType(anyString(), eq(Long.class))).thenReturn(null);
         when(source2.getBeanOfType(anyString(), eq(Long.class))).thenReturn(3L);
 
@@ -79,7 +79,7 @@ public class MultisourceBeanLocatorTest {
 
 
     @Test
-    public void testGetBeanOfType_nullBothSources() {
+    public void getBeanOfType_nullBothSources() {
         when(source1.getBeanOfType(anyString(), eq(Long.class))).thenReturn(null);
         when(source2.getBeanOfType(anyString(), eq(Long.class))).thenReturn(null);
 
@@ -89,7 +89,7 @@ public class MultisourceBeanLocatorTest {
     }
 
     @Test
-    public void testGetBeanOfType_notNullBothSources() {
+    public void getBeanOfType_notNullBothSources() {
         when(source1.getBeanOfType(anyString(), eq(Long.class))).thenReturn(2L);
         when(source2.getBeanOfType(anyString(), eq(Long.class))).thenReturn(3L);
 
@@ -101,7 +101,7 @@ public class MultisourceBeanLocatorTest {
 
 
     @Test
-    public void testGetBeansOfType_emptySource() {
+    public void getBeansOfType_emptySource() {
 
 
         when(source1.getBeansOfType(eq(Long.class))).thenReturn(emptyList());
@@ -113,7 +113,7 @@ public class MultisourceBeanLocatorTest {
     }
 
     @Test
-    public void testGetBeansOfType_nullSource() {
+    public void getBeansOfType_nullSource() {
 
 
         when(source1.getBeansOfType(eq(Long.class))).thenReturn(null);
@@ -126,7 +126,7 @@ public class MultisourceBeanLocatorTest {
 
 
     @Test
-    public void testGetBeansOfType_mergeSource() {
+    public void getBeansOfType_mergeSource() {
         when(source1.getBeansOfType(eq(Long.class))).thenReturn((Collection) asList(1L, 3L));
         when(source2.getBeansOfType(eq(Long.class))).thenReturn((Collection) asList(2L, 3L));
 
@@ -136,7 +136,7 @@ public class MultisourceBeanLocatorTest {
     }
 
     @Test
-    public void testLoadBeansOfType() {
+    public void loadBeansOfType() {
 
         ConfiguredBeanLocator.BeanLoaderListener listener = mock(ConfiguredBeanLocator.BeanLoaderListener.class);
         multisourceBeanLocator.loadBeansOfType(Long.class, listener);
@@ -146,7 +146,7 @@ public class MultisourceBeanLocatorTest {
     }
 
     @Test
-    public void testHasConfiguredPropertyValue_firstLocator() {
+    public void hasConfiguredPropertyValue_firstLocator() {
         when(source1.hasConfiguredPropertyValue(eq("test"), eq("testProp"), eq("val"))).thenReturn(true);
         when(source2.hasConfiguredPropertyValue(eq("test"), eq("testProp"), eq("val"))).thenReturn(false);
 
@@ -155,7 +155,7 @@ public class MultisourceBeanLocatorTest {
     }
 
     @Test
-    public void testHasConfiguredPropertyValue_secondLocator() {
+    public void hasConfiguredPropertyValue_secondLocator() {
         when(source1.hasConfiguredPropertyValue(eq("test"), eq("testProp"), eq("val"))).thenReturn(false);
         when(source2.hasConfiguredPropertyValue(eq("test"), eq("testProp"), eq("val"))).thenReturn(true);
 
@@ -163,7 +163,7 @@ public class MultisourceBeanLocatorTest {
     }
 
     @Test
-    public void testHasConfiguredPropertyValue_noLocator() {
+    public void hasConfiguredPropertyValue_noLocator() {
         when(source1.hasConfiguredPropertyValue(eq("test"), eq("testProp"), eq("val"))).thenReturn(false);
         when(source2.hasConfiguredPropertyValue(eq("test"), eq("testProp"), eq("val"))).thenReturn(false);
 
@@ -172,7 +172,7 @@ public class MultisourceBeanLocatorTest {
 
 
     @Test
-    public void testHasBeanOfName_firstLocator() {
+    public void hasBeanOfName_firstLocator() {
         when(source1.hasBeanOfName(eq("test"))).thenReturn(true);
         when(source2.hasBeanOfName(eq("test"))).thenReturn(false);
 
@@ -181,7 +181,7 @@ public class MultisourceBeanLocatorTest {
     }
 
     @Test
-    public void testHasBeanOfName_secondLocator() {
+    public void hasBeanOfName_secondLocator() {
         when(source1.hasBeanOfName(eq("test"))).thenReturn(false);
         when(source2.hasBeanOfName(eq("test"))).thenReturn(true);
 
@@ -189,7 +189,7 @@ public class MultisourceBeanLocatorTest {
     }
 
     @Test
-    public void testHasBeanOfName_noLocator() {
+    public void hasBeanOfName_noLocator() {
         when(source1.hasBeanOfName(eq("test"))).thenReturn(false);
         when(source2.hasBeanOfName(eq("test"))).thenReturn(false);
 

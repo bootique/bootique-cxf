@@ -18,7 +18,7 @@ public class SimpleJavaFirstIT {
     static final BQTestFactory TEST_FACTORY = new BQTestFactory().autoLoadModules();
 
     @Test
-    public void testSimpleService() {
+    public void simpleService() {
 
         HelloWorldImpl serviceImpl = new HelloWorldImpl();
         TEST_FACTORY.app("-s")

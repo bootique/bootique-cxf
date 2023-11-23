@@ -34,7 +34,7 @@ public class InterceptorsIT {
     final BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
 
     @Test
-    public void testNoBusInterceptors() {
+    public void noBusInterceptors() {
         BQRuntime runtime = testFactory.app().createRuntime();
         Bus bus = runtime.getInstance(Bus.class);
 
@@ -45,7 +45,7 @@ public class InterceptorsIT {
     }
 
     @Test
-    public void testBusInterceptors() {
+    public void busInterceptors() {
 
 
         NullInterceptor in = new NullInterceptor();

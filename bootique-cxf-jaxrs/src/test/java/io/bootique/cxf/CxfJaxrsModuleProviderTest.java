@@ -26,13 +26,13 @@ import org.junit.jupiter.api.Test;
 public class CxfJaxrsModuleProviderTest {
 
     @Test
-    public void testAutoLoadable() {
+    public void autoLoadable() {
         BQModuleProviderChecker.testAutoLoadable(CxfJaxrsModuleProvider.class);
 
     }
 
     @Test
-    public void testMetadata() {
+    public void metadata() {
         BQModuleProviderChecker.testMetadata(CxfJaxrsModuleProvider.class);
     }
 }

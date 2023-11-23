@@ -23,7 +23,7 @@ public class CxfModuleIT {
     static class TestBus extends ExtensionManagerBus {}
 
     @Test
-    public void testOverrideBusImplementation() {
+    public void overrideBusImplementation() {
 
         BQRuntime runtime = testFactory.app()
                 .override(CxfModule.class)
@@ -36,7 +36,7 @@ public class CxfModuleIT {
     }
 
     @Test
-    public void testDefaultContents() {
+    public void defaultContents() {
         BQRuntime runtime = testFactory.app().createRuntime();
 
         assertNotNull(runtime.getInstance(Key.get(Bus.class)));

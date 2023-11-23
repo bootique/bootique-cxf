@@ -59,7 +59,7 @@ public class CxfJaxwsServerModuleIT {
     }
 
     @Test
-    public void testProvideEndpointsFromDifferentModules() {
+    public void provideEndpointsFromDifferentModules() {
         BQRuntime runtime = testFactory.app()
                 .module(binder -> CxfJaxwsServerModule.extend(binder)
                         .addEndpoint(EndpointFactoryProvider1.class)

@@ -42,7 +42,7 @@ public class CxfJaxrsModuleDefaultIT {
             .createRuntime();
 
     @Test
-    public void testResponse() throws IOException {
+    public void response() throws IOException {
         HttpResponse response = Request.Get("http://localhost:8080/").execute().returnResponse();
 
         assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode());

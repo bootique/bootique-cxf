@@ -41,7 +41,7 @@ public class InjectionsIT {
     final BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
 
     @Test
-    public void testNewInstanceInjections() {
+    public void newInstanceInjections() {
         Injectee injectee = new Injectee();
 
         testFactory.app().module(binder -> {
@@ -57,7 +57,7 @@ public class InjectionsIT {
     }
 
     @Test
-    public void testProvidedInjections() {
+    public void providedInjections() {
         Injectee injectee = new Injectee();
 
         BQRuntime runtime = testFactory.app().module(binder -> {

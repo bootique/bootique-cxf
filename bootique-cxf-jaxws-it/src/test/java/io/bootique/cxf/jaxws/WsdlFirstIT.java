@@ -51,7 +51,7 @@ public class WsdlFirstIT {
     }
 
     @Test
-    public void testUpdateCustomer() throws Exception {
+    public void updateCustomer() {
 
         Customer customer = new Customer();
         customer.setBirthDate(new Date());
@@ -60,7 +60,7 @@ public class WsdlFirstIT {
     }
 
     @Test
-    public void testExistingCustomer() throws NoSuchCustomerException {
+    public void existingCustomer() throws NoSuchCustomerException {
 
         Customer testCustomer = CLIENT.getCustomersByName("test").get(0);
 
@@ -73,7 +73,7 @@ public class WsdlFirstIT {
     }
 
     @Test
-    public void testNonExistingCustomer() {
+    public void nonExistingCustomer() {
 
         boolean thrown = false;
         try {

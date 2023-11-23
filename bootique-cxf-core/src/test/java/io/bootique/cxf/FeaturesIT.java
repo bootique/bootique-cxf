@@ -26,7 +26,7 @@ public class FeaturesIT {
     }
 
     @Test
-    public void testFeatureIsLoaded() {
+    public void featureIsLoaded() {
         BQRuntime runtime = testFactory.app().module(binder -> {
             CxfModule.extend(binder).addFeature(Feature1.class);
         }).createRuntime();

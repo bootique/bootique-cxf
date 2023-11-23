@@ -38,7 +38,7 @@ public class JaxWsProxyFactoryInterceptorsIT {
     final BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
 
     @Test
-    public void testNoClientInterceptors() {
+    public void noClientInterceptors() {
         testFactory.app().createRuntime();
 
         JaxWsProxyFactoryBean proxyFactoryBean = new JaxWsProxyFactoryBean();
@@ -52,7 +52,7 @@ public class JaxWsProxyFactoryInterceptorsIT {
 
 
     @Test
-    public void testClientInterceptors() {
+    public void clientInterceptors() {
 
         NullInterceptor in = new NullInterceptor();
         NullInterceptor inFault = new NullInterceptor();

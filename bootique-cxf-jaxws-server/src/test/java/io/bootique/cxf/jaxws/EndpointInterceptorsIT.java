@@ -53,7 +53,7 @@ public class EndpointInterceptorsIT {
     final BQTestFactory testFactory = new BQTestFactory().autoLoadModules();
 
     @Test
-    public void testNoEndpointInterceptors() {
+    public void noEndpointInterceptors() {
         BQRuntime runtime = testFactory.app()
                 .module(binder -> CxfJaxwsServerModule.extend(binder).addEndpoint(() -> Endpoint.publish("/test", new HelloWorldImpl())))
                 .createRuntime();
@@ -78,7 +78,7 @@ public class EndpointInterceptorsIT {
 
 
     @Test
-    public void testEndpointInterceptors() {
+    public void endpointInterceptors() {
 
 
         NullInterceptor in = new NullInterceptor("in");
