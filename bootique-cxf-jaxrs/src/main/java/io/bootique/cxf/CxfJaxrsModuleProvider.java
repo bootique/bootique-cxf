@@ -42,6 +42,7 @@ public class CxfJaxrsModuleProvider implements BQModuleProvider {
     }
 
     @Override
+    @Deprecated(since = "3.0", forRemoval = true)
     public Collection<BQModuleProvider> dependencies() {
         return asList(
                 new JettyModuleProvider(),
