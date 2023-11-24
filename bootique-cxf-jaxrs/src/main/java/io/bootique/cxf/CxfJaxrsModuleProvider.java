@@ -20,32 +20,25 @@
 package io.bootique.cxf;
 
 import io.bootique.BQModuleProvider;
-import io.bootique.di.BQModule;
+import io.bootique.bootstrap.BuiltModule;
 import io.bootique.jetty.JettyModuleProvider;
 
-import java.lang.reflect.Type;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
 
 import static java.util.Arrays.asList;
 
 /**
  * Standard {@link BQModuleProvider} for {@link CxfJaxrsModule}.
- *
- * @author Ruslan Ibragimov
  */
 public class CxfJaxrsModuleProvider implements BQModuleProvider {
-    @Override
-    public BQModule module() {
-        return new CxfJaxrsModule();
-    }
 
     @Override
-    public Map<String, Type> configs() {
-        // TODO: config prefix is hardcoded. Refactor away from ConfigModule, and make provider
-        // generate config prefix, reusing it in metadata...
-        return Collections.singletonMap("cxf", CxfJaxrsModuleConfig.class);
+    public BuiltModule buildModule() {
+        return BuiltModule.of(new CxfJaxrsModule())
+                .provider(this)
+                .description("Integrates Apache CXF JAX-RS engine")
+                .config("cxf", CxfJaxrsModuleConfig.class)
+                .build();
     }
 
     @Override

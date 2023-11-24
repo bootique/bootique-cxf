@@ -1,27 +1,25 @@
 package io.bootique.cxf.jaxws;
 
 import io.bootique.BQModuleProvider;
+import io.bootique.bootstrap.BuiltModule;
 import io.bootique.cxf.CxfModuleProvider;
-import io.bootique.di.BQModule;
 
-import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
 
 public class CxfJaxwsClientModuleProvider implements BQModuleProvider {
+
     @Override
-    public BQModule module() {
-        return new CxfJaxwsClientModule();
+    public BuiltModule buildModule() {
+        return BuiltModule.of(new CxfJaxwsClientModule())
+                .provider(this)
+                .description("Integrates Apache CXF JAX-WS client")
+                .config("cxfjaxwsclient", CxfJaxwsClientConfiguration.class)
+                .build();
     }
 
     @Override
     public Collection<BQModuleProvider> dependencies() {
         return Collections.singletonList(new CxfModuleProvider());
-    }
-
-    @Override
-    public Map<String, Type> configs() {
-        return Collections.singletonMap("cxfjaxwsclient", CxfJaxwsClientConfiguration.class);
     }
 }
