@@ -1,1 +1,1 @@
-io.bootique.cxf.jaxws.CxfJaxwsServerModuleProvider
+io.bootique.cxf.jaxws.CxfJaxwsServerModule

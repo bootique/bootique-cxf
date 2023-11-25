@@ -1,17 +1,16 @@
 package io.bootique.cxf.jaxws;
 
-import io.bootique.ConfigModule;
+import io.bootique.BQModuleProvider;
+import io.bootique.bootstrap.BuiltModule;
 import io.bootique.config.ConfigurationFactory;
 import io.bootique.cxf.CxfModule;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerIn;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerInFault;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerOut;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerOutFault;
-import io.bootique.di.Binder;
-import io.bootique.di.Injector;
-import io.bootique.di.Provides;
-import io.bootique.di.TypeLiteral;
+import io.bootique.di.*;
 import io.bootique.jetty.JettyModule;
+import io.bootique.jetty.JettyModuleProvider;
 import io.bootique.jetty.MappedServlet;
 import org.apache.cxf.Bus;
 import org.apache.cxf.interceptor.Interceptor;
@@ -21,12 +20,35 @@ import org.apache.cxf.transport.servlet.AbstractHTTPServlet;
 
 import javax.inject.Singleton;
 import javax.xml.ws.Endpoint;
+import java.util.Collection;
 import java.util.Set;
 
-public class CxfJaxwsServerModule extends ConfigModule {
+import static java.util.Arrays.asList;
+
+public class CxfJaxwsServerModule implements BQModule, BQModuleProvider {
+
+    private static final String CONFIG_PREFIX = "cxfjaxwsserver";
 
     public static CxfJaxwsServerModuleExtender extend(Binder binder) {
         return new CxfJaxwsServerModuleExtender(binder);
+    }
+
+    @Override
+    public BuiltModule buildModule() {
+        return BuiltModule.of(this)
+                .provider(this)
+                .description("Integrates Apache CXF JAX-WS server engine")
+                .config(CONFIG_PREFIX, CxfJaxwsServletFactory.class)
+                .build();
+    }
+
+    @Override
+    @Deprecated(since = "3.0", forRemoval = true)
+    public Collection<BQModuleProvider> dependencies() {
+        return asList(
+                new JettyModuleProvider(),
+                new CxfModule()
+        );
     }
 
     @Override
@@ -43,8 +65,7 @@ public class CxfJaxwsServerModule extends ConfigModule {
     public MappedServlet<AbstractHTTPServlet> provideServlet(Set<Endpoint> endpoints, Bus bus, ConfigurationFactory configFactory) {
 
         // TODO the sole purpose of endpoints here is to add them to the BQ dependency graph. Need a better way to achieve that.
-
-        return config(CxfJaxwsServletFactory.class, configFactory).createCxfServlet(bus);
+        return configFactory.config(CxfJaxwsServletFactory.class, CONFIG_PREFIX).createCxfServlet(bus);
     }
 
     @Provides

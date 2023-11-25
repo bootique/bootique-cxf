@@ -23,16 +23,16 @@ package io.bootique.cxf;
 import io.bootique.junit5.BQModuleProviderChecker;
 import org.junit.jupiter.api.Test;
 
-public class CxfJaxrsModuleProviderTest {
+public class CxfJaxrsModuleTest {
 
     @Test
     public void autoLoadable() {
-        BQModuleProviderChecker.testAutoLoadable(CxfJaxrsModuleProvider.class);
+        BQModuleProviderChecker.testAutoLoadable(CxfJaxrsModule.class);
 
     }
 
     @Test
     public void metadata() {
-        BQModuleProviderChecker.testMetadata(CxfJaxrsModuleProvider.class);
+        BQModuleProviderChecker.testMetadata(CxfJaxrsModule.class);
     }
 }

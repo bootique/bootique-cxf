@@ -19,16 +19,15 @@
 
 package io.bootique.cxf;
 
-import io.bootique.ConfigModule;
+import io.bootique.BQModuleProvider;
+import io.bootique.bootstrap.BuiltModule;
 import io.bootique.config.ConfigurationFactory;
 import io.bootique.cxf.annotations.CxfFeature;
 import io.bootique.cxf.annotations.CxfResource;
 import io.bootique.cxf.annotations.CxfServlet;
-import io.bootique.di.Binder;
-import io.bootique.di.Key;
-import io.bootique.di.Provides;
-import io.bootique.di.TypeLiteral;
+import io.bootique.di.*;
 import io.bootique.jetty.JettyModule;
+import io.bootique.jetty.JettyModuleProvider;
 import io.bootique.jetty.MappedServlet;
 import org.apache.cxf.Bus;
 import org.apache.cxf.feature.Feature;
@@ -38,17 +37,18 @@ import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 import javax.inject.Singleton;
 import javax.servlet.Servlet;
 import javax.ws.rs.core.Application;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
+import static java.util.Arrays.asList;
 
 /**
  * CXF module.
  *
  * @author Ruslan Ibragimov
  */
-public class CxfJaxrsModule extends ConfigModule {
+public class CxfJaxrsModule implements BQModule, BQModuleProvider {
+
+    private static final String CONFIG_PREFIX = "cxfjaxrs";
 
     /**
      * Returns an instance of {@link CxfJaxrsModuleExtender} used by downstream modules to load custom extensions of
@@ -59,6 +59,24 @@ public class CxfJaxrsModule extends ConfigModule {
      */
     public static CxfJaxrsModuleExtender extend(Binder binder) {
         return new CxfJaxrsModuleExtender(binder);
+    }
+
+    @Override
+    public BuiltModule buildModule() {
+        return BuiltModule.of(this)
+                .provider(this)
+                .description("Integrates Apache CXF JAX-RS engine")
+                .config(CONFIG_PREFIX, CxfJaxrsModuleConfig.class)
+                .build();
+    }
+
+    @Override
+    @Deprecated(since = "3.0", forRemoval = true)
+    public Collection<BQModuleProvider> dependencies() {
+        return asList(
+                new JettyModuleProvider(),
+                new CxfModule()
+        );
     }
 
     @Override
@@ -85,7 +103,7 @@ public class CxfJaxrsModule extends ConfigModule {
     @Singleton
     @Provides
     private CxfJaxrsModuleConfig createCxfFactory(ConfigurationFactory configFactory) {
-        return config(CxfJaxrsModuleConfig.class, configFactory);
+        return configFactory.config(CxfJaxrsModuleConfig.class, CONFIG_PREFIX);
     }
 
     @Singleton
