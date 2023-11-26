@@ -20,7 +20,7 @@
 package io.bootique.cxf;
 
 import io.bootique.BQModuleProvider;
-import io.bootique.bootstrap.BuiltModule;
+import io.bootique.ModuleCrate;
 import io.bootique.config.ConfigurationFactory;
 import io.bootique.cxf.annotations.CxfFeature;
 import io.bootique.cxf.annotations.CxfResource;
@@ -62,8 +62,8 @@ public class CxfJaxrsModule implements BQModule, BQModuleProvider {
     }
 
     @Override
-    public BuiltModule buildModule() {
-        return BuiltModule.of(this)
+    public ModuleCrate moduleCrate() {
+        return ModuleCrate.of(this)
                 .provider(this)
                 .description("Integrates Apache CXF JAX-RS engine")
                 .config(CONFIG_PREFIX, CxfJaxrsModuleConfig.class)

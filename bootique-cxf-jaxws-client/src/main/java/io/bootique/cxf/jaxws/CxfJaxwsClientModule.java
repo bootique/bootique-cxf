@@ -1,7 +1,7 @@
 package io.bootique.cxf.jaxws;
 
 import io.bootique.BQModuleProvider;
-import io.bootique.bootstrap.BuiltModule;
+import io.bootique.ModuleCrate;
 import io.bootique.config.ConfigurationFactory;
 import io.bootique.cxf.CxfModule;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientIn;
@@ -32,8 +32,8 @@ public class CxfJaxwsClientModule implements BQModule, BQModuleProvider {
     }
 
     @Override
-    public BuiltModule buildModule() {
-        return BuiltModule.of(this)
+    public ModuleCrate moduleCrate() {
+        return ModuleCrate.of(this)
                 .provider(this)
                 .description("Integrates Apache CXF JAX-WS client")
                 .config(CONFIG_PREFIX, CxfJaxwsClientConfiguration.class)

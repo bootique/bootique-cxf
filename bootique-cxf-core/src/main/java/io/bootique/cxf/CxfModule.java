@@ -1,7 +1,7 @@
 package io.bootique.cxf;
 
 import io.bootique.BQModuleProvider;
-import io.bootique.bootstrap.BuiltModule;
+import io.bootique.ModuleCrate;
 import io.bootique.cxf.conf.BQBeanLocator;
 import io.bootique.cxf.conf.BqConfigurer;
 import io.bootique.cxf.conf.CustomConfigurer;
@@ -22,8 +22,8 @@ public class CxfModule implements BQModule, BQModuleProvider {
     }
 
     @Override
-    public BuiltModule buildModule() {
-        return BuiltModule.of(this)
+    public ModuleCrate moduleCrate() {
+        return ModuleCrate.of(this)
                 .provider(this)
                 .description("Integrates Apache CXF core")
                 .build();
