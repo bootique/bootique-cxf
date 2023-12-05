@@ -1,6 +1,6 @@
 package io.bootique.cxf.jaxws;
 
-import io.bootique.BQModuleProvider;
+import io.bootique.BQModule;
 import io.bootique.ModuleCrate;
 import io.bootique.config.ConfigurationFactory;
 import io.bootique.cxf.CxfModule;
@@ -8,7 +8,6 @@ import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientIn;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientInFault;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientOut;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientOutFault;
-import io.bootique.di.BQModule;
 import io.bootique.di.Binder;
 import io.bootique.di.Provides;
 import org.apache.cxf.interceptor.Interceptor;
@@ -18,12 +17,11 @@ import org.apache.cxf.transport.http.URLConnectionHTTPConduit;
 
 import javax.inject.Singleton;
 import java.net.URL;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-public class CxfJaxwsClientModule implements BQModule, BQModuleProvider {
+public class CxfJaxwsClientModule implements BQModule {
 
     private static final String CONFIG_PREFIX = "cxfjaxwsclient";
 
@@ -32,20 +30,12 @@ public class CxfJaxwsClientModule implements BQModule, BQModuleProvider {
     }
 
     @Override
-    public ModuleCrate moduleCrate() {
+    public ModuleCrate crate() {
         return ModuleCrate.of(this)
-                .provider(this)
                 .description("Integrates Apache CXF JAX-WS client")
                 .config(CONFIG_PREFIX, CxfJaxwsClientConfiguration.class)
                 .build();
     }
-
-    @Override
-    @Deprecated(since = "3.0", forRemoval = true)
-    public Collection<BQModuleProvider> dependencies() {
-        return Collections.singletonList(new CxfModule());
-    }
-
 
     @Override
     public void configure(Binder binder) {

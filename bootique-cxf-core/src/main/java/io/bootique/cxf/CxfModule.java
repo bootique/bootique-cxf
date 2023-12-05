@@ -1,11 +1,14 @@
 package io.bootique.cxf;
 
-import io.bootique.BQModuleProvider;
+import io.bootique.BQModule;
 import io.bootique.ModuleCrate;
 import io.bootique.cxf.conf.BQBeanLocator;
 import io.bootique.cxf.conf.BqConfigurer;
 import io.bootique.cxf.conf.CustomConfigurer;
-import io.bootique.di.*;
+import io.bootique.di.Binder;
+import io.bootique.di.Injector;
+import io.bootique.di.Provides;
+import io.bootique.di.TypeLiteral;
 import org.apache.cxf.Bus;
 import org.apache.cxf.configuration.ConfiguredBeanLocator;
 import org.apache.cxf.configuration.Configurer;
@@ -15,16 +18,15 @@ import javax.inject.Singleton;
 import java.util.List;
 import java.util.Map;
 
-public class CxfModule implements BQModule, BQModuleProvider {
+public class CxfModule implements BQModule {
 
     public static CxfModuleExtender extend(Binder binder) {
         return new CxfModuleExtender(binder);
     }
 
     @Override
-    public ModuleCrate moduleCrate() {
+    public ModuleCrate crate() {
         return ModuleCrate.of(this)
-                .provider(this)
                 .description("Integrates Apache CXF core")
                 .build();
     }

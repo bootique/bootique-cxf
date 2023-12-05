@@ -16,17 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-
-package io.bootique.cxf;
-
+package io.bootique.cxf.jaxws;
 
 import io.bootique.junit5.BQModuleTester;
 import org.junit.jupiter.api.Test;
 
-public class CxfJaxrsModuleTest {
+public class CxfJaxwsServerModuleTest {
 
     @Test
     public void check() {
-        BQModuleTester.of(CxfJaxrsModule.class).testAutoLoadable().testConfig();
+        BQModuleTester.of(CxfJaxwsServerModule.class).testAutoLoadable().testConfig();
     }
 }

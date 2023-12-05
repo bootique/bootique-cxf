@@ -1,6 +1,6 @@
 package io.bootique.cxf;
 
-import io.bootique.junit5.BQModuleProviderChecker;
+import io.bootique.junit5.BQModuleTester;
 import io.bootique.junit5.BQTest;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 public class CxfModuleTest {
 
     @Test
-    public void testAutoLoading() {
-        BQModuleProviderChecker.testAutoLoadable(CxfModule.class);
+    public void check() {
+        BQModuleTester.of(CxfModule.class).testAutoLoadable().testConfig();
     }
 }

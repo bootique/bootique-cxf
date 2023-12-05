@@ -1,6 +1,6 @@
 package io.bootique.cxf.jaxws;
 
-import io.bootique.BQModuleProvider;
+import io.bootique.BQModule;
 import io.bootique.ModuleCrate;
 import io.bootique.config.ConfigurationFactory;
 import io.bootique.cxf.CxfModule;
@@ -8,9 +8,11 @@ import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerIn;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerInFault;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerOut;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerOutFault;
-import io.bootique.di.*;
+import io.bootique.di.Binder;
+import io.bootique.di.Injector;
+import io.bootique.di.Provides;
+import io.bootique.di.TypeLiteral;
 import io.bootique.jetty.JettyModule;
-import io.bootique.jetty.JettyModuleProvider;
 import io.bootique.jetty.MappedServlet;
 import org.apache.cxf.Bus;
 import org.apache.cxf.interceptor.Interceptor;
@@ -20,12 +22,9 @@ import org.apache.cxf.transport.servlet.AbstractHTTPServlet;
 
 import javax.inject.Singleton;
 import javax.xml.ws.Endpoint;
-import java.util.Collection;
 import java.util.Set;
 
-import static java.util.Arrays.asList;
-
-public class CxfJaxwsServerModule implements BQModule, BQModuleProvider {
+public class CxfJaxwsServerModule implements BQModule {
 
     private static final String CONFIG_PREFIX = "cxfjaxwsserver";
 
@@ -34,21 +33,11 @@ public class CxfJaxwsServerModule implements BQModule, BQModuleProvider {
     }
 
     @Override
-    public ModuleCrate moduleCrate() {
+    public ModuleCrate crate() {
         return ModuleCrate.of(this)
-                .provider(this)
                 .description("Integrates Apache CXF JAX-WS server engine")
                 .config(CONFIG_PREFIX, CxfJaxwsServletFactory.class)
                 .build();
-    }
-
-    @Override
-    @Deprecated(since = "3.0", forRemoval = true)
-    public Collection<BQModuleProvider> dependencies() {
-        return asList(
-                new JettyModuleProvider(),
-                new CxfModule()
-        );
     }
 
     @Override

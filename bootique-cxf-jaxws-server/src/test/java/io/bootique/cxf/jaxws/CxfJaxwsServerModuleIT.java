@@ -1,11 +1,11 @@
 package io.bootique.cxf.jaxws;
 
 import io.bootique.BQRuntime;
-import io.bootique.cxf.CxfModule;
 import io.bootique.di.Key;
 import io.bootique.di.TypeLiteral;
-import io.bootique.jetty.JettyModule;
-import io.bootique.junit5.*;
+import io.bootique.junit5.BQTest;
+import io.bootique.junit5.BQTestFactory;
+import io.bootique.junit5.BQTestTool;
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @BQTest
 public class CxfJaxwsServerModuleIT {
@@ -56,21 +56,6 @@ public class CxfJaxwsServerModuleIT {
             endpoint.publish("/factory2");
             return endpoint;
         }
-    }
-
-    @Test
-    public void autoLoadable() {
-        BQModuleProviderChecker.testAutoLoadable(CxfJaxwsServerModule.class);
-    }
-
-    @Test
-    public void moduleDeclaresDependencies() {
-        final BQRuntime bqRuntime = testFactory.app().moduleProvider(new CxfJaxwsServerModule()).createRuntime();
-        BQRuntimeChecker.testModulesLoaded(bqRuntime,
-                JettyModule.class,
-                CxfModule.class,
-                CxfJaxwsServerModule.class
-        );
     }
 
     @Test

@@ -19,15 +19,17 @@
 
 package io.bootique.cxf;
 
-import io.bootique.BQModuleProvider;
+import io.bootique.BQModule;
 import io.bootique.ModuleCrate;
 import io.bootique.config.ConfigurationFactory;
 import io.bootique.cxf.annotations.CxfFeature;
 import io.bootique.cxf.annotations.CxfResource;
 import io.bootique.cxf.annotations.CxfServlet;
-import io.bootique.di.*;
+import io.bootique.di.Binder;
+import io.bootique.di.Key;
+import io.bootique.di.Provides;
+import io.bootique.di.TypeLiteral;
 import io.bootique.jetty.JettyModule;
-import io.bootique.jetty.JettyModuleProvider;
 import io.bootique.jetty.MappedServlet;
 import org.apache.cxf.Bus;
 import org.apache.cxf.feature.Feature;
@@ -37,16 +39,17 @@ import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 import javax.inject.Singleton;
 import javax.servlet.Servlet;
 import javax.ws.rs.core.Application;
-import java.util.*;
-
-import static java.util.Arrays.asList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * CXF module.
  *
  * @author Ruslan Ibragimov
  */
-public class CxfJaxrsModule implements BQModule, BQModuleProvider {
+public class CxfJaxrsModule implements BQModule {
 
     private static final String CONFIG_PREFIX = "cxfjaxrs";
 
@@ -62,21 +65,11 @@ public class CxfJaxrsModule implements BQModule, BQModuleProvider {
     }
 
     @Override
-    public ModuleCrate moduleCrate() {
+    public ModuleCrate crate() {
         return ModuleCrate.of(this)
-                .provider(this)
                 .description("Integrates Apache CXF JAX-RS engine")
                 .config(CONFIG_PREFIX, CxfJaxrsModuleConfig.class)
                 .build();
-    }
-
-    @Override
-    @Deprecated(since = "3.0", forRemoval = true)
-    public Collection<BQModuleProvider> dependencies() {
-        return asList(
-                new JettyModuleProvider(),
-                new CxfModule()
-        );
     }
 
     @Override
