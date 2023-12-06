@@ -15,9 +15,9 @@ import org.apache.cxf.feature.Feature;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.message.Message;
 
-import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Provider;
+import java.util.Set;
 
 public class BusProvider implements Provider<Bus> {
 
@@ -56,7 +56,6 @@ public class BusProvider implements Provider<Bus> {
     public Bus get() {
         ExtensionManagerBus bus = new ExtensionManagerBus();
 
-
         ConfiguredBeanLocator originalLocator = bus.getExtension(ConfiguredBeanLocator.class);
 
         MultisourceBeanLocator multisourceBeanLocator = new MultisourceBeanLocator(beanLocator, originalLocator);
@@ -75,9 +74,6 @@ public class BusProvider implements Provider<Bus> {
 
         BusFactory.possiblySetDefaultBus(bus);
 
-        shutdownManager.addShutdownHook(bus::shutdown);
-
-
-        return bus;
+        return shutdownManager.onShutdown(bus, b -> b.shutdown());
     }
 }
