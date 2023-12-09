@@ -14,7 +14,6 @@ import io.bootique.di.Provides;
 import io.bootique.di.TypeLiteral;
 import io.bootique.jetty.JettyModule;
 import io.bootique.jetty.MappedServlet;
-import org.apache.cxf.Bus;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.message.Message;
@@ -46,24 +45,27 @@ public class CxfJaxwsServerModule implements BQModule {
         CxfJaxwsServerModule.extend(binder).initAllExtensions();
         CxfModule.extend(binder).addCustomConfigurer(EndpointImpl.class, EndpointConfigurer.class, true);
 
-        JettyModule.extend(binder).addMappedServlet(new TypeLiteral<MappedServlet<AbstractHTTPServlet>>() {});
+        JettyModule.extend(binder).addMappedServlet(new TypeLiteral<MappedServlet<AbstractHTTPServlet>>() {
+        });
     }
 
     @Provides
     @Singleton
-    public MappedServlet<AbstractHTTPServlet> provideServlet(Set<Endpoint> endpoints, Bus bus, ConfigurationFactory configFactory) {
+    public MappedServlet<AbstractHTTPServlet> provideServlet(ConfigurationFactory configFactory, Set<Endpoint> endpoints) {
 
-        // TODO the sole purpose of endpoints here is to add them to the BQ dependency graph. Need a better way to achieve that.
-        return configFactory.config(CxfJaxwsServletFactory.class, CONFIG_PREFIX).createCxfServlet(bus);
+        // TODO the sole purpose of endpoints parameter is a side effect of eager init of endpoints. Is there a CXF
+        //   API that actually connects them to the servlet?
+
+        return configFactory.config(CxfJaxwsServletFactory.class, CONFIG_PREFIX).createServlet();
     }
 
     @Provides
     @Singleton
     public EndpointConfigurer provideEndpointConfigurer(
-            @CxfInterceptorsServerIn        Set<Interceptor<? extends Message>> inInterceptors,
-            @CxfInterceptorsServerOut       Set<Interceptor<? extends Message>> outInterceptors,
-            @CxfInterceptorsServerInFault   Set<Interceptor<? extends Message>> inFaultInterceptors,
-            @CxfInterceptorsServerOutFault  Set<Interceptor<? extends Message>> outFaultInterceptors,
+            @CxfInterceptorsServerIn Set<Interceptor<? extends Message>> inInterceptors,
+            @CxfInterceptorsServerOut Set<Interceptor<? extends Message>> outInterceptors,
+            @CxfInterceptorsServerInFault Set<Interceptor<? extends Message>> inFaultInterceptors,
+            @CxfInterceptorsServerOutFault Set<Interceptor<? extends Message>> outFaultInterceptors,
             Injector injector
     ) {
         return new EndpointConfigurer(
@@ -74,7 +76,6 @@ public class CxfJaxwsServerModule implements BQModule {
                 injector
         );
     }
-
 
 
 }

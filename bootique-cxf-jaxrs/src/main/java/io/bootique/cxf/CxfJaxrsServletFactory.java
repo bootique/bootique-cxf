@@ -25,7 +25,10 @@ import io.bootique.jetty.MappedServlet;
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
 import javax.ws.rs.core.Application;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -34,12 +37,21 @@ import java.util.Set;
 @BQConfig("Configures the servlet that is an entry point to CXF REST API engine.")
 public class CxfJaxrsServletFactory {
 
+    private final Provider<Application> application;
+    private final Provider<Bus> bus;
+
     private String urlPattern;
     private String welcomeText;
 
-    public MappedServlet<CXFNonSpringJaxrsServlet> createServlet(Application application, Bus bus) {
-        CXFNonSpringJaxrsServlet servlet = new CXFNonSpringJaxrsServlet(application);
-        servlet.setBus(bus);
+    @Inject
+    public CxfJaxrsServletFactory(Provider<Application> application, Provider<Bus> bus) {
+        this.application = Objects.requireNonNull(application);
+        this.bus = Objects.requireNonNull(bus);
+    }
+
+    public MappedServlet<CXFNonSpringJaxrsServlet> createServlet() {
+        CXFNonSpringJaxrsServlet servlet = new CXFNonSpringJaxrsServlet(application.get());
+        servlet.setBus(bus.get());
 
         String urlPattern = this.urlPattern != null ? this.urlPattern : "/*";
         return new MappedServlet<>(servlet, Set.of(urlPattern));

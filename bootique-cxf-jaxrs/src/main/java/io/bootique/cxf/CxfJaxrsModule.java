@@ -30,14 +30,12 @@ import io.bootique.di.Provides;
 import io.bootique.di.TypeLiteral;
 import io.bootique.jetty.JettyModule;
 import io.bootique.jetty.MappedServlet;
-import org.apache.cxf.Bus;
 import org.apache.cxf.feature.Feature;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 
 import javax.inject.Singleton;
 import javax.ws.rs.core.Application;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -89,25 +87,14 @@ public class CxfJaxrsModule implements BQModule {
 
     @Singleton
     @Provides
-    MappedServlet<CXFNonSpringJaxrsServlet> createCxfServlet(
-            ConfigurationFactory configFactory,
-            Application application,
-            Bus bus) {
-
-        return configFactory.config(CxfJaxrsServletFactory.class, CONFIG_PREFIX).createServlet(application, bus);
+    MappedServlet<CXFNonSpringJaxrsServlet> createCxfServlet(ConfigurationFactory configFactory) {
+        return configFactory.config(CxfJaxrsServletFactory.class, CONFIG_PREFIX).createServlet();
     }
 
     @Singleton
     @Provides
-    Application createApplication(
-            @CxfResource Set<Object> resources,
-            @CxfFeature Set<Feature> features) {
-
-        Map<String, String> props = new HashMap<>();
-
-        // TODO deliver interceptors in module extender
-        props.put("jaxrs.inInterceptors", LoggingInInterceptor.class.getName());
-
+    Application createApplication(@CxfResource Set<Object> resources, @CxfFeature Set<Feature> features) {
+        Map<String, String> props = Map.of("jaxrs.inInterceptors", LoggingInInterceptor.class.getName());
         return new CxfApplication(resources, features, props);
     }
 }

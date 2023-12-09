@@ -57,6 +57,4 @@ public class CxfJaxwsServerModuleExtender extends ModuleExtender<CxfJaxwsServerM
 
         return endpoints;
     }
-
-
 }
