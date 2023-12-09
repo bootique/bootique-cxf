@@ -22,24 +22,18 @@ package io.bootique.cxf;
 import io.bootique.ModuleExtender;
 import io.bootique.cxf.annotations.CxfFeature;
 import io.bootique.cxf.annotations.CxfResource;
-import io.bootique.cxf.annotations.CxfServlet;
 import io.bootique.di.Binder;
 import io.bootique.di.Key;
 import io.bootique.di.SetBuilder;
-import io.bootique.di.TypeLiteral;
-import io.bootique.jetty.MappedServlet;
 import org.apache.cxf.feature.Feature;
 
 /**
  * Init all {@link SetBuilder}s on module loading.
- *
- * @author Ruslan Ibragimov
  */
 public class CxfJaxrsModuleExtender extends ModuleExtender<CxfJaxrsModuleExtender> {
 
     private SetBuilder<Feature> cxfFeatures;
     private SetBuilder<Object> resources;
-    private SetBuilder<MappedServlet<?>> servlets;
 
     CxfJaxrsModuleExtender(Binder binder) {
         super(binder);
@@ -49,8 +43,6 @@ public class CxfJaxrsModuleExtender extends ModuleExtender<CxfJaxrsModuleExtende
     public CxfJaxrsModuleExtender initAllExtensions() {
         contributeCxfFeatures();
         contributeResources();
-        contributeMappedServlet();
-
         return this;
     }
 
@@ -88,13 +80,5 @@ public class CxfJaxrsModuleExtender extends ModuleExtender<CxfJaxrsModuleExtende
         }
 
         return cxfFeatures;
-    }
-
-    protected SetBuilder<MappedServlet<?>> contributeMappedServlet() {
-        if (servlets == null) {
-            servlets = newSet(Key.get(new TypeLiteral<MappedServlet<?>>(){}, CxfServlet.class));
-        }
-
-        return servlets;
     }
 }

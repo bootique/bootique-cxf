@@ -19,29 +19,24 @@
 
 package io.bootique.cxf;
 
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-/**
- * Default service.
- *
- * @author Ruslan Ibragimov
- */
+// TODO: why do we need a "default" resource? Remove?
 public class CxfDefaultService {
-    private final CxfJaxrsModuleConfig config;
 
-    @Inject
-    public CxfDefaultService(CxfJaxrsModuleConfig config) {
-        this.config = config;
+    private final String welcomeText;
+
+    public CxfDefaultService(String welcomeText) {
+        this.welcomeText = welcomeText;
     }
 
     @GET()
     @Path("/")
     @Produces(MediaType.TEXT_HTML)
     public String get() {
-        return config.getWelcomeText();
+        return welcomeText;
     }
 }

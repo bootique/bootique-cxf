@@ -24,7 +24,6 @@ import io.bootique.ModuleCrate;
 import io.bootique.config.ConfigurationFactory;
 import io.bootique.cxf.annotations.CxfFeature;
 import io.bootique.cxf.annotations.CxfResource;
-import io.bootique.cxf.annotations.CxfServlet;
 import io.bootique.di.Binder;
 import io.bootique.di.Key;
 import io.bootique.di.Provides;
@@ -37,9 +36,7 @@ import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 
 import javax.inject.Singleton;
-import javax.servlet.Servlet;
 import javax.ws.rs.core.Application;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -68,7 +65,7 @@ public class CxfJaxrsModule implements BQModule {
     public ModuleCrate crate() {
         return ModuleCrate.of(this)
                 .description("Integrates Apache CXF JAX-RS engine")
-                .config(CONFIG_PREFIX, CxfJaxrsModuleConfig.class)
+                .config(CONFIG_PREFIX, CxfJaxrsServletFactory.class)
                 .build();
     }
 
@@ -76,33 +73,37 @@ public class CxfJaxrsModule implements BQModule {
     public void configure(Binder binder) {
         CxfJaxrsModule.extend(binder).initAllExtensions();
 
-        final TypeLiteral<MappedServlet<Servlet>> servletTypeLiteral = new TypeLiteral<MappedServlet<Servlet>>() {};
-        final Key<MappedServlet<Servlet>> servletKey = Key.get(servletTypeLiteral, CxfServlet.class);
-        JettyModule.extend(binder).addMappedServlet(servletKey);
+        TypeLiteral<MappedServlet<CXFNonSpringJaxrsServlet>> servletTypeLiteral = new TypeLiteral<>() {
+        };
+        JettyModule.extend(binder).addMappedServlet(Key.get(servletTypeLiteral));
+
+        // TODO: we probably should not have a default endpoint in the container.
         CxfJaxrsModule.extend(binder).addResource(CxfDefaultService.class);
     }
 
-    @CxfServlet
     @Singleton
     @Provides
-    private MappedServlet<Servlet> createCxfServlet(CxfJaxrsModuleConfig config, Application application, Bus bus) {
-
-        CXFNonSpringJaxrsServlet servlet = new CXFNonSpringJaxrsServlet(application);
-        servlet.setBus(bus);
-
-        return new MappedServlet<>(servlet, Collections.singleton(config.getUrlPattern()), CxfServlet.class.getName());
+    CxfDefaultService provideDefaultService(ConfigurationFactory configFactory) {
+        return configFactory.config(CxfJaxrsServletFactory.class, CONFIG_PREFIX).createDefaultService();
     }
 
     @Singleton
     @Provides
-    private CxfJaxrsModuleConfig createCxfFactory(ConfigurationFactory configFactory) {
-        return configFactory.config(CxfJaxrsModuleConfig.class, CONFIG_PREFIX);
+    MappedServlet<CXFNonSpringJaxrsServlet> createCxfServlet(
+            ConfigurationFactory configFactory,
+            Application application,
+            Bus bus) {
+
+        return configFactory.config(CxfJaxrsServletFactory.class, CONFIG_PREFIX).createServlet(application, bus);
     }
 
     @Singleton
     @Provides
-    private Application createApplication(@CxfResource Set<Object> resources, @CxfFeature Set<Feature> features) {
-        final Map<String, String> props = new HashMap<>();
+    Application createApplication(
+            @CxfResource Set<Object> resources,
+            @CxfFeature Set<Feature> features) {
+
+        Map<String, String> props = new HashMap<>();
 
         // TODO deliver interceptors in module extender
         props.put("jaxrs.inInterceptors", LoggingInInterceptor.class.getName());

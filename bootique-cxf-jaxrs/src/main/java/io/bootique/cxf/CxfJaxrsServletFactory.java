@@ -21,34 +21,38 @@ package io.bootique.cxf;
 
 import io.bootique.annotation.BQConfig;
 import io.bootique.annotation.BQConfigProperty;
+import io.bootique.jetty.MappedServlet;
+import org.apache.cxf.Bus;
+import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
+
+import javax.ws.rs.core.Application;
+import java.util.Set;
 
 /**
  * CXF configuration.
- *
- * @author Ruslan Ibragimov
  */
 @BQConfig("Configures the servlet that is an entry point to CXF REST API engine.")
-public class CxfJaxrsModuleConfig {
-    private String urlPattern;
+public class CxfJaxrsServletFactory {
 
+    private String urlPattern;
     private String welcomeText;
 
-    public CxfJaxrsModuleConfig() {
-        this.urlPattern = "/*";
-        this.welcomeText = "CXF REST API Module";
+    public MappedServlet<CXFNonSpringJaxrsServlet> createServlet(Application application, Bus bus) {
+        CXFNonSpringJaxrsServlet servlet = new CXFNonSpringJaxrsServlet(application);
+        servlet.setBus(bus);
+
+        String urlPattern = this.urlPattern != null ? this.urlPattern : "/*";
+        return new MappedServlet<>(servlet, Set.of(urlPattern));
     }
 
-    public String getUrlPattern() {
-        return urlPattern;
+    public CxfDefaultService createDefaultService() {
+        String welcomeText = this.welcomeText != null ? this.welcomeText : "CXF REST API Module";
+        return new CxfDefaultService(welcomeText);
     }
 
     @BQConfigProperty
     public void setUrlPattern(String urlPattern) {
         this.urlPattern = urlPattern;
-    }
-
-    public String getWelcomeText() {
-        return welcomeText;
     }
 
     @BQConfigProperty
