@@ -17,7 +17,6 @@ import org.apache.cxf.transport.http.URLConnectionHTTPConduit;
 
 import javax.inject.Singleton;
 import java.net.URL;
-import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,7 +32,7 @@ public class CxfJaxwsClientModule implements BQModule {
     public ModuleCrate crate() {
         return ModuleCrate.of(this)
                 .description("Integrates Apache CXF JAX-WS client")
-                .config(CONFIG_PREFIX, CxfJaxwsClientConfiguration.class)
+                .config(CONFIG_PREFIX, CxfJaxwsClientFactory.class)
                 .build();
     }
 
@@ -62,20 +61,13 @@ public class CxfJaxwsClientModule implements BQModule {
 
     @Provides
     @Singleton
-    public CxfJaxwsClientConfiguration provideConfiguration(ConfigurationFactory configurationFactory) {
-        return configurationFactory.config(CxfJaxwsClientConfiguration.class, CONFIG_PREFIX);
-    }
-
-    @Provides
-    @Singleton
-    public URLConnectionHTTPConduitConfigurer httpConduitConfigurer(CxfJaxwsClientConfiguration configuration) {
-        return new URLConnectionHTTPConduitConfigurer(configuration.followRedirects, configuration.readTimeoutMs, configuration.connectTimeoutMs);
+    public URLConnectionHTTPConduitConfigurer httpConduitConfigurer(ConfigurationFactory configFactory) {
+        return configFactory.config(CxfJaxwsClientFactory.class, CONFIG_PREFIX).createConfigurer();
     }
 
     @Provides
     @NamedURLs
-    public Map<String, URL> provideNamedURLs(CxfJaxwsClientConfiguration configuration) {
-        return Collections.unmodifiableMap(configuration.urls);
+    public Map<String, URL> provideNamedURLs(ConfigurationFactory configFactory) {
+        return configFactory.config(CxfJaxwsClientFactory.class, CONFIG_PREFIX).getUrls();
     }
-
 }

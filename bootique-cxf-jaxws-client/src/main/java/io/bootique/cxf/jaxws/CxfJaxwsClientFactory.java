@@ -4,24 +4,32 @@ import io.bootique.annotation.BQConfig;
 import io.bootique.annotation.BQConfigProperty;
 
 import java.net.URL;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Map;
 
 @BQConfig("Configures JAX-WS client entities, including named urls")
-public class CxfJaxwsClientConfiguration {
+public class CxfJaxwsClientFactory {
 
-    boolean followRedirects;
-    int readTimeoutMs;
-    int connectTimeoutMs;
+    private boolean followRedirects;
+    private int readTimeoutMs;
+    private int connectTimeoutMs;
+    private Map<String, URL> urls;
 
-    Map<String, URL> urls;
-
-    public CxfJaxwsClientConfiguration() {
+    public CxfJaxwsClientFactory() {
         this.followRedirects = false;
         this.readTimeoutMs = 60 * 1000;
         this.connectTimeoutMs = 30 * 1000;
-        this.urls = new HashMap<>();
+    }
 
+    public Map<String, URL> getUrls() {
+        return urls != null ? urls : Collections.emptyMap();
+    }
+
+    public URLConnectionHTTPConduitConfigurer createConfigurer() {
+        return new URLConnectionHTTPConduitConfigurer(
+                followRedirects,
+                readTimeoutMs,
+                connectTimeoutMs);
     }
 
     @BQConfigProperty("Sets whether the client should autromatically follow redirects. The default is 'true'.")
@@ -39,13 +47,7 @@ public class CxfJaxwsClientConfiguration {
         this.connectTimeoutMs = connectTimeoutMs;
     }
 
-
-    /**
-     * Sets a map of named urls. This allows to define remote endpoints completely via configuration.
-     *
-     * @param urls a map of named target factories.
-     */
-    @BQConfigProperty
+    @BQConfigProperty("Sets a map of named urls. This allows to define remote endpoints completely via configuration.")
     public void setUrls(Map<String, URL> urls) {
         this.urls = urls;
     }

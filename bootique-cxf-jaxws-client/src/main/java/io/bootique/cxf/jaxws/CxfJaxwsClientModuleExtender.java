@@ -8,9 +8,6 @@ import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientInFault;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientOut;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientOutFault;
 import io.bootique.di.Binder;
-import io.bootique.di.SetBuilder;
-
-import javax.xml.ws.Endpoint;
 
 public class CxfJaxwsClientModuleExtender extends ModuleExtender<CxfJaxwsClientModuleExtender> {
 
@@ -20,8 +17,8 @@ public class CxfJaxwsClientModuleExtender extends ModuleExtender<CxfJaxwsClientM
             CxfInterceptorsClientOut.class,
             CxfInterceptorsClientOutFault.class
     );
+
     private final InterceptorsContributor interceptorsContributor;
-    private SetBuilder<Endpoint> endpoints;
 
     public CxfJaxwsClientModuleExtender(Binder binder) {
         super(binder);
