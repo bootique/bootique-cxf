@@ -1,3 +1,7 @@
+## 3.0-M3
+
+* #6 Upgrade CXF 3.x to 3.5.8
+
 ## 2.0.B1
 
 * #4 Switch from javax.xml.ws to jakarta.xml.ws

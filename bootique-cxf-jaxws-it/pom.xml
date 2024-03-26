@@ -41,12 +41,6 @@
         </dependency>
 
         <!-- Java 9+ implicit deps -->
-
-        <dependency>
-            <groupId>jakarta.xml.ws</groupId>
-            <artifactId>jakarta.xml.ws-api</artifactId>
-            <version>${jaxws-api.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-ri</artifactId>

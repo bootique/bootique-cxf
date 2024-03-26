@@ -47,7 +47,7 @@
 
     <properties>
         <bootique.version>${project.version}</bootique.version>
-        <cxf.version>3.3.1</cxf.version>
+        <cxf.version>3.5.8</cxf.version>
         <apache.hc.version>4.5.5</apache.hc.version>
         <jaxws-api.version>2.3.3</jaxws-api.version>
         <jaxws-ri.version>2.3.3</jaxws-ri.version>
@@ -90,6 +90,11 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.xml.ws</groupId>
+                <artifactId>jakarta.xml.ws-api</artifactId>
+                <version>${jaxws-api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

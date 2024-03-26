@@ -26,11 +26,6 @@
                 <artifactId>cxf-rt-transports-http</artifactId>
                 <version>${cxf.version}</version>
             </dependency>
-            <dependency>
-                <groupId>jakarta.xml.ws</groupId>
-                <artifactId>jakarta.xml.ws-api</artifactId>
-                <version>${jaxws-api.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -62,13 +57,6 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <scope>compile</scope>
-        </dependency>
-
-        <!-- Java 9+ implicit deps -->
-
-        <dependency>
-            <groupId>jakarta.xml.ws</groupId>
-            <artifactId>jakarta.xml.ws-api</artifactId>
         </dependency>
 
         <!-- Unit test dependencies -->

@@ -40,6 +40,11 @@
             <artifactId>javax.jws-api</artifactId>
             <version>1.1</version>
         </dependency>
+        <!-- Java 9+ implicit deps -->
+        <dependency>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
+        </dependency>
 
         <!-- Unit test dependencies -->
         <dependency>
