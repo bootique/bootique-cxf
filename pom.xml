@@ -44,7 +44,8 @@
         <module>bootique-cxf-jaxws-client</module>
         <module>bootique-cxf-jaxws-it</module>
 
-        <module>bootique-cxf-jakarta-core</module>
+	<module>bootique-cxf-jakarta-core</module>
+	<module>bootique-cxf-jakarta-jaxrs</module>
     </modules>
 
     <properties>
