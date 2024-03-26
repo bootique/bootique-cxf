@@ -17,6 +17,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>jakarta.xml.ws</groupId>
+                <artifactId>jakarta.xml.ws-api</artifactId>
+                <version>${jaxws-api.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-core</artifactId>
                 <version>${cxf.version}</version>
@@ -29,7 +34,6 @@
         <dependency>
             <groupId>io.bootique</groupId>
             <artifactId>bootique</artifactId>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>

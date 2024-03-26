@@ -52,7 +52,6 @@
             <groupId>org.apache.cxf.xjc-utils</groupId>
             <artifactId>cxf-xjc-runtime</artifactId>
             <version>3.3.0</version>
-            <scope>compile</scope>
             <optional>true</optional>
         </dependency>
         <dependency>

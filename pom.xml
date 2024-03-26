@@ -62,11 +62,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>io.bootique.cxf</groupId>
-                <artifactId>bootique-cxf</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.bootique</groupId>
                 <artifactId>bootique</artifactId>
                 <version>${bootique.version}</version>
