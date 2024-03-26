@@ -38,11 +38,13 @@
     </description>
 
     <modules>
+        <module>bootique-cxf-core</module>
         <module>bootique-cxf-jaxrs</module>
         <module>bootique-cxf-jaxws-server</module>
-        <module>bootique-cxf-core</module>
         <module>bootique-cxf-jaxws-client</module>
         <module>bootique-cxf-jaxws-it</module>
+
+        <module>bootique-cxf-jakarta-core</module>
     </modules>
 
     <properties>
@@ -53,6 +55,10 @@
         <jaxws-api.version>2.3.3</jaxws-api.version>
         <jaxws-ri.version>2.3.3</jaxws-ri.version>
         <jws.version>1.1</jws.version>
+
+        <cxf.jakarta.version>4.0.4</cxf.jakarta.version>
+        <jaxws-api.jakarta.version>4.0.1</jaxws-api.jakarta.version>
+        <jws.jakarta.version>3.0.0</jws.jakarta.version>
     </properties>
 
     <scm>
