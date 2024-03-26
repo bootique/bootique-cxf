@@ -52,6 +52,7 @@
         <apache.hc.version>4.5.5</apache.hc.version>
         <jaxws-api.version>2.3.3</jaxws-api.version>
         <jaxws-ri.version>2.3.3</jaxws-ri.version>
+        <jws.version>1.1</jws.version>
     </properties>
 
     <scm>
