@@ -87,11 +87,6 @@
                 <artifactId>mockito-core</artifactId>
                 <version>${mockito.version}</version>
             </dependency>
-            <dependency>
-                <groupId>jakarta.xml.ws</groupId>
-                <artifactId>jakarta.xml.ws-api</artifactId>
-                <version>${jaxws-api.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
