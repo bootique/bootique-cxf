@@ -32,11 +32,6 @@
     <dependencies>
         <!-- Compile dependencies -->
         <dependency>
-            <groupId>io.bootique</groupId>
-            <artifactId>bootique</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>io.bootique.cxf</groupId>
             <artifactId>bootique-cxf-core</artifactId>
             <version>${project.version}</version>
@@ -49,7 +44,6 @@
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>

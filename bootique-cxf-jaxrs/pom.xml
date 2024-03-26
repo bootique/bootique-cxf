@@ -78,10 +78,6 @@
     <dependencies>
         <!-- Compile dependencies -->
         <dependency>
-            <groupId>io.bootique</groupId>
-            <artifactId>bootique</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.bootique.jetty</groupId>
             <artifactId>bootique-jetty</artifactId>
         </dependency>
