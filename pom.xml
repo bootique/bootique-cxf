@@ -46,6 +46,7 @@
 
 	<module>bootique-cxf-jakarta-core</module>
 	<module>bootique-cxf-jakarta-jaxrs</module>
+    <module>bootique-cxf-jakarta-jaxws-server</module>
     </modules>
 
     <properties>
@@ -60,6 +61,7 @@
         <cxf.jakarta.version>4.0.4</cxf.jakarta.version>
         <jaxws-api.jakarta.version>4.0.1</jaxws-api.jakarta.version>
         <jws.jakarta.version>3.0.0</jws.jakarta.version>
+        <jaxws-ri.jakarta.version>4.0.2</jaxws-ri.jakarta.version>
     </properties>
 
     <scm>
