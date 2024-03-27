@@ -25,8 +25,8 @@ public class CxfJaxwsClientFactory {
         return urls != null ? urls : Collections.emptyMap();
     }
 
-    public URLConnectionHTTPConduitConfigurer createConfigurer() {
-        return new URLConnectionHTTPConduitConfigurer(
+    public HttpClientHTTPConduitConfigurer createConfigurer() {
+        return new HttpClientHTTPConduitConfigurer(
                 followRedirects,
                 readTimeoutMs,
                 connectTimeoutMs);

@@ -13,7 +13,7 @@ import io.bootique.di.Provides;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.message.Message;
-import org.apache.cxf.transport.http.URLConnectionHTTPConduit;
+import org.apache.cxf.transport.http.HttpClientHTTPConduit;
 
 import javax.inject.Singleton;
 import java.net.URL;
@@ -40,7 +40,7 @@ public class CxfJaxwsClientModule implements BQModule {
     public void configure(Binder binder) {
         CxfJaxwsClientModule.extend(binder).initAllExtensions();
         CxfModule.extend(binder).addCustomConfigurer(JaxWsProxyFactoryBean.class, JaxWsProxyFactoryConfigurer.class, true);
-        CxfModule.extend(binder).addCustomConfigurer(URLConnectionHTTPConduit.class, URLConnectionHTTPConduitConfigurer.class, true);
+        CxfModule.extend(binder).addCustomConfigurer(HttpClientHTTPConduit.class, HttpClientHTTPConduitConfigurer.class, true);
     }
 
     @Provides
@@ -61,7 +61,7 @@ public class CxfJaxwsClientModule implements BQModule {
 
     @Provides
     @Singleton
-    public URLConnectionHTTPConduitConfigurer httpConduitConfigurer(ConfigurationFactory configFactory) {
+    public HttpClientHTTPConduitConfigurer httpConduitConfigurer(ConfigurationFactory configFactory) {
         return configFactory.config(CxfJaxwsClientFactory.class, CONFIG_PREFIX).createConfigurer();
     }
 

@@ -7,6 +7,7 @@ import io.bootique.junit5.BQTestFactory;
 import io.bootique.junit5.BQTestTool;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
+import org.apache.cxf.transport.http.HttpClientHTTPConduit;
 import org.apache.cxf.transport.http.URLConnectionHTTPConduit;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.junit.jupiter.api.Test;
@@ -57,12 +58,12 @@ public class HttpConduitConfigIT {
         assertEquals(25 * 1000, clientPolicy.getReceiveTimeout());
     }
 
-    public static class CustomHTTPConduitConfigurer implements CustomConfigurer<URLConnectionHTTPConduit> {
+    public static class CustomHTTPConduitConfigurer implements CustomConfigurer<HttpClientHTTPConduit> {
 
         static boolean LOADED = false;
 
         @Override
-        public void configure(URLConnectionHTTPConduit instance) {
+        public void configure(HttpClientHTTPConduit instance) {
             LOADED = true;
         }
     }
@@ -71,7 +72,7 @@ public class HttpConduitConfigIT {
     public void addingConduitConfigurer() {
 
         testFactory.app()
-                .module(binder -> CxfModule.extend(binder).addCustomConfigurer(URLConnectionHTTPConduit.class, CustomHTTPConduitConfigurer.class))
+                .module(binder -> CxfModule.extend(binder).addCustomConfigurer(HttpClientHTTPConduit.class, CustomHTTPConduitConfigurer.class))
                 .createRuntime();
 
         JaxWsProxyFactoryBean factoryBean = new JaxWsProxyFactoryBean();
