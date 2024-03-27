@@ -33,7 +33,10 @@ import java.util.Set;
 
 /**
  * CXF configuration.
+ *
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
  */
+@Deprecated(since = "3.0", forRemoval = true)
 @BQConfig("Configures the servlet that is an entry point to CXF REST API engine.")
 public class CxfJaxrsServletFactory {
 

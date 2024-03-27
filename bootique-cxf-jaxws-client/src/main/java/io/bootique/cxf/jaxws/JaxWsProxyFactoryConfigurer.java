@@ -7,6 +7,10 @@ import org.apache.cxf.message.Message;
 
 import java.util.Set;
 
+/**
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
+ */
+@Deprecated(since = "3.0", forRemoval = true)
 public class JaxWsProxyFactoryConfigurer implements CustomConfigurer<JaxWsProxyFactoryBean> {
 
     private final Set<Interceptor<? extends Message>> inInterceptors;

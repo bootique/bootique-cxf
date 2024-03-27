@@ -28,8 +28,9 @@ import java.lang.annotation.Target;
 /**
  * Binding annotation for CXF resources.
  *
- * @author Ruslan Ibragimov
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
  */
+@Deprecated(since = "3.0", forRemoval = true)
 @Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Qualifier

@@ -5,6 +5,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
+ */
+@Deprecated(since = "3.0", forRemoval = true)
 final class MapUtils {
 
     /**

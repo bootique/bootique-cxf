@@ -29,7 +29,10 @@ import org.apache.cxf.feature.Feature;
 
 /**
  * Init all {@link SetBuilder}s on module loading.
+ *
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
  */
+@Deprecated(since = "3.0", forRemoval = true)
 public class CxfJaxrsModuleExtender extends ModuleExtender<CxfJaxrsModuleExtender> {
 
     private SetBuilder<Feature> cxfFeatures;

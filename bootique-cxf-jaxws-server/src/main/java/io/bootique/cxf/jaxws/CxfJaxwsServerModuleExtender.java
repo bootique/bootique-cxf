@@ -13,6 +13,10 @@ import io.bootique.di.SetBuilder;
 import javax.inject.Provider;
 import javax.xml.ws.Endpoint;
 
+/**
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
+ */
+@Deprecated(since = "3.0", forRemoval = true)
 public class CxfJaxwsServerModuleExtender extends ModuleExtender<CxfJaxwsServerModuleExtender> {
 
     public static final CxfInterceptorAnnotationHolder JAX_WS_SERVER_INTERCEPTORS = new CxfInterceptorAnnotationHolder(

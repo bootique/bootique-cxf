@@ -18,6 +18,10 @@ import javax.inject.Singleton;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
+ */
+@Deprecated(since = "3.0", forRemoval = true)
 public class CxfModule implements BQModule {
 
     public static CxfModuleExtender extend(Binder binder) {
@@ -27,7 +31,7 @@ public class CxfModule implements BQModule {
     @Override
     public ModuleCrate crate() {
         return ModuleCrate.of(this)
-                .description("Integrates Apache CXF core")
+                .description("Deprecated, can be replaced with 'bootique-cxf-jakarta-core'.")
                 .build();
     }
 

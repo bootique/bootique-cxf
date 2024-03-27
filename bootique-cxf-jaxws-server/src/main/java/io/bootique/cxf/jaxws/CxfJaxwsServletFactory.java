@@ -12,6 +12,10 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
+ */
+@Deprecated(since = "3.0", forRemoval = true)
 @BQConfig("Configures the servlet that is an entry point Apache CXF managed JAX-WS server")
 public class CxfJaxwsServletFactory {
 

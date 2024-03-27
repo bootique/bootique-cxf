@@ -20,6 +20,10 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
+ */
+@Deprecated(since = "3.0", forRemoval = true)
 public class CxfJaxwsClientModule implements BQModule {
 
     private static final String CONFIG_PREFIX = "cxfjaxwsclient";
@@ -31,7 +35,7 @@ public class CxfJaxwsClientModule implements BQModule {
     @Override
     public ModuleCrate crate() {
         return ModuleCrate.of(this)
-                .description("Integrates Apache CXF JAX-WS client")
+                .description("Deprecated, can be replaced with 'bootique-cxf-jakarta-jaxws-client'.")
                 .config(CONFIG_PREFIX, CxfJaxwsClientFactory.class)
                 .build();
     }

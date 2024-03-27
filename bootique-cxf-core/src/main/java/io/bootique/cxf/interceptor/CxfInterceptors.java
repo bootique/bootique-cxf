@@ -1,10 +1,10 @@
 package io.bootique.cxf.interceptor;
 
+import javax.inject.Qualifier;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import javax.inject.Qualifier;
 
 /**
  * @deprecated since 2.0, use one of {@link CxfInterceptorsIn}, {@link CxfInterceptorsOut}, {@link CxfInterceptorsInFault}
@@ -13,7 +13,7 @@ import javax.inject.Qualifier;
 @Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Qualifier
-@Deprecated
+@Deprecated(since = "3.0", forRemoval = true)
 public @interface CxfInterceptors {
 
     enum Type {

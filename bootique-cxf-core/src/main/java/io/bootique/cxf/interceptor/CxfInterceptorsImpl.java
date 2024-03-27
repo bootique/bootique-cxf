@@ -3,7 +3,10 @@ package io.bootique.cxf.interceptor;
 import java.lang.annotation.Annotation;
 import java.util.Objects;
 
-@Deprecated
+/**
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
+ */
+@Deprecated(since = "3.0", forRemoval = true)
 class CxfInterceptorsImpl implements CxfInterceptors {
     private final String target;
     private final Type type;

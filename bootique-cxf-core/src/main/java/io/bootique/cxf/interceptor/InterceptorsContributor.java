@@ -6,6 +6,10 @@ import io.bootique.di.TypeLiteral;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.message.Message;
 
+/**
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
+ */
+@Deprecated(since = "3.0", forRemoval = true)
 public class InterceptorsContributor {
 
     private static TypeLiteral<Interceptor<? extends Message>> INTERCEPTOR_TYPE_LITERAL = new TypeLiteral<Interceptor<? extends Message>>(){};

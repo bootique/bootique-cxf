@@ -7,6 +7,10 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Map;
 
+/**
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
+ */
+@Deprecated(since = "3.0", forRemoval = true)
 @BQConfig("Configures JAX-WS client entities, including named urls")
 public class CxfJaxwsClientFactory {
 

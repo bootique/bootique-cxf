@@ -42,8 +42,9 @@ import java.util.Set;
 /**
  * CXF module.
  *
- * @author Ruslan Ibragimov
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
  */
+@Deprecated(since = "3.0", forRemoval = true)
 public class CxfJaxrsModule implements BQModule {
 
     private static final String CONFIG_PREFIX = "cxfjaxrs";
@@ -62,7 +63,7 @@ public class CxfJaxrsModule implements BQModule {
     @Override
     public ModuleCrate crate() {
         return ModuleCrate.of(this)
-                .description("Integrates Apache CXF JAX-RS engine")
+                .description("Deprecated, can be replaced with 'bootique-cxf-jakarta-jaxrs'.")
                 .config(CONFIG_PREFIX, CxfJaxrsServletFactory.class)
                 .build();
     }

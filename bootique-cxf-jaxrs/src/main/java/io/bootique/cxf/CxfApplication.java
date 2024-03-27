@@ -34,8 +34,9 @@ import java.util.Set;
  * meta-data. A JAX-RS application or implementation supplies a concrete
  * subclass of this abstract class.
  *
- * @author Ruslan Ibragimov
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
  */
+@Deprecated(since = "3.0", forRemoval = true)
 public class CxfApplication extends Application {
 
     private final Set<Object> singletons = new HashSet<>();

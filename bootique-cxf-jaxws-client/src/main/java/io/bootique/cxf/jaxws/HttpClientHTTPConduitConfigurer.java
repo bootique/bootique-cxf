@@ -5,6 +5,10 @@ import org.apache.cxf.transport.http.HttpClientHTTPConduit;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 
 
+/**
+ * @deprecated The users are encouraged to switch to the Jakarta-based flavor
+ */
+@Deprecated(since = "3.0", forRemoval = true)
 public class HttpClientHTTPConduitConfigurer implements CustomConfigurer<HttpClientHTTPConduit> {
 
     private final boolean followRedirects;
