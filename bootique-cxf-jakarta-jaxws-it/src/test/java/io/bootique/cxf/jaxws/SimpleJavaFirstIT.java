@@ -5,11 +5,10 @@ import io.bootique.Bootique;
 import io.bootique.cxf.CxfModule;
 import io.bootique.junit5.BQApp;
 import io.bootique.junit5.BQTest;
+import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.ext.logging.LoggingFeature;
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.junit.jupiter.api.Test;
-
-import javax.xml.ws.Endpoint;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
