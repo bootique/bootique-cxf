@@ -8,6 +8,7 @@ import com.example.customerservice.NoSuchCustomerException;
 import io.bootique.BQRuntime;
 import io.bootique.Bootique;
 import io.bootique.cxf.CxfModule;
+import io.bootique.jetty.junit5.JettyTester;
 import io.bootique.junit5.BQApp;
 import io.bootique.junit5.BQTest;
 import org.apache.cxf.ext.logging.LoggingFeature;
@@ -25,9 +26,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @BQTest
 public class WsdlFirstIT {
 
+    static final JettyTester jetty = JettyTester.create();
+
     @BQApp
     static final BQRuntime app = Bootique.app("-s")
             .autoLoadModules()
+            .module(jetty.moduleReplacingConnectors())
             .module(binder -> {
                 // adding logging for both client and a server
                 CxfModule.extend(binder).addFeature(LoggingFeature.class);
@@ -45,7 +49,7 @@ public class WsdlFirstIT {
 
     @BeforeAll
     public static void setUp() throws Exception {
-        String wsdlLoc = "http://localhost:8080/test?wsdl";
+        String wsdlLoc = jetty.getUrl() + "/test?wsdl";
         CustomerServiceService service = new CustomerServiceService(new URL(wsdlLoc));
         CLIENT = service.getCustomerServicePort();
     }

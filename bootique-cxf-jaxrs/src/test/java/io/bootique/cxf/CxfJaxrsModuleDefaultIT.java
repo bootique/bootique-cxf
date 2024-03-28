@@ -21,6 +21,7 @@ package io.bootique.cxf;
 
 import io.bootique.BQRuntime;
 import io.bootique.Bootique;
+import io.bootique.jetty.junit5.JettyTester;
 import io.bootique.junit5.BQApp;
 import io.bootique.junit5.BQTest;
 import org.apache.http.HttpResponse;
@@ -36,14 +37,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @BQTest
 public class CxfJaxrsModuleDefaultIT {
 
+    static final JettyTester jetty = JettyTester.create();
+
     @BQApp
     final BQRuntime app = Bootique.app("-s")
             .autoLoadModules()
+            .module(jetty.moduleReplacingConnectors())
             .createRuntime();
 
     @Test
     public void response() throws IOException {
-        HttpResponse response = Request.Get("http://localhost:8080/").execute().returnResponse();
+        HttpResponse response = Request.Get(jetty.getUrl()).execute().returnResponse();
 
         assertEquals(HttpStatus.SC_OK, response.getStatusLine().getStatusCode());
         assertEquals("CXF REST API Module", EntityUtils.toString(response.getEntity()));

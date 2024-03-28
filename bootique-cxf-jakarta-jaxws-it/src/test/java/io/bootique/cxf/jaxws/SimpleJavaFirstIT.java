@@ -3,6 +3,7 @@ package io.bootique.cxf.jaxws;
 import io.bootique.BQRuntime;
 import io.bootique.Bootique;
 import io.bootique.cxf.CxfModule;
+import io.bootique.jetty.junit5.JettyTester;
 import io.bootique.junit5.BQApp;
 import io.bootique.junit5.BQTest;
 import jakarta.xml.ws.Endpoint;
@@ -15,9 +16,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @BQTest
 public class SimpleJavaFirstIT {
 
+    static final JettyTester jetty = JettyTester.create();
+
     @BQApp
     static final BQRuntime app = Bootique.app("-s")
             .autoLoadModules()
+            .module(jetty.moduleReplacingConnectors())
             .module(b -> {
 
                 CxfModule.extend(b).addFeature(LoggingFeature.class);
@@ -32,7 +36,7 @@ public class SimpleJavaFirstIT {
     public void simpleService() {
 
         JaxWsProxyFactoryBean proxyFactoryBean = new JaxWsProxyFactoryBean();
-        proxyFactoryBean.setAddress("http://localhost:8080/test");
+        proxyFactoryBean.setAddress(jetty.getUrl() + "/test");
         HelloWorld helloWorldClient = proxyFactoryBean.create(HelloWorld.class);
 
         String responseFromClient = helloWorldClient.sayHi("Simple Client");

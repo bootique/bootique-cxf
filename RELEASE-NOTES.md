@@ -1,5 +1,6 @@
 ## 3.0-M3
 
+* #5 Jakarta flavor of CXF
 * #6 Upgrade CXF 3.x to 3.6.3
 
 ## 2.0.B1
