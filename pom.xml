@@ -53,7 +53,7 @@
 
     <properties>
         <bootique.version>${project.version}</bootique.version>
-        <apache.hc.version>4.5.5</apache.hc.version>
+        <apache.hc.version>4.5.14</apache.hc.version>
 
         <cxf.version>3.6.3</cxf.version>
         <cxf.xjc.version>3.3.3</cxf.xjc.version>
