@@ -19,7 +19,7 @@ import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.servlet.AbstractHTTPServlet;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import javax.xml.ws.Endpoint;
 import java.util.Set;
 

@@ -15,7 +15,7 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.http.HttpClientHTTPConduit;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import java.net.URL;
 import java.util.Map;
 import java.util.Set;

@@ -3,8 +3,8 @@ package io.bootique.cxf;
 import org.apache.cxf.Bus;
 import org.apache.cxf.bus.CXFBusFactory;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
 import java.util.Map;
 
 /**

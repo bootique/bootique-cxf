@@ -4,7 +4,7 @@ import io.bootique.di.Injector;
 import io.bootique.di.Key;
 import org.apache.cxf.configuration.ConfiguredBeanLocator;
 
-import javax.inject.Named;
+import jakarta.inject.Named;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;

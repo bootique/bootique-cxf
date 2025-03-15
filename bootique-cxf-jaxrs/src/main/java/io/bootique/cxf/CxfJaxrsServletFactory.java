@@ -25,8 +25,8 @@ import io.bootique.jetty.MappedServlet;
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
 import javax.ws.rs.core.Application;
 import java.util.Objects;
 import java.util.Set;

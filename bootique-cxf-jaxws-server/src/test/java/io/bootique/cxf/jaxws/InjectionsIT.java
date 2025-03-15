@@ -8,7 +8,7 @@ import org.apache.cxf.jaxws.EndpointImpl;
 import org.junit.jupiter.api.Test;
 
 import javax.annotation.Resource;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import javax.jws.WebService;
 import javax.xml.ws.Endpoint;
 import javax.xml.ws.WebServiceContext;

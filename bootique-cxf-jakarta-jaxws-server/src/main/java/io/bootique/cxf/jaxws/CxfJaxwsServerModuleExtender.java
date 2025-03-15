@@ -11,7 +11,7 @@ import io.bootique.di.Binder;
 import io.bootique.di.SetBuilder;
 import jakarta.xml.ws.Endpoint;
 
-import javax.inject.Provider;
+import jakarta.inject.Provider;
 
 public class CxfJaxwsServerModuleExtender extends ModuleExtender<CxfJaxwsServerModuleExtender> {
 
@@ -37,12 +37,12 @@ public class CxfJaxwsServerModuleExtender extends ModuleExtender<CxfJaxwsServerM
     }
 
     public CxfJaxwsServerModuleExtender addEndpoint(Class<? extends Provider<? extends Endpoint>> endpointProvider) {
-        contributeEndpoints().addProvider(endpointProvider);
+        contributeEndpoints().addJakartaProvider(endpointProvider);
         return this;
     }
 
     public CxfJaxwsServerModuleExtender addEndpoint(Provider<? extends Endpoint> endpointProvider) {
-        contributeEndpoints().addProviderInstance(endpointProvider);
+        contributeEndpoints().addJakartaProviderInstance(endpointProvider);
         return this;
     }
 

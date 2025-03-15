@@ -7,7 +7,7 @@ import org.apache.cxf.Bus;
 import org.apache.cxf.transport.servlet.AbstractHTTPServlet;
 import org.apache.cxf.transport.servlet.CXFNonSpringServlet;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;

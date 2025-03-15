@@ -35,7 +35,7 @@ import org.apache.cxf.feature.Feature;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import java.util.Map;
 import java.util.Set;
 

@@ -26,8 +26,8 @@ import jakarta.ws.rs.core.Application;
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
 import java.util.Objects;
 import java.util.Set;
 

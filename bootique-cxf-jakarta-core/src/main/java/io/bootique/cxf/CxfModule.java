@@ -13,8 +13,8 @@ import org.apache.cxf.Bus;
 import org.apache.cxf.configuration.ConfiguredBeanLocator;
 import org.apache.cxf.configuration.Configurer;
 
-import javax.inject.Named;
-import javax.inject.Singleton;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +34,7 @@ public class CxfModule implements BQModule {
     @Override
     public void configure(Binder binder) {
         CxfModule.extend(binder).initAllExtensions();
-        binder.bind(Bus.class).toProvider(BusProvider.class).initOnStartup();
+        binder.bind(Bus.class).toJakartaProvider(BusProvider.class).initOnStartup();
 
         // TODO: is this call necessary?
 //        binder.requestStaticInjection(BqBusFactory.class);

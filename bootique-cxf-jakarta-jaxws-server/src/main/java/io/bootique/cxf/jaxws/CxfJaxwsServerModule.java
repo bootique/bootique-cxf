@@ -20,7 +20,7 @@ import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.servlet.AbstractHTTPServlet;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import java.util.Set;
 
 public class CxfJaxwsServerModule implements BQModule {
