@@ -31,6 +31,11 @@
                 <artifactId>cxf-core</artifactId>
                 <version>${cxf.jakarta.version}</version>
             </dependency>
+            <dependency>
+                <groupId>jakarta.activation</groupId>
+                <artifactId>jakarta.activation-api</artifactId>
+                <version>${activation2.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -52,6 +57,10 @@
         <dependency>
             <groupId>jakarta.xml.ws</groupId>
             <artifactId>jakarta.xml.ws-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
         </dependency>
 
         <!-- Unit test dependencies -->
