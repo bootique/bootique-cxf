@@ -84,7 +84,7 @@ public class BQBeanLocator implements ConfiguredBeanLocator {
     // returning null otherwise
     private <T> Optional<T> tryGetInstance(Key<T> key) {
         if(injector.hasProvider(key)) {
-            return Optional.of(injector.getProvider(key).get());
+            return Optional.of(injector.getJakartaProvider(key).get());
         } else {
             return Optional.empty();
         }
