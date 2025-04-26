@@ -34,7 +34,7 @@ public class CxfModule implements BQModule {
     @Override
     public void configure(Binder binder) {
         CxfModule.extend(binder).initAllExtensions();
-        binder.bind(Bus.class).toJakartaProvider(BusProvider.class).initOnStartup();
+        binder.bind(Bus.class).toProvider(BusProvider.class).initOnStartup();
 
         // TODO: is this call necessary?
 //        binder.requestStaticInjection(BqBusFactory.class);
