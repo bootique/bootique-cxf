@@ -22,21 +22,18 @@ package io.bootique.cxf;
 import io.bootique.annotation.BQConfig;
 import io.bootique.annotation.BQConfigProperty;
 import io.bootique.jetty.MappedServlet;
+import jakarta.ws.rs.core.Application;
 import org.apache.cxf.Bus;
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Provider;
-import javax.ws.rs.core.Application;
 import java.util.Objects;
 import java.util.Set;
 
 /**
  * CXF configuration.
- *
- * @deprecated The users are encouraged to switch to the Jakarta-based flavor
  */
-@Deprecated(since = "3.0", forRemoval = true)
 @BQConfig("Configures the servlet that is an entry point to CXF REST API engine.")
 public class CxfJaxrsServletFactory {
 

@@ -21,33 +21,44 @@
         <dependencies>
             <dependency>
                 <groupId>io.bootique.jetty</groupId>
-                <artifactId>bootique-jetty</artifactId>
+                <artifactId>bootique-jetty-jakarta</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-frontend-jaxws</artifactId>
-                <version>${cxf.version}</version>
+                <version>${cxf.jakarta.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-transports-http</artifactId>
-                <version>${cxf.version}</version>
+                <version>${cxf.jakarta.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.sun.xml.ws</groupId>
+                <artifactId>jaxws-ri</artifactId>
+                <version>${jaxws-ri.jakarta.version}</version>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.xml.bind</groupId>
+                <artifactId>jakarta.xml.bind-api</artifactId>
+                <version>3.0.1</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.sun.activation</groupId>
+                        <artifactId>jakarta.activation</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <dependencies>
         <!-- Compile dependencies -->
         <dependency>
-            <groupId>io.bootique</groupId>
-            <artifactId>bootique</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.bootique.jetty</groupId>
-            <artifactId>bootique-jetty</artifactId>
+            <artifactId>bootique-jetty-jakarta</artifactId>
         </dependency>
         <dependency>
             <groupId>io.bootique.cxf</groupId>
@@ -62,14 +73,9 @@
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-transports-http</artifactId>
         </dependency>
-
-        <!-- Java 9+ implicit deps -->
         <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-ri</artifactId>
-            <version>${jaxws-ri.version}</version>
-            <scope>test</scope>
-            <type>pom</type>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
 
         <!-- Unit test dependencies -->

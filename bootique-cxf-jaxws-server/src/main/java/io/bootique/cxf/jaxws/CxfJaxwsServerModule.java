@@ -14,19 +14,15 @@ import io.bootique.di.Provides;
 import io.bootique.di.TypeLiteral;
 import io.bootique.jetty.JettyModule;
 import io.bootique.jetty.MappedServlet;
+import jakarta.xml.ws.Endpoint;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.transport.servlet.AbstractHTTPServlet;
 
 import jakarta.inject.Singleton;
-import javax.xml.ws.Endpoint;
 import java.util.Set;
 
-/**
- * @deprecated The users are encouraged to switch to the Jakarta-based flavor
- */
-@Deprecated(since = "3.0", forRemoval = true)
 public class CxfJaxwsServerModule implements BQModule {
 
     private static final String CONFIG_PREFIX = "cxfjaxwsserver";
@@ -38,7 +34,7 @@ public class CxfJaxwsServerModule implements BQModule {
     @Override
     public ModuleCrate crate() {
         return ModuleCrate.of(this)
-                .description("Deprecated, can be replaced with 'bootique-cxf-jakarta-jaxws-server'.")
+                .description("Integrates Apache CXF JAX-WS server engine")
                 .config(CONFIG_PREFIX, CxfJaxwsServletFactory.class)
                 .build();
     }

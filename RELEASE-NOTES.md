@@ -1,3 +1,7 @@
+## 4.0-M1
+
+* #7 Remove deprecated modules (javax flavor) and APIs
+
 ## 3.0-M3
 
 * #5 Jakarta flavor of CXF

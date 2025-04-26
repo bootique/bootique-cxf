@@ -39,17 +39,17 @@
         <dependencies>
             <dependency>
                 <groupId>io.bootique.jetty</groupId>
-                <artifactId>bootique-jetty</artifactId>
+                <artifactId>bootique-jetty-jakarta</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-frontend-jaxrs</artifactId>
-                <version>${cxf.version}</version>
+                <version>${cxf.jakarta.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.fasterxml.jackson.jaxrs</groupId>
-                <artifactId>jackson-jaxrs-json-provider</artifactId>
+                <groupId>com.fasterxml.jackson.jakarta.rs</groupId>
+                <artifactId>jackson-jakarta-rs-json-provider</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
             <dependency>
@@ -62,16 +62,6 @@
                 <artifactId>fluent-hc</artifactId>
                 <version>${apache.hc.version}</version>
             </dependency>
-            <dependency>
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
-                <version>${jaxb.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.activation</groupId>
-                <artifactId>jakarta.activation</artifactId>
-                <version>${activation.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -79,7 +69,7 @@
         <!-- Compile dependencies -->
         <dependency>
             <groupId>io.bootique.jetty</groupId>
-            <artifactId>bootique-jetty</artifactId>
+            <artifactId>bootique-jetty-jakarta</artifactId>
         </dependency>
         <dependency>
             <groupId>io.bootique.cxf</groupId>
@@ -91,8 +81,8 @@
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <groupId>com.fasterxml.jackson.jakarta.rs</groupId>
+            <artifactId>jackson-jakarta-rs-json-provider</artifactId>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -103,20 +93,10 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
 
-        <!-- Java 9+ implicit deps -->
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-        </dependency>
-
         <!-- Unit test dependencies -->
         <dependency>
             <groupId>io.bootique.jetty</groupId>
-            <artifactId>bootique-jetty-junit5</artifactId>
+            <artifactId>bootique-jetty-jakarta-junit5</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

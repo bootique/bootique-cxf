@@ -30,21 +30,15 @@ import io.bootique.di.Provides;
 import io.bootique.di.TypeLiteral;
 import io.bootique.jetty.JettyModule;
 import io.bootique.jetty.MappedServlet;
+import jakarta.ws.rs.core.Application;
 import org.apache.cxf.feature.Feature;
 import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 
 import jakarta.inject.Singleton;
-import javax.ws.rs.core.Application;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * CXF module.
- *
- * @deprecated The users are encouraged to switch to the Jakarta-based flavor
- */
-@Deprecated(since = "3.0", forRemoval = true)
 public class CxfJaxrsModule implements BQModule {
 
     private static final String CONFIG_PREFIX = "cxfjaxrs";
@@ -63,7 +57,7 @@ public class CxfJaxrsModule implements BQModule {
     @Override
     public ModuleCrate crate() {
         return ModuleCrate.of(this)
-                .description("Deprecated, can be replaced with 'bootique-cxf-jakarta-jaxrs'.")
+                .description("Integrates Apache CXF JAX-RS engine")
                 .config(CONFIG_PREFIX, CxfJaxrsServletFactory.class)
                 .build();
     }

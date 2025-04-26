@@ -14,11 +14,8 @@ import io.bootique.di.SetBuilder;
 import io.bootique.di.TypeLiteral;
 import org.apache.cxf.feature.Feature;
 
-/**
- * @deprecated The users are encouraged to switch to the Jakarta-based flavor
- */
-@Deprecated(since = "3.0", forRemoval = true)
 public class CxfModuleExtender extends ModuleExtender<CxfModuleExtender> {
+
 
     public static final CxfInterceptorAnnotationHolder BUS_INTERCEPTORS = new CxfInterceptorAnnotationHolder(
             CxfInterceptorsIn.class,

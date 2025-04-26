@@ -19,10 +19,6 @@ import jakarta.inject.Inject;
 import jakarta.inject.Provider;
 import java.util.Set;
 
-/**
- * @deprecated The users are encouraged to switch to the Jakarta-based flavor
- */
-@Deprecated(since = "3.0", forRemoval = true)
 public class BusProvider implements Provider<Bus> {
 
     private final Configurer configurer;

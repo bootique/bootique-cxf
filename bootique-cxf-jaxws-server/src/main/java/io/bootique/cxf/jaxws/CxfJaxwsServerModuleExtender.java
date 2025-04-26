@@ -9,14 +9,10 @@ import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerOut;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsServerOutFault;
 import io.bootique.di.Binder;
 import io.bootique.di.SetBuilder;
+import jakarta.xml.ws.Endpoint;
 
-import javax.inject.Provider;
-import javax.xml.ws.Endpoint;
+import jakarta.inject.Provider;
 
-/**
- * @deprecated The users are encouraged to switch to the Jakarta-based flavor
- */
-@Deprecated(since = "3.0", forRemoval = true)
 public class CxfJaxwsServerModuleExtender extends ModuleExtender<CxfJaxwsServerModuleExtender> {
 
     public static final CxfInterceptorAnnotationHolder JAX_WS_SERVER_INTERCEPTORS = new CxfInterceptorAnnotationHolder(
@@ -41,12 +37,12 @@ public class CxfJaxwsServerModuleExtender extends ModuleExtender<CxfJaxwsServerM
     }
 
     public CxfJaxwsServerModuleExtender addEndpoint(Class<? extends Provider<? extends Endpoint>> endpointProvider) {
-        contributeEndpoints().addProvider(endpointProvider);
+        contributeEndpoints().addJakartaProvider(endpointProvider);
         return this;
     }
 
     public CxfJaxwsServerModuleExtender addEndpoint(Provider<? extends Endpoint> endpointProvider) {
-        contributeEndpoints().addProviderInstance(endpointProvider);
+        contributeEndpoints().addJakartaProviderInstance(endpointProvider);
         return this;
     }
 

@@ -30,7 +30,7 @@ Add the module to your Bootique app:
 ```xml
 <dependency>
     <groupId>io.bootique.cxf</groupId>
-    <artifactId>bootique-cxf-jaxwsclient</artifactId>
+    <artifactId>bootique-cxf-jakarta-jaxws-client</artifactId>
 </dependency>
 ```
 
@@ -128,7 +128,7 @@ class App implements Module {
 Those will only be applied to all client instances. If you also have JAX-WS server module, this won't be affected.
 
 ## Advanced configuration
-Core CXF entities, such as Bus, Extensions, Features, Configurer etc. are also configured provided by Guice. If you want to extend and expand the core CXF capabilities, please see [bootique-cxf-core](../bootique-cxf-core) module.
+Core CXF entities, such as Bus, Extensions, Features, Configurer etc. are also configured provided by Guice. If you want to extend and expand the core CXF capabilities, please see [bootique-cxf-jakarta-core](../bootique-cxf-jakarta-core) module.
 
 ### Advanced HTTP configuration
 CXF provides a flexible framework of [configuring an HTTP transport](http://cxf.apache.org/docs/client-http-transport-including-ssl-support.html). 

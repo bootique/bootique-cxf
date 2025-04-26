@@ -4,16 +4,17 @@ import io.bootique.BQRuntime;
 import io.bootique.junit5.BQTest;
 import io.bootique.junit5.BQTestFactory;
 import io.bootique.junit5.BQTestTool;
+import jakarta.annotation.Resource;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.Endpoint;
+import jakarta.xml.ws.WebServiceContext;
 import org.apache.cxf.jaxws.EndpointImpl;
 import org.junit.jupiter.api.Test;
 
-import javax.annotation.Resource;
 import jakarta.inject.Inject;
-import javax.jws.WebService;
-import javax.xml.ws.Endpoint;
-import javax.xml.ws.WebServiceContext;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @BQTest
 public class InjectionsIT {

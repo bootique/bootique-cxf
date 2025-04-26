@@ -19,8 +19,8 @@
 // START SNIPPET: service
 package io.bootique.cxf.jaxws;
 
-import javax.jws.WebParam;
-import javax.jws.WebService;
+import jakarta.jws.WebParam;
+import jakarta.jws.WebService;
 
 @WebService
 public interface HelloWorld {

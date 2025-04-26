@@ -9,10 +9,7 @@ import java.util.Map;
 
 /**
  * Bridge to provide Bootique managed factory for all classes, that will attempt to access Bus from static context
- *
- * @deprecated The users are encouraged to switch to the Jakarta-based flavor
  */
-@Deprecated(since = "3.0", forRemoval = true)
 public class BQBusFactory extends CXFBusFactory {
 
     @Inject

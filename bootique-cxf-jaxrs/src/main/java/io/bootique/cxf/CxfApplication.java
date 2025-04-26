@@ -19,11 +19,11 @@
 
 package io.bootique.cxf;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import com.fasterxml.jackson.jakarta.rs.json.JacksonJsonProvider;
+import com.fasterxml.jackson.jakarta.rs.json.JacksonXmlBindJsonProvider;
+import jakarta.ws.rs.core.Application;
 import org.apache.cxf.feature.Feature;
 
-import javax.ws.rs.core.Application;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -33,10 +33,7 @@ import java.util.Set;
  * Defines the components of a JAX-RS application and supplies additional
  * meta-data. A JAX-RS application or implementation supplies a concrete
  * subclass of this abstract class.
- *
- * @deprecated The users are encouraged to switch to the Jakarta-based flavor
  */
-@Deprecated(since = "3.0", forRemoval = true)
 public class CxfApplication extends Application {
 
     private final Set<Object> singletons = new HashSet<>();
@@ -52,7 +49,7 @@ public class CxfApplication extends Application {
         singletons.addAll(features);
 
         classes.add(JacksonJsonProvider.class);
-        classes.add(JacksonJaxbJsonProvider.class);
+        classes.add(JacksonXmlBindJsonProvider.class);
 
         this.props.putAll(props);
     }

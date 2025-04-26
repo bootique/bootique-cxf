@@ -9,10 +9,6 @@ import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientOut;
 import io.bootique.cxf.jaxws.annotation.CxfInterceptorsClientOutFault;
 import io.bootique.di.Binder;
 
-/**
- * @deprecated The users are encouraged to switch to the Jakarta-based flavor
- */
-@Deprecated(since = "3.0", forRemoval = true)
 public class CxfJaxwsClientModuleExtender extends ModuleExtender<CxfJaxwsClientModuleExtender> {
 
     public static final CxfInterceptorAnnotationHolder JAX_WS_CLIENT_INTERCEPTORS = new CxfInterceptorAnnotationHolder(

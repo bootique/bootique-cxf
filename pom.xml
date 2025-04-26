@@ -43,22 +43,10 @@
         <module>bootique-cxf-jaxws-server</module>
         <module>bootique-cxf-jaxws-client</module>
         <module>bootique-cxf-jaxws-it</module>
-
-    	<module>bootique-cxf-jakarta-core</module>
-    	<module>bootique-cxf-jakarta-jaxrs</module>
-        <module>bootique-cxf-jakarta-jaxws-server</module>
-        <module>bootique-cxf-jakarta-jaxws-client</module>
-        <module>bootique-cxf-jakarta-jaxws-it</module>
     </modules>
 
     <properties>
         <apache.hc.version>4.5.14</apache.hc.version>
-
-        <cxf.version>3.6.3</cxf.version>
-        <cxf.xjc.version>3.3.3</cxf.xjc.version>
-        <jaxws-api.version>2.3.3</jaxws-api.version>
-        <jaxws-ri.version>2.3.3</jaxws-ri.version>
-        <jws.version>1.1</jws.version>
 
         <cxf.jakarta.version>4.0.4</cxf.jakarta.version>
         <cxf.xjc.jakarta.version>4.0.1</cxf.xjc.jakarta.version>

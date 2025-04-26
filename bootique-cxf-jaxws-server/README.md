@@ -27,21 +27,9 @@ Provides [Apache CXF](https://cxf.apache.org/) JAX-WS server integration with [B
 Add the module to your Bootique app:
 
 ```xml
-<dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>io.bootique.bom</groupId>
-            <artifactId>bootique-bom</artifactId>
-            <version>3.0-M4</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-    </dependencies>
-</dependencyManagement>
-...
 <dependency>
     <groupId>io.bootique.cxf</groupId>
-    <artifactId>bootique-cxf-jaxws-server</artifactId>
+    <artifactId>bootique-cxf-jakarta-jaxws-server</artifactId>
 </dependency>
 ```
 
@@ -133,4 +121,4 @@ class App implements Module {
 Those will only be applied to all server endpoints. If you also have JAX-WS client module, this won't be affected.
 
 ## Advanced configuration
-Core CXF entities, such as Bus, Extensions, Features, Configurer etc. are also configured provided by Guice. If you want to extend and expand the core CXF capabilities, please see [bootique-cxf-core](../bootique-cxf-core) module 
+Core CXF entities, such as Bus, Extensions, Features, Configurer etc. are also configured provided by Guice. If you want to extend and expand the core CXF capabilities, please see [bootique-cxf-jakarta-core](../bootique-cxf-jakarta-core) module 

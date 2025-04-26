@@ -1,16 +1,12 @@
 package io.bootique.cxf.jaxws;
 
-import com.example.customerservice.Customer;
-import com.example.customerservice.CustomerService;
-import com.example.customerservice.CustomerType;
-import com.example.customerservice.NoSuchCustomer;
-import com.example.customerservice.NoSuchCustomerException;
+import com.example.customerservice.*;
+import jakarta.annotation.Resource;
+import jakarta.jws.WebService;
+import jakarta.xml.ws.WebServiceContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Resource;
-import javax.jws.WebService;
-import javax.xml.ws.WebServiceContext;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
