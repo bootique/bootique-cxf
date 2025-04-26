@@ -1,6 +1,7 @@
 ## 4.0-M1
 
 * #7 Remove deprecated modules (javax flavor) and APIs
+* #8 Upgrade to CXF 4.1.1
 
 ## 3.0-M3
 
