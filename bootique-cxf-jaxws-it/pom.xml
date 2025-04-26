@@ -35,7 +35,7 @@
             <dependency>
                 <groupId>jakarta.xml.bind</groupId>
                 <artifactId>jakarta.xml.bind-api</artifactId>
-                <version>3.0.1</version>
+                <version>${jaxb3.version}</version>
                 <exclusions>
                     <exclusion>
                         <groupId>com.sun.activation</groupId>
