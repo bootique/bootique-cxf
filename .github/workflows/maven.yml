@@ -11,7 +11,7 @@ jobs:
     continue-on-error: ${{ matrix.java == '17' }}
     strategy:
       matrix:
-        java: [ 21, 24 ]
+        java: [ 21, 25 ]
 
     steps:
       - name: Checkout...
