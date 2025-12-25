@@ -49,8 +49,6 @@
             <artifactId>cxf-rt-features-logging</artifactId>
             <scope>test</scope>
         </dependency>
-
-        <!-- Java 9+ implicit deps -->
         <!--
             TODO: this one is weird. If this dependency is moved on top of the dependency list,
               CXF endpoint provider is not loaded, and all the tests fail. Why is it order-dependent?
@@ -59,6 +57,10 @@
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-ri</artifactId>
             <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.angus</groupId>
+            <artifactId>angus-mail</artifactId>
         </dependency>
     </dependencies>
 

@@ -55,6 +55,7 @@
         <jaxws-ri.jakarta.version>4.0.2</jaxws-ri.jakarta.version>
         <jws.jakarta.version>3.0.0</jws.jakarta.version>
         <jakarta.mail.version>2.1.5</jakarta.mail.version>
+        <angus.mail.version>2.0.5</angus.mail.version>
     </properties>
 
     <scm>
@@ -138,6 +139,12 @@
                 <artifactId>jaxws-ri</artifactId>
                 <type>pom</type>
                 <version>${jaxws-ri.jakarta.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.eclipse.angus</groupId>
+                        <artifactId>angus-mail</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf.xjc-utils</groupId>
@@ -176,6 +183,17 @@
                     <exclusion>
                         <groupId>commons-logging</groupId>
                         <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.angus</groupId>
+                <artifactId>angus-mail</artifactId>
+                <version>${angus.mail.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>jakarta.mail</groupId>
+                        <artifactId>jakarta.mail-api</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
