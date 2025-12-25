@@ -49,8 +49,8 @@
     <properties>
         <apache.hc.version>4.5.14</apache.hc.version>
 
-        <cxf.jakarta.version>4.1.1</cxf.jakarta.version>
-        <cxf.xjc.jakarta.version>4.1.0</cxf.xjc.jakarta.version>
+        <cxf.jakarta.version>4.1.4</cxf.jakarta.version>
+        <cxf.xjc.jakarta.version>4.1.1</cxf.xjc.jakarta.version>
         <jaxws-api.jakarta.version>4.0.1</jaxws-api.jakarta.version>
         <jaxws-ri.jakarta.version>4.0.2</jaxws-ri.jakarta.version>
         <jws.jakarta.version>3.0.0</jws.jakarta.version>
