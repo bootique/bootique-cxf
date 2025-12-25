@@ -1,3 +1,7 @@
+## 4.0-M2
+
+* #9 Upgrade to JAX-RS 4.0.0
+
 ## 4.0-M1
 
 * #7 Remove deprecated modules (javax flavor) and APIs
