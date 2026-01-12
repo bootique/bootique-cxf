@@ -18,8 +18,7 @@
   under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -30,7 +29,7 @@
 
     <groupId>io.bootique.cxf</groupId>
     <artifactId>bootique-cxf-parent</artifactId>
-    <version>4.0-SNAPSHOT</version>
+    <version>4.0-M2</version>
     <packaging>pom</packaging>
 
     <name>bootique-cxf-parent</name>
@@ -61,7 +60,7 @@
     <scm>
         <developerConnection>scm:git:ssh://git@github.com/bootique/bootique-cxf</developerConnection>
         <url>https://github.com/bootique/bootique-cxf</url>
-        <tag>HEAD</tag>
+        <tag>4.0-M2</tag>
     </scm>
 
     <dependencyManagement>
