@@ -8,7 +8,6 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     name: JDK ${{ matrix.java }}
-    continue-on-error: ${{ matrix.java == '17' }}
     strategy:
       matrix:
         java: [ 21, 25 ]
