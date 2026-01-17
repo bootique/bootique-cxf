@@ -8,6 +8,10 @@
 * #7 Remove deprecated modules (javax flavor) and APIs
 * #8 Upgrade to CXF 4.1.1
 
+## 3.0-RC2
+
+* #11 Upgrade CXF to 3.6.9 / 4.0.10
+
 ## 3.0-M3
 
 * #5 Jakarta flavor of CXF
