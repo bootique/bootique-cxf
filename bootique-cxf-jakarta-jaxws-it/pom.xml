@@ -99,7 +99,8 @@
             <plugin>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-codegen-plugin</artifactId>
-                <version>${cxf.jakarta.version}</version>
+                <!-- Versions of the plugin above 4.0.0 don't work on Java 11 (while CXF does) -->
+                <version>4.0.0</version>
                 <executions>
                     <execution>
                         <id>generate-sources</id>
