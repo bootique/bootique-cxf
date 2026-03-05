@@ -24,7 +24,7 @@
         <!-- Unit test dependencies -->
         <dependency>
             <groupId>io.bootique.jetty</groupId>
-            <artifactId>bootique-jetty-junit5</artifactId>
+            <artifactId>bootique-jetty-junit</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
