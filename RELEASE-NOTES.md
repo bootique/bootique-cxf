@@ -1,3 +1,7 @@
+## 4.0-M6
+
+* #13 Upgrade to CXF 4.2.3
+
 ## 4.0-M2
 
 * #9 Upgrade to JAX-RS 4.0.0

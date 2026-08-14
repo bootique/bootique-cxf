@@ -32,7 +32,6 @@ import io.bootique.jetty.JettyModule;
 import io.bootique.jetty.MappedServlet;
 import jakarta.ws.rs.core.Application;
 import org.apache.cxf.feature.Feature;
-import org.apache.cxf.interceptor.LoggingInInterceptor;
 import org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet;
 
 import jakarta.inject.Singleton;
@@ -89,7 +88,6 @@ public class CxfJaxrsModule implements BQModule {
     @Singleton
     @Provides
     Application createApplication(@CxfResource Set<Object> resources, @CxfFeature Set<Feature> features) {
-        Map<String, String> props = Map.of("jaxrs.inInterceptors", LoggingInInterceptor.class.getName());
-        return new CxfApplication(resources, features, props);
+        return new CxfApplication(resources, features, Map.of());
     }
 }
